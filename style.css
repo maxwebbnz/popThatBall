@@ -1,0 +1,15 @@
+.landingPrompt{
+    text-align: center; 
+    margin-top: 15%;
+    color: white;
+    display: none;
+}
+
+.landingPrompt hr{
+    width: 20%;
+    background-color: white;
+}
+
+#dashboard{
+    display: none;
+}
