@@ -28,6 +28,7 @@ let messages = "";
         textSize(30);
         fill(255);
         text(messages, width/2, height-40)
+        text(score, width/2, height-40)
     }
 
 
@@ -50,6 +51,7 @@ let messages = "";
             let c = {r: random(0,125), g: random(0,125), b: random(0,12)}
             let b = new Ball(x, y, r, c, s)
             Balls.push(b)
+            console.log(Balls)
           }
     }
 

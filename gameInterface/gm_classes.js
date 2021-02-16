@@ -6,12 +6,13 @@
 let circleDirectionX = 2; // Left or Right
 let circleDirectionY = 1; // Top to Bottom
 let ballDia = 40
+let score = 0;
 class Ball {
     constructor(x, y, r, col, speed) {
       this.x = x;
       this.y = y;
       this.r = r;
-      this.speed = random(speed, 20);
+      this.speed = speed;
       this.colour = (col.r, col.b, col.g);
     };
     move() {
@@ -35,7 +36,9 @@ class Ball {
     };
     clicked(px, py) {
       let d = dist(px, py, this.x, this.y);
-      if (d < this.r) {
+      // why does this fix it? please follow up with mr g.
+      // * the radius of the ball by 2 so it has a better click to score ratio.
+      if (d < this.r*2) {
         score = score + 1;
         return true;
       } else {

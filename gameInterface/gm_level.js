@@ -8,7 +8,7 @@ function gm_levelchange(_lvlnum){
     if(_lvlnum == 1) {
         // start level with the identifier of 1, create 2 balls with the intensity with 5%
         gm_level(1, 2, 2)
-        gm_tooltips(1);
+        // gm_tooltips(1);
     }
 }
 
