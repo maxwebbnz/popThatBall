@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Max Webb 
+ * All rights reserved.
+ */
 function fb_init(){
     var firebaseConfig = {
         apiKey: "AIzaSyBUvUMLAUUGOslx5tuXRDRTZ8a0JwyakVc",
