@@ -64,3 +64,12 @@ let messages = "";
           }
     }
     
+    // this is bulky, to be reviewed later.
+  function gm_eventListener(_check, _array){
+    if(check && _array.length == 0){
+      console.log("level Finished!!")
+      check = false;
+      messages = "Level Finished!"
+      gm_levelchange(1);
+    }
+  }
