@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Max Webb 
+ * Copyright (c) 2021 Max Webb
  * All rights reserved.
  */
 
@@ -11,6 +11,7 @@
 let levelnum = "";
 // let timer;
 // let check = false;
+
 // start p5 with setup()
     function setup(){
         // if you are in inspect you will need to reload page, don't see work around for now!
@@ -21,6 +22,8 @@ let levelnum = "";
         // only needs to be called once
         $(".landingPrompt").fadeIn()
         gm_generateBalls(); 
+        // appened html
+        html_append();
     }
 // call draw()
     function draw(){
@@ -32,6 +35,7 @@ let levelnum = "";
         text(messages, width/2, height-140)
         text(levelnum, width/2, height-140)
         text(score, width/2, height-40)
+        // text(miss, width/2, height-140)
         if(check){
             gm_levelHandler();
         }

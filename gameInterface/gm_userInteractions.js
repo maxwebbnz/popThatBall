@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Max Webb 
+ * Copyright (c) 2021 Max Webb
  * All rights reserved.
  */
 // this doesn't need to be sorted now, as I am just developing the userInteraction with the actual game.
@@ -38,6 +38,14 @@ function mousePressed() {
       check = true;
       if (Balls[i].clicked(mouseX, mouseY)) {
         Balls.splice(i, 1);
+        score = score + 1;
+        if(score > client.highScore){
+          // update html values.
+          client.highScore = score;
+          html_append()
+          // display a message
+          messages = "New high score!"
+        }
       }
     }
   }

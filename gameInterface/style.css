@@ -13,3 +13,9 @@
 #dashboard{
     display: none;
 }
+header{
+    background-color: black;
+    color: white;
+    padding-top: 1%;
+    padding-bottom: 2%;
+}

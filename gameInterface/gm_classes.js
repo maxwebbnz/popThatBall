@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Max Webb 
+ * Copyright (c) 2021 Max Webb
  * All rights reserved.
  */
 
@@ -27,7 +27,7 @@ class Ball {
         if (this.x > width - this.r) {
             this.speedX *= -1;
             this.x = width - this.r;
-            console.log(this.x)
+              // console.log(this.x)
           }else if(this.x < this.r){
                 this.speedX *= -1;
                 this.x = this.r;
@@ -44,8 +44,7 @@ class Ball {
     clicked(px, py) {
       let d = dist(px, py, this.x, this.y);
       // * the radius of the ball by 2 so it has a better click to score ratio.
-      if (d < this.r*2) {
-        score = score + 1;
+      if (d < this.r) {
         return true;
       } else {
         return false;
