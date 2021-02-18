@@ -3,22 +3,24 @@
  * All rights reserved.
  */
 
-let viewPortHeight = $(window).height()
-let viewPortWidth = $(window).width()
-let canvas;
-let Balls = [];
-let messages = "";
-
+// let viewPortHeight = $(window).height()
+// let viewPortWidth = $(window).width()
+// let canvas;
+// let Balls = [];
+// let messages = "";
+let levelnum = "";
+// let timer;
+// let check = false;
 // start p5 with setup()
     function setup(){
-        
         // if you are in inspect you will need to reload page, don't see work around for now!
         canvas = createCanvas(viewPortWidth, viewPortHeight)
         canvas.position(0, 0)
         canvas.style('z-index', '-1')
+        // frameRate(1);
         // only needs to be called once
         $(".landingPrompt").fadeIn()
-        gm_generateBalls();
+        gm_generateBalls(); 
     }
 // call draw()
     function draw(){
@@ -27,8 +29,12 @@ let messages = "";
         textAlign(CENTER, CENTER);
         textSize(30);
         fill(255);
-        text(messages, width/2, height-40)
+        text(messages, width/2, height-140)
+        text(levelnum, width/2, height-140)
         text(score, width/2, height-40)
+        if(check){
+            gm_levelHandler();
+        }
     }
 
 
@@ -38,7 +44,8 @@ let messages = "";
         console.log("gm_start | Starting Game")
         Balls.length = 0;
         // start level 1 by calling gm_levelchagne() and passing the value of 1 to define level 1
-        gm_levelchange(1);
+        gm_levelchange(1,true);
+       // start ball listener to listen to events 
     }
 // generate balls
 
@@ -46,12 +53,11 @@ let messages = "";
         for (let i = 0; i < _amount; i++) {
             let x = random(0, width)
             let y = random(0, height)
-            let r = 20
-            let s = _speed
+            let r = 50
+            let s = random(_speed, _speed*2);
             let c = {r: random(0,125), g: random(0,125), b: random(0,12)}
-            let b = new Ball(x, y, r, c, s)
+            let b = new Ball(x, y, r, c, 1, 1)
             Balls.push(b)
-            console.log(Balls)
           }
     }
 
@@ -64,12 +70,3 @@ let messages = "";
           }
     }
     
-    // this is bulky, to be reviewed later.
-  function gm_eventListener(_check, _array){
-    if(check && _array.length == 0){
-      console.log("level Finished!!")
-      check = false;
-      messages = "Level Finished!"
-      gm_levelchange(1);
-    }
-  }
