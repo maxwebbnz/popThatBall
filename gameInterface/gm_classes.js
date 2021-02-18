@@ -3,6 +3,7 @@
  * All rights reserved.
  */
 
+ // classes file.
 let circleDirectionX = 1; // Left or Right
 let circleDirectionY = 1; // Top to Bottom
 let ballDia = 40
