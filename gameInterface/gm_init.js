@@ -55,9 +55,9 @@ let levelnum = "";
 
     function gm_generateBalls(_amount, _speed){
         for (let i = 0; i < _amount; i++) {
-            let x = random(0, width)
-            let y = random(0, height)
-            let r = 50
+            let x = width/2;
+            let y = height/2;
+            let r = 50;
             let s = random(_speed, _speed*2);
             let c = {r: random(0,125), g: random(0,125), b: random(0,12)}
             let b = new Ball(x, y, r, c, 1, 1)
@@ -69,8 +69,8 @@ let levelnum = "";
 
     function gm_activateBalls(){
         for (let i = 0; i < Balls.length; i++) {
-            Balls[i].move()
             Balls[i].show()
+            Balls[i].move()
           }
     }
     

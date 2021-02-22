@@ -4,21 +4,27 @@
  */
 
 
- let circleDirectionX = 1; // Left or Right
+let circleDirectionX = 1; // Left or Right
 let circleDirectionY = 1; // Top to Bottom
 let score = 0;
 
 // ball class
 class Ball {
 	constructor(x, y, r, col, speedX, speedY) {
-		this.x = width / 2;
-		this.y = height / 2;
+		this.x = x;
+		this.y = y;
 		this.r = r;
 		this.speedX = speedX;
 		this.speedY = speedY;
 		this.colour = (col.r, col.b, col.g);
 	};
 	move() {
+		if (this.x == width / 2) {
+			let leftRandom = random(-1, -1.5)
+			let rightRandom = random(+1, +1.5)
+			this.speedX = random(leftRandom, rightRandom)
+			this.x = this.x + this.speedX;
+		}
 		this.x = this.x + this.speedX;
 		this.y = this.y + this.speedY;
 		// checking that ball is actually coliding correctly
