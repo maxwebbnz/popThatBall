@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Max Webb 
+ * Copyright (c) 2021 Max Webb
  * All rights reserved.
  */
 // this module needs a handler to change levels
@@ -21,7 +21,7 @@ function gm_levelchange(_lvlnum, _lvlset){
         var lvl = levels[_lvlnum - 1]
         var lvlIndentifer = lvl.identifer
         var lvlBallAmount = lvl.balls
-        var lvlBallSpeed = lvl.speed
+        var lvlBallSpeed = lvl.velInt
         console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
         gm_generateBalls(lvlBallAmount, lvlBallSpeed)
     }

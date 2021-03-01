@@ -18,6 +18,7 @@ let levelnum = "";
         canvas = createCanvas(viewPortWidth, viewPortHeight)
         canvas.position(0, 0)
         canvas.style('z-index', '-1')
+        // frameRate(10)
         // frameRate(1);
         // only needs to be called once
         $(".landingPrompt").fadeIn()
@@ -53,24 +54,25 @@ let levelnum = "";
     }
 // generate balls
 
-    function gm_generateBalls(_amount, _speed){
+    function gm_generateBalls(_amount){
         for (let i = 0; i < _amount; i++) {
             let x = width/2;
             let y = height/2;
             let r = 50;
-            let s = random(_speed, _speed*2);
-            let c = {r: random(0,125), g: random(0,125), b: random(0,12)}
-            let b = new Ball(x, y, r, c, 1, 1)
+            let c = [ random(0,255),  random(0,255),  random(0,255)]
+            let b = new Ball(x, y, r, c)
             Balls.push(b)
           }
+          console.table(Balls)
     }
 
     // now move and show them
 
     function gm_activateBalls(){
         for (let i = 0; i < Balls.length; i++) {
-            Balls[i].show()
+
             Balls[i].move()
+            Balls[i].show()
           }
     }
     

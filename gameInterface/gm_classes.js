@@ -8,27 +8,31 @@ let circleDirectionX = 1; // Left or Right
 let circleDirectionY = 1; // Top to Bottom
 let score = 0;
 
+let velRange = [-10,-9,-8,-7,-6,6,7,8,9,10]
+// let negRange = [6,7,8,9,10,11,12]
+
+let init = true;
 // ball class
 class Ball {
-	constructor(x, y, r, col, speedX, speedY) {
+	constructor(x, y, r, col) {
 		this.x = x;
 		this.y = y;
 		this.r = r;
-		this.speedX = speedX;
-		this.speedY = speedY;
-		this.colour = (col.r, col.b, col.g);
+		this.speedX = random(velRange) * levels[level].velInt
+		// again with Y direction
+		this.speedY = random(velRange) * levels[level].velInt
+		// checker if the ball is in the center
+		// this.center = true
+		this.colour = (col);
 	};
 	move() {
-		if (this.x == width / 2) {
-			let leftRandom = random(-1, -1.5)
-			let rightRandom = random(+1, +1.5)
-			this.speedX = random(leftRandom, rightRandom)
+
 			this.x = this.x + this.speedX;
-		}
-		this.x = this.x + this.speedX;
-		this.y = this.y + this.speedY;
-		// checking that ball is actually coliding correctly
+			this.y = this.y + this.speedY;
+
+		// if ball x value is greater than width of canvas
 		if (this.x > width - this.r) {
+			// move the ball the other way
 			this.speedX *= -1;
 			this.x = width - this.r;
 			// console.log(this.x)
@@ -50,13 +54,12 @@ class Ball {
 		// * the radius of the ball by 2 so it has a better click to score ratio.
 		if (d < this.r) {
 			return true;
-		} else {
+		} else if (d >= this.r) {
 			return false;
 		}
-	}
-
+	};
 	show() {
-		stroke(255)
+		stroke(0,255,0)
 		fill(this.colour)
 		ellipse(this.x, this.y, this.r * 2)
 		// ellipseMode(RADIUS)

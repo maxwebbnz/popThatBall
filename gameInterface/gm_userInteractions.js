@@ -30,6 +30,10 @@ function mousePressed() {
 // level changer to enable the game to change levels after the user pushes the space button.
 
 // this seems to work but is this really efficent?
+
+
+
+// listening for ball collisons
 function gm_levelHandler() {
   if (Balls.length < 1) {
     check = false;

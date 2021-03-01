@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Max Webb 
+ * Copyright (c) 2021 Max Webb
  * All rights reserved.
  */
 
@@ -21,52 +21,52 @@
         {
             identifer: 1,
             balls: 2,
-            speed: 5,
+            velInt: 0.5,
         },
         {
             identifer: 2,
             balls: 3,
-            speed: 6,
+            velInt: 0.7,
         },
         {
             identifer: 3,
             balls: 4,
-            speed: 7,
+            velInt: 0.8,
         },
         {
             identifer: 4,
             balls: 6,
-            speed: 9,
+            velInt: 1,
         },
         {
             identifer: 5,
             balls: 6,
-            speed: 9,
+            velInt: 1.1,
         },
         {
             identifer: 6,
             balls: 7,
-            speed: 10,
+            velInt: 1.2,
         },
         {
             identifer: 7,
             balls: 8,
-            speed: 11,
+            velInt: 1.6,
         },
         {
             identifer: 8,
             balls: 9,
-            speed: 12,
+            velInt: 1.4,
         },
         {
             identifer: 9,
             balls: 10,
-            speed: 13,
+            velInt: 1.8,
         },
         {
             identifer: 10,
             balls: 20,
-            speed: 14,
+            velInt: 2,
         },
     
     ]
