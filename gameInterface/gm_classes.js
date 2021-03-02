@@ -19,7 +19,6 @@ class Ball {
 		this.y = y;
 		this.r = r;
 		this.speedX = random(velRange) * levels[level].velInt
-		// again with Y direction
 		this.speedY = random(velRange) * levels[level].velInt
 		// checker if the ball is in the center
 		// this.center = true
@@ -52,11 +51,14 @@ class Ball {
 	clicked(px, py) {
 		let d = dist(px, py, this.x, this.y);
 		// * the radius of the ball by 2 so it has a better click to score ratio.
+		console.log(d)
 		if (d < this.r) {
 			return true;
-		} else if (d >= this.r) {
-			return false;
 		}
+		// } if (d > this.r) {
+		// 	console.log("Missed ball @ " + d)
+		// 	return false;
+		// }
 	};
 	show() {
 		stroke(0,255,0)

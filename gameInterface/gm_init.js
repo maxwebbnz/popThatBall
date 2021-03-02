@@ -7,7 +7,7 @@
 // let viewPortWidth = $(window).width()
 // let canvas;
 // let Balls = [];
-// let messages = "";
+messages = "";
 let levelnum = "";
 // let timer;
 // let check = false;
@@ -25,6 +25,7 @@ let levelnum = "";
         gm_generateBalls(); 
         // appened html
         html_append();
+        setInterval(gm_timer, 1000);
     }
 // call draw()
     function draw(){

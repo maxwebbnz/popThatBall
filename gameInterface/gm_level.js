@@ -5,37 +5,57 @@
 // this module needs a handler to change levels
     // the character of # will cause issues, num is fine for now.
 
-let level = 0;
+let level = 1;
+let timerVal;
 
 // lvl set is for when ethier the user needs to reset their level or the game needs to due to error or handling with issues.
 function gm_levelchange(_lvlnum, _lvlset){
     if(!_lvlset){
-        var lvl = levels[level + 1]
         level = level + 1
+        var lvl = levels[level - 1]
         var lvlIndentifer = lvl.identifer
         var lvlBallAmount = lvl.balls
         var lvlBallSpeed = lvl.speed
+        timerVal = lvl.timeLimit
+        console.log(timerVal)
         console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
+        console.table(levels[level])
         gm_generateBalls(lvlBallAmount, lvlBallSpeed)
     }else if(_lvlset){
         var lvl = levels[_lvlnum - 1]
+        console.log(lvl)
         var lvlIndentifer = lvl.identifer
         var lvlBallAmount = lvl.balls
         var lvlBallSpeed = lvl.velInt
+        timerVal = lvl.timeLimit
         console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
         gm_generateBalls(lvlBallAmount, lvlBallSpeed)
     }
 }
 
-function gm_level(_levelidentifier, _ballnum, _ballint){
-    // console.log(_levelidentifier, _ballnum, _ballint);  
-    console.log("gm_level | Changing to level #" + _levelidentifier + " with an amount of balls of " + _ballnum + " with the speed of " + _ballint)
-    // generate balls with info provided
-
-}
 
 function gm_levelReset(){
     // remove balls before resetting
     Balls.length = 0
     gm_levelchange(level, true)
 }
+
+// timer for handling level changes
+
+
+function gm_timer() {
+    if (timerVal > 0) {
+      timerVal--;
+    //   console.log(timerVal)
+    }
+    if (timerVal > 0) {
+        messages = "0:" + timerVal;
+      }
+    if (timerVal < 10) {
+        messages = timerVal;
+      }
+      if (timerVal == 0) {
+        messages = "You couldn't beat the timer! Resetting level!"
+        gm_levelReset()
+      }
+  }
