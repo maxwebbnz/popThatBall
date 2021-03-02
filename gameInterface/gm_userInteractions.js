@@ -12,6 +12,7 @@ function mousePressed() {
     check = true;
     if (Balls[i].clicked(mouseX, mouseY)) {
       Balls.splice(i, 1);
+      gm_playEffect(popSound, true)
       score = score + 1;
       if (score > client.highScore) {
         // update html values.

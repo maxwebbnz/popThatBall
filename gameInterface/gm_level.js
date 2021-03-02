@@ -17,6 +17,7 @@ function gm_levelchange(_lvlnum, _lvlset){
         var lvlBallAmount = lvl.balls
         var lvlBallSpeed = lvl.speed
         timerVal = lvl.timeLimit
+        gm_playEffect(clockTick, false)
         console.log(timerVal)
         console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
         console.table(levels[level])
@@ -51,11 +52,19 @@ function gm_timer() {
     if (timerVal > 0) {
         messages = "0:" + timerVal;
       }
+      if(timerVal == 8){
+        // play clocktick effect
+        gm_playEffect(clockTick, true)
+      }
     if (timerVal < 10) {
         messages = timerVal;
       }
       if (timerVal == 0) {
         messages = "You couldn't beat the timer! Resetting level!"
+        // play failsound
+        gm_playEffect(failSound, true)
+        // stop clockTick effect
+        gm_playEffect(clockTick, false)
         gm_levelReset()
       }
   }

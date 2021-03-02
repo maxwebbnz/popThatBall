@@ -9,7 +9,6 @@ let circleDirectionY = 1; // Top to Bottom
 let score = 0;
 
 let velRange = [-10,-9,-8,-7,-6,6,7,8,9,10]
-// let negRange = [6,7,8,9,10,11,12]
 
 let init = true;
 // ball class
@@ -20,8 +19,6 @@ class Ball {
 		this.r = r;
 		this.speedX = random(velRange) * levels[level].velInt
 		this.speedY = random(velRange) * levels[level].velInt
-		// checker if the ball is in the center
-		// this.center = true
 		this.colour = (col);
 	};
 	move() {
@@ -51,19 +48,13 @@ class Ball {
 	clicked(px, py) {
 		let d = dist(px, py, this.x, this.y);
 		// * the radius of the ball by 2 so it has a better click to score ratio.
-		console.log(d)
 		if (d < this.r) {
 			return true;
 		}
-		// } if (d > this.r) {
-		// 	console.log("Missed ball @ " + d)
-		// 	return false;
-		// }
 	};
 	show() {
 		stroke(0,255,0)
 		fill(this.colour)
 		ellipse(this.x, this.y, this.r * 2)
-		// ellipseMode(RADIUS)
 	}
 }

@@ -22,13 +22,13 @@
             identifer: 1,
             balls: 2,
             velInt: 0.5,
-            timeLimit: 15,
+            timeLimit: 20,
         },
         {
             identifer: 2,
             balls: 3,
             velInt: 0.7,
-            timeLimit: 30,
+            timeLimit: 20,
         },
         {
             identifer: 3,

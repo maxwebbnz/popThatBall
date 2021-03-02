@@ -14,17 +14,14 @@ let levelnum = "";
 
 // start p5 with setup()
     function setup(){
-        // if you are in inspect you will need to reload page, don't see work around for now!
         canvas = createCanvas(viewPortWidth, viewPortHeight)
         canvas.position(0, 0)
         canvas.style('z-index', '-1')
-        // frameRate(10)
-        // frameRate(1);
-        // only needs to be called once
         $(".landingPrompt").fadeIn()
         gm_generateBalls(); 
-        // appened html
         html_append();
+        // load sound config
+        gm_soundInit();
         setInterval(gm_timer, 1000);
     }
 // call draw()
