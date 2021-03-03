@@ -65,7 +65,7 @@ let gameStarted = false;
             gameStarted = false;
             // stop the game
             gm_stop()
-            // log
+            // logp
             console.log("gm_gameHandler | Stopping Game")
         }
     }

@@ -68,16 +68,51 @@
 
   
     <section id="canvas">
-        <button onclick="gm_start()">Start</button>
-        <!-- <button onclick="gm_stop()">Stop</button> -->
-        <button onclick="gm_levelReset()">Restart</button>
    </section>
     <section id="sidenav">
         <!-- Navbar header -->
         <h1 class="display-4" style="padding-left: 9%;">popThatBall</h1>
-        <hr style="border: 100%;">
+        <hr>
         <button type="button" class="btn btn-primary btn-lg" onclick="gm_gameHandler()"><span id="gameStatus-HTML"></span> Game</button>
-
+        <button type="button" class="btn btn-primary btn-lg" onclick="gm_levelReset()">Restart Game</button>
+        <button type="button" class="btn btn-primary btn-lg" onclick="fb_saveData(score)">Update Score</button>
+        <hr>
+        <h3 style="margin-left: 9px;" class="display-4">Scoreboard</h3>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Placeholder</td>
+                <td>200</td>
+              </tr>
+              <tr>
+                <td>Placeholder</td>
+                <td>100</td>
+              </tr>
+              <tr>
+                <td>Placeholder</td>
+                <td>50</td>
+              </tr>
+            </tbody>
+          </table>
+          <hr>
+          <div class="container userInfo">
+              <div class="row">
+                  <div class="col">
+                    <img id="avatar" width="100" height="100" src="https://avatars.githubusercontent.com/u/60947369?s=400&u=05c4b754e3931850b2179cb287e5d5ecc3ebf9e4&v=4" alt="Profile" class="rounded-circle">
+                  </div>
+                  <div class="col">
+                    <h2 class="display-6">Welcome, Max</h2>
+                    <button class="btn btn-primary btn-sml">Profile Page</button>
+                  </div>
+              </div>
+          </div>
+    
     </section>
 </body>
 

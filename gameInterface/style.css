@@ -31,7 +31,21 @@ header{
     overflow-x: hidden; 
   }
 
-  #sidenav .btn-primary{
+  #sidenav .btn-primary {
+      display: block;
       margin-left: 6%;
-      margin-top: 6%;
+      margin-top: 10%;
+  }
+
+  #sidenav .userInfo #avatar .btn-primary{
+      margin-left: 4%;
+      margin-top: 30%;
+
+  }
+
+  hr{
+    height:1px;
+    border:none;
+    color:#333;
+    background-color:#333;
   }
