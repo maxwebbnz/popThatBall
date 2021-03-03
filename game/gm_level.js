@@ -52,7 +52,7 @@ function gm_timer() {
     if (timerVal > 10) {
         messages = "Timer 0:" + timerVal;
       }
-      if(timerVal == 8){
+      if(timerVal == 5){
         // play clocktick effect
         gm_playEffect(clockTick, true)
       }
