@@ -35,8 +35,8 @@
               <script src="firebase/fb_userRoles.js"></script> -->
         <!-- Game Modules -->
          <!-- This stuff here needs to be called first due to it being used in the init file -->
-            <script src="gen_data.js"></script>
-            <script src="html_io.js"></script>
+         <script src="html_io.js"></script> 
+         <script src="gen_data.js"></script>
             <script src="fb_mock.js".js"></script>
             <script src="gm_classes.js"></script>
             <script src="gm_sound.js"></script>
@@ -72,6 +72,13 @@
         <!-- <button onclick="gm_stop()">Stop</button> -->
         <button onclick="gm_levelReset()">Restart</button>
    </section>
+    <section id="sidenav">
+        <!-- Navbar header -->
+        <h1 class="display-4" style="padding-left: 9%;">popThatBall</h1>
+        <hr style="border: 100%;">
+        <button type="button" class="btn btn-primary btn-lg" onclick="gm_gameHandler()"><span id="gameStatus-HTML"></span> Game</button>
+
+    </section>
 </body>
 
 </html>

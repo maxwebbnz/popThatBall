@@ -11,10 +11,15 @@ messages = "";
 let levelnum = "";
 // let timer;
 // let check = false;
+// need to check if game is stopped or started for gm_gameHandler function
+let gameStopped = false;
+let gameStarted = false;
+
 
 // start p5 with setup()
     function setup(){
-        canvas = createCanvas(viewPortWidth, viewPortHeight)
+        // make the canvas not go under/over the navbar (400 is the width of the navbar)
+        canvas = createCanvas(viewPortWidth - 400, viewPortHeight)
         canvas.position(0, 0)
         canvas.style('z-index', '-1')
         $(".landingPrompt").fadeIn()
@@ -31,6 +36,8 @@ let levelnum = "";
         textAlign(CENTER, CENTER);
         textSize(30);
         fill(255);
+        // needs to be checked everytime draw is ran.
+        html_updateGameState();
         text(messages, width/2, height-140)
         text(levelnum, width/2, height-140)
         text(score, width/2, height-40)
@@ -40,7 +47,28 @@ let levelnum = "";
         }
     }
 
-
+// game starter/stopper handler
+    function gm_gameHandler(){
+        // if the game hasn't started
+        if(!gameStarted){
+            // start the game
+            gm_start();
+            // change the variable
+            gameStarted = true;
+            // log
+            console.log("gm_gameHandler | Starting Game due to game needing starting")
+        // else if the game has started
+        }else if(gameStarted){
+            // set gameStopped to true
+            gameStopped = true;
+            // reset gameStarted variable
+            gameStarted = false;
+            // stop the game
+            gm_stop()
+            // log
+            console.log("gm_gameHandler | Stopping Game")
+        }
+    }
 // start Game
     function gm_start(){
         $('.landingPrompt').fadeOut();

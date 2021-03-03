@@ -34,7 +34,7 @@ function mousePressed() {
 
 
 function gm_stop(){
-  gameStopped = true;
+  check = false
   timerVal = 0;
   messages = "Game Stopped!";
   Balls.length = 0;

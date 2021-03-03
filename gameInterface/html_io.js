@@ -10,3 +10,12 @@ function html_append(){
     // clNameHTML.innerHTML = client.name;
     // clHighScoreHTML.innerHTML = client.highScore;
 }
+
+function html_updateGameState(){
+    let gameStateHTML = document.getElementById("gameStatus-HTML")
+    if(Balls.length != 0){
+        gameStateHTML.innerHTML = "Stop"
+    }else{
+        gameStateHTML.innerHTML = "Start"
+    }
+}
