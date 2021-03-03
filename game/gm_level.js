@@ -37,6 +37,7 @@ function gm_levelchange(_lvlnum, _lvlset){
 function gm_levelReset(){
     // remove balls before resetting
     Balls.length = 0
+    gm_playEffect(clockTick, false)
     gm_levelchange(level, true)
 }
 
