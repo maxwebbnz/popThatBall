@@ -48,14 +48,14 @@ function gm_timer() {
       timerVal--;
     //   console.log(timerVal)
     }
-    if (timerVal > 0) {
+    if (timerVal > 10) {
         messages = "Timer 0:" + timerVal;
       }
       if(timerVal == 8){
         // play clocktick effect
         gm_playEffect(clockTick, true)
       }
-    if (timerVal < 10 && timerVal > 1) {
+    if (timerVal < 10 && timerVal > 0) {
         messages = "Timer: " + timerVal;
       }
       if (timerVal == 0 && !gameStopped) {
