@@ -20,11 +20,13 @@ class Ball {
 		this.speedX = random(velRange) * levels[level].velInt
 		this.speedY = random(velRange) * levels[level].velInt
 		this.colour = (col);
+		this.paused = false;
 	};
 	move() {
-
+		if(!this.paused){
 			this.x = this.x + this.speedX;
 			this.y = this.y + this.speedY;
+		}
 
 		// if ball x value is greater than width of canvas
 		if (this.x > width - this.r) {
@@ -45,6 +47,11 @@ class Ball {
 			this.y = this.r;
 		}
 	};
+	pauseBalls(){
+		this.paused = true;
+		this.x = this.x
+		this.y = this.y
+	}
 	clicked(px, py) {
 		let d = dist(px, py, this.x, this.y);
 		// * the radius of the ball by 2 so it has a better click to score ratio.

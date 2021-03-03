@@ -33,6 +33,12 @@ function mousePressed() {
 // this seems to work but is this really efficent?
 
 
+function gm_stop(){
+  gameStopped = true;
+  timerVal = 0;
+  messages = "Game Stopped!";
+  Balls.length = 0;
+}
 
 // listening for ball collisons
 function gm_levelHandler() {

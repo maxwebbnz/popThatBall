@@ -7,7 +7,7 @@
 
 let level = 1;
 let timerVal;
-
+let gameStopped = false;
 // lvl set is for when ethier the user needs to reset their level or the game needs to due to error or handling with issues.
 function gm_levelchange(_lvlnum, _lvlset){
     if(!_lvlset){
@@ -50,21 +50,24 @@ function gm_timer() {
     //   console.log(timerVal)
     }
     if (timerVal > 0) {
-        messages = "0:" + timerVal;
+        messages = "Timer 0:" + timerVal;
       }
       if(timerVal == 8){
         // play clocktick effect
         gm_playEffect(clockTick, true)
       }
-    if (timerVal < 10) {
-        messages = timerVal;
+    if (timerVal < 10 && timerVal > 1) {
+        messages = "Timer: " + timerVal;
       }
-      if (timerVal == 0) {
+      if (timerVal == 0 && !gameStopped) {
         messages = "You couldn't beat the timer! Resetting level!"
         // play failsound
         gm_playEffect(failSound, true)
         // stop clockTick effect
         gm_playEffect(clockTick, false)
         gm_levelReset()
+      }else if(timerVal == 0 && gameStopped){
+        gm_playEffect(clockTick, false)
+        console.log("gm_timer | Stopped timer succesfully.")
       }
-  }
+    }
