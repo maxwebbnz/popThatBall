@@ -14,13 +14,6 @@ function mousePressed() {
       Balls.splice(i, 1);
       gm_playEffect(popSound, true)
       score = score + 1;
-      if (score > client.highScore) {
-        // update html values.
-        client.highScore = score;
-        html_append()
-        // display a message
-        messages = "New high score!"
-      }
     }
   }
 }
@@ -38,6 +31,8 @@ function gm_stop(){
   timerVal = 0;
   messages = "Game Stopped!";
   Balls.length = 0;
+  // update score for user in records
+  fb_store.data(client.uid, score)
 }
 
 // listening for ball collisons

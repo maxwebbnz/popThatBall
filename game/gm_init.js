@@ -18,16 +18,18 @@ let gameStarted = false;
 
 // start p5 with setup()
     function setup(){
+        // on page load configure firebase
+        fb_init()
         // make the canvas not go under/over the navbar (400 is the width of the navbar)
         canvas = createCanvas(viewPortWidth - 400, viewPortHeight)
         canvas.position(0, 0)
         canvas.style('z-index', '-1')
         $(".landingPrompt").fadeIn()
         gm_generateBalls(); 
-        html_append();
         // load sound config
         gm_soundInit();
         setInterval(gm_timer, 1000);
+        // being able to use gm_messageHandler as a timer
     }
 // call draw()
     function draw(){
@@ -40,7 +42,7 @@ let gameStarted = false;
         html_updateGameState();
         text(messages, width/2, height-140)
         text(levelnum, width/2, height-140)
-        text(score, width/2, height-40)
+        text("Score: " + score, width/2, height-40)
         // text(miss, width/2, height-140)
         if(check){
             gm_levelHandler();

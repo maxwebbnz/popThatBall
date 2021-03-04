@@ -53,9 +53,11 @@ class Ball {
 		this.y = this.y
 	}
 	clicked(px, py) {
+		// calculate the distance between mouse and ball
 		let d = dist(px, py, this.x, this.y);
-		// * the radius of the ball by 2 so it has a better click to score ratio.
+		// if the distance to the ball is less than the ball rad
 		if (d < this.r) {
+			// yes
 			return true;
 		}
 	};

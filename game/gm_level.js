@@ -68,6 +68,5 @@ function gm_timer() {
         gm_levelReset()
       }else if(timerVal == 0 && gameStopped){
         gm_playEffect(clockTick, false)
-        console.log("gm_timer | Stopped timer succesfully.")
       }
     }

@@ -1,10 +1,13 @@
+/*
+ * Copyright (c) 2021 Max Webb
+ * All rights reserved.
+ */
 
 
 let google;
 let facebook;
 let provider;
-let fb_user;
-
+let authStatus = false;
 // fb_auth function for authenticating users!
 
 function fb_auth(_provider){
@@ -16,17 +19,25 @@ function fb_auth(_provider){
 
             return firebase.auth().signInWithPopup(provider).then(function (result) {
                 var token = result.credential.accessToken;
-                fb_user = result.user;
-                console.log(token)
-                console.log(fb_user)
-                fb_initUserData(fb_user.uid, fb_user)
+                let fb_result = result.user;
+                fb_initUserData(fb_result.uid, fb_result)
+                console.log("fb_auth | Authentication Process Successful")
+                authStatus = true;
             })
                 .catch(function (error) {
                     // Handle Errors here.
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    console.log(errorMessage)
+                    console.log("fb_auth | Error: " + errorMessage)
                 });
         })
+    }
+}
+
+function fb_profileHandler(){
+    if(authStatus){
+        console.log("fb_profileHandler | Displaying User's profile")
+    }else if(!authStatus){
+        fb_auth(google)
     }
 }

@@ -3,12 +3,12 @@
  * All rights reserved.
  */
 function html_append(){
-    return true
-    // let clNameHTML = document.getElementById("clientName");
-    // let clScoreHTML = document.getElementById("clientScore");
-    // let clHighScoreHTML = document.getElementById("clientHighScore");
-    // clNameHTML.innerHTML = client.name;
-    // clHighScoreHTML.innerHTML = client.highScore;
+    let clNameHTML = document.getElementById("clientName");
+    let clScoreHTML = document.getElementById("clientScore");
+    let clHighScoreHTML = document.getElementById("clientHighScore");
+    let clAvatar = document.getElementById("clientAvatar");
+    clNameHTML.innerHTML = client.name;
+    clAvatar.src = client.profileURL;
 }
 
 function html_updateGameState(){
