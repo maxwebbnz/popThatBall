@@ -13,7 +13,7 @@ function mousePressed() {
     if (Balls[i].clicked(mouseX, mouseY)) {
       Balls.splice(i, 1);
       gm_playEffect(popSound, true)
-      score = score + 1;
+      gm_scoreHandler();
     }
   }
 }
@@ -30,9 +30,11 @@ function gm_stop(){
   check = false
   timerVal = 0;
   messages = "Game Stopped!";
+  // set score to 0;
+  score = 0;
   Balls.length = 0;
   // update score for user in records
-  fb_store.data(client.uid, score)
+  fb_store.score(client.uid, score)
 }
 
 // listening for ball collisons
@@ -40,5 +42,18 @@ function gm_levelHandler() {
   if (Balls.length < 1) {
     check = false;
     gm_levelchange(0, false)
+  }
+}
+
+// score handler
+
+function gm_scoreHandler(){
+  score = score + 1;
+  document.getElementById("scoreHTML").innerHTML = score;
+  if(highScore < score){
+    highScore = score;
+  }
+  if(client.highScore < highScore){
+    fb_store.highScore(client.uid, highScore)
   }
 }

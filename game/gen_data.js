@@ -16,6 +16,11 @@
     let timer;
     // Check set to false
     let check = false;
+// User Variables
+    // Base user score
+    let score = 0;
+    // Base high score
+    let highScore = 0;
     // Level Array
         const levels = [
         {

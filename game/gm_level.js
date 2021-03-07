@@ -7,6 +7,7 @@
 
 let level = 1;
 let timerVal;
+let timerHTML = document.getElementById("timeHTMl")
 // lvl set is for when ethier the user needs to reset their level or the game needs to due to error or handling with issues.
 function gm_levelchange(_lvlnum, _lvlset){
     if(!_lvlset){
@@ -47,6 +48,8 @@ function gm_levelReset(){
 function gm_timer() {
     if (timerVal > 0) {
       timerVal--;
+      // ** THIS NEEDS IMPROVING
+      document.getElementById("timeHTMl").innerHTML = timerVal;
     //   console.log(timerVal)
     }
     if (timerVal > 10) {

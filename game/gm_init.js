@@ -40,9 +40,10 @@ let gameStarted = false;
         fill(255);
         // needs to be checked everytime draw is ran.
         html_updateGameState();
-        text(messages, width/2, height-140)
-        text(levelnum, width/2, height-140)
-        text("Score: " + score, width/2, height-40)
+        // text(messages, width/2, height-140)
+        // text(levelnum, width/2, height-140)
+        // text("Score: " + score, width/2, height-40)
+        // text("Highscore: " + highScore, width/4, height-40)
         // text(miss, width/2, height-140)
         if(check){
             gm_levelHandler();

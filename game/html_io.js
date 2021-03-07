@@ -4,10 +4,12 @@
  */
 function html_append(){
     let clNameHTML = document.getElementById("clientName");
-    let clScoreHTML = document.getElementById("clientScore");
-    let clHighScoreHTML = document.getElementById("clientHighScore");
+    let clScoreHTML = document.getElementById("scoreHTML");
+    let clHighScoreHTML = document.getElementById("highScoreHTML");
     let clAvatar = document.getElementById("clientAvatar");
     clNameHTML.innerHTML = client.name;
+    clScoreHTML.innerHTML = client.score;
+    clHighScoreHTML.innerHTML = client.highScore;
     clAvatar.src = client.profileURL;
 }
 

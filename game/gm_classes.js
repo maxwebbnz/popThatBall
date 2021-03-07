@@ -6,7 +6,6 @@
 
 let circleDirectionX = 1; // Left or Right
 let circleDirectionY = 1; // Top to Bottom
-let score = 0;
 
 let velRange = [-10,-9,-8,-7,-6,6,7,8,9,10]
 
