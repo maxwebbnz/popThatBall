@@ -13,7 +13,7 @@ function mousePressed() {
     if (Balls[i].clicked(mouseX, mouseY)) {
       Balls.splice(i, 1);
       gm_playEffect(popSound, true)
-      gm_scoreHandler();
+      gm_scoreHandler("add");
     }
   }
 }
@@ -31,7 +31,7 @@ function gm_stop(){
   timerVal = 0;
   messages = "Game Stopped!";
   // set score to 0;
-  score = 0;
+  gm_scoreHandler("setToZero")
   Balls.length = 0;
   // update score for user in records
   fb_store.score(client.uid, score)
@@ -47,13 +47,23 @@ function gm_levelHandler() {
 
 // score handler
 
-function gm_scoreHandler(){
-  score = score + 1;
-  document.getElementById("scoreHTML").innerHTML = score;
-  if(highScore < score){
-    highScore = score;
+function gm_scoreHandler(_action){
+  if(_action == "add"){
+    score = score + 1;
+    document.getElementById("scoreHTML").innerHTML = score;
+    fb_store.score(client.uid, score)
+    if(highScore < score){
+      highScore = score;
+      document.getElementById("highScoreHTML").innerHTML = highScore;
+    }
+    if(client.highScore < highScore){
+      fb_store.highScore(client.uid, highScore)
+    }
   }
-  if(client.highScore < highScore){
-    fb_store.highScore(client.uid, highScore)
+  // creating a listener to listen to the score variable being updated:
+  if(_action == "setToZero"){
+    score = 0;
+    fb_store.score(client.uid, score)
+    document.getElementById("scoreHTML").innerHTML = score;
   }
 }

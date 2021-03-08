@@ -68,6 +68,8 @@ function gm_timer() {
         gm_playEffect(failSound, true)
         // stop clockTick effect
         gm_playEffect(clockTick, false)
+        // set score to 0
+        gm_scoreHandler("setToZero")
         gm_levelReset()
       }else if(timerVal == 0 && gameStopped){
         gm_playEffect(clockTick, false)

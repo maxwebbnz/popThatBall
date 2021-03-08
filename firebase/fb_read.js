@@ -22,7 +22,8 @@ function fb_initUserData(_userToken, _userObject) {
             // in terms of postion in array
             currentLevel: 0,
         });
-        
+        let tokenParse = _userToken 
+        fb_initUserData(tokenParse)
       } else {
         const userData = snapshot.val();
         console.log("User has logged in before, no need to write more data")
