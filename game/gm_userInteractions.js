@@ -30,11 +30,7 @@ function gm_stop(){
   check = false
   timerVal = 0;
   messages = "Game Stopped!";
-  // set score to 0;
-  gm_scoreHandler("setToZero")
   Balls.length = 0;
-  // update score for user in records
-  fb_store.score(client.uid, score)
 }
 
 // listening for ball collisons
@@ -61,7 +57,7 @@ function gm_scoreHandler(_action){
     }
   }
   // creating a listener to listen to the score variable being updated:
-  if(_action == "setToZero"){
+  else if(_action == "setToZero"){
     score = 0;
     fb_store.score(client.uid, score)
     document.getElementById("scoreHTML").innerHTML = score;
