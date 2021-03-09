@@ -10,62 +10,62 @@ let editorOpen = false;
 
 
 let validate = {
-    text: function (str) {
-      if (textReg.test(str)) {
-        // If string parsed through matches the nameReg-ex
-        return true
-        // return true
-      } else {
-        // else if it does not match
-        return false
-        // return false
-      }
+    text: function(str) {
+        if (textReg.test(str)) {
+            // If string parsed through matches the nameReg-ex
+            return true
+                // return true
+        } else {
+            // else if it does not match
+            return false
+                // return false
+        }
     },
     /*
   Function Name: nameSpecfc
   Purpose: Vaildating name input
   */
-    nameSpecfic: function (str) {
-      if (nameReg.test(str)) {
-        // If string parsed through matches the nameReg-ex
-        return true
-        // return true
-      } else {
-        // else if it does not match
-        return false
-        // return false    
-      }
+    nameSpecfic: function(str) {
+        if (nameReg.test(str)) {
+            // If string parsed through matches the nameReg-ex
+            return true
+                // return true
+        } else {
+            // else if it does not match
+            return false
+                // return false    
+        }
     },
     /*
   Function Name: num
   Purpose: Vaildating numeric input
   */
-    num: function (str) {
-      // Num vaildation
-      if (numReg.test(str)) {
-        // If string parsed through matches the numReg-ex
-        return true
-        // return true
-      } else {
-        // else if does not match
-        return false
-        // return false
-      }
+    num: function(str) {
+        // Num vaildation
+        if (numReg.test(str)) {
+            // If string parsed through matches the numReg-ex
+            return true
+                // return true
+        } else {
+            // else if does not match
+            return false
+                // return false
+        }
     },
     /*
   Function Name: email
   Purpose: Vaildating email input
   */
-    email: function (str) {
-      if (emailReg.test(str)) {
-        return true;
-      } else {
-        return false
-      }
+    email: function(str) {
+        if (emailReg.test(str)) {
+            return true;
+        } else {
+            return false
+        }
     }
-  }
-  
-function html_append(){
+}
+
+function html_append() {
     let clNameHTML = document.getElementById("clientName");
     let clScoreHTML = document.getElementById("scoreHTML");
     let clHighScoreHTML = document.getElementById("highScoreHTML");
@@ -78,12 +78,12 @@ function html_append(){
     clLevel.innerHTML = client.currentLevel;
 }
 
-function html_updateGameState(){
+function html_updateGameState() {
     let gameStateHTML = document.getElementById("gameStatus-HTML")
-    if(Balls.length != 0){
+    if (Balls.length != 0) {
         gameStateHTML.innerHTML = "Stop"
-    }else{
+    } else {
         gameStateHTML.innerHTML = "Start"
     }
-    
-} 
+
+}

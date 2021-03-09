@@ -8,14 +8,14 @@
 
 
 function mousePressed() {
-  for (let i = Balls.length - 1; i >= 0; i--) {
-    check = true;
-    if (Balls[i].clicked(mouseX, mouseY)) {
-      Balls.splice(i, 1);
-      sound.play(popSound, true)
-      scoreModule.handler("add");
+    for (let i = Balls.length - 1; i >= 0; i--) {
+        check = true;
+        if (Balls[i].clicked(mouseX, mouseY)) {
+            Balls.splice(i, 1);
+            sound.play(popSound, true)
+            scoreModule.handler("add");
+        }
     }
-  }
 }
 
 
@@ -26,11 +26,11 @@ function mousePressed() {
 // this seems to work but is this really efficent?
 
 let userAction = {
-  stop: function(){
-    check = false
-    timerVal = 0;
-    messages = "Game Stopped!";
-    Balls.length = 0;
-    fb_store.level(client.uid, level)
-  },
+    stop: function() {
+        check = false
+        timerVal = 0;
+        messages = "Game Stopped!";
+        Balls.length = 0;
+        fb_store.level(client.uid, level)
+    },
 }
