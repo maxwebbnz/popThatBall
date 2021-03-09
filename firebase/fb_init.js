@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Max Webb 
+ * Copyright (c) 2021 Max Webb
  * All rights reserved.
  */
 function fb_init(){
@@ -13,5 +13,5 @@ function fb_init(){
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-      console.log("fb_init | Configured")
+      console.log("fb_init | Connected to " + firebaseConfig.projectId + "'s Firebase Project")
  }

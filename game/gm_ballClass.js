@@ -4,21 +4,17 @@
  */
 
 
-let circleDirectionX = 1; // Left or Right
-let circleDirectionY = 1; // Top to Bottom
-
 let velRange = [-10,-9,-8,-7,-6,6,7,8,9,10]
 
-let init = true;
 // ball class
 class Ball {
-	constructor(x, y, r, col) {
-		this.x = x;
-		this.y = y;
-		this.r = r;
+	constructor(_x, _y, _r, _col) {
+		this.x = _x;
+		this.y = _y;
+		this.r = _r;
 		this.speedX = random(velRange) * levels[level].velInt
 		this.speedY = random(velRange) * levels[level].velInt
-		this.colour = (col);
+		this.colour = (_col);
 		this.paused = false;
 	};
 	move() {
@@ -51,9 +47,9 @@ class Ball {
 		this.x = this.x
 		this.y = this.y
 	}
-	clicked(px, py) {
+	clicked(_px, _py) {
 		// calculate the distance between mouse and ball
-		let d = dist(px, py, this.x, this.y);
+		let d = dist(_px, _py, this.x, this.y);
 		// if the distance to the ball is less than the ball rad
 		if (d < this.r) {
 			// yes

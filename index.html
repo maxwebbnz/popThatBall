@@ -24,7 +24,7 @@
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <!-- Local Files  -->
            <!-- Firebase Modules -->
              <script src="firebase/fb_init.js"></script>
@@ -34,15 +34,13 @@
               <script src="firebase/fb_userRoles.js"></script> 
         <!-- Game Modules -->
          <!-- This stuff here needs to be called first due to it being used in the init file -->
-            <script src="game/html_io.js"></script> 
-            <script src="game/gen_data.js"></script>
-            <script src="game/fb_mock.js".js"></script>
-            <script src="game/gm_classes.js"></script>
+            <script src="game/gm_html.js"></script> 
+            <script src="game/gm_data.js"></script>
+            <script src="game/gm_ballClass.js"></script>
             <script src="game/gm_sound.js"></script>
-            <script src="game/gm_init.js"></script>
-            <script src="game/gm_userInteractions.js"></script>
-            <script src="game/gm_write.js"></script>
-            <script src="game/gm_read.js"></script>
+            <script src="game/gm_core.js"></script>
+            <script src="game/gm_userActions.js"></script>
+            <script src="game/gm_score.js"></script>
             <script src="game/gm_level.js"></script>
         <!-- Other Modules  -->
             <!-- None here for now -->
@@ -77,10 +75,10 @@
         <div class="container">
           <div class="row">
             <div class="col">
-              <button type="button" class="btn btn-primary btn-lg" onclick="gm_gameHandler()"><span id="gameStatus-HTML"></span> Game</button>
+              <button type="button" class="btn btn-primary btn-lg" onclick="core.gameHandler()"><span id="gameStatus-HTML"></span> Game</button>
             </div>
             <div class="col">
-              <button type="button" class="btn btn-primary btn-lg" onclick="gm_levelReset()">Restart Game</button>
+              <button type="button" class="btn btn-primary btn-lg" onclick="levelModule.levelReset()">Restart Game</button>
             </div>
             <div class="col">
               <!-- Score saves automatically now -->
@@ -126,7 +124,7 @@
                   </div>
                   <div class="col">
                     <h2 class="display-6">Welcome, <span id="clientName"></span></h2>
-                    <button class="btn btn-primary btn-sml" onclick="fb_profileHandler()">Profile Page</button>
+                    <button class="btn btn-primary btn-sml" onclick="auth.profileHandler()">Profile Page</button>
                   </div>
               </div>
           </div>
@@ -138,7 +136,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="profileModalTitle">Profile Information</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" style="border: none; background-color: white;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle"></i></button>
       </div>
       <div class="modal-body">
         <div class="container">
@@ -149,10 +147,9 @@
             <div class="col userInfo">
               <h6>User Information: <span id="clientName"></span></h6>
               <p><b>Name:</b> <input style="display: none;" placeholder="First Name Last Name" id="editor.clientName"></input><span style="display: block;" id="editorClientName"></span> </p>
+              <p id="errorMessage_name" style='display:none' style="color: red">Please make sure you have included your first and last name</p>
               <p><b>Email:</b><input style="display: none;" placeholder="example@example.com" id="editor.clientEmail"></input> <span id="editorClientEmail"></span> </p>
-              <div id="editor.clientAvatar" style="display: none;">
-                <p><b>Edit Profile URL:</b> <input style="display: none;" placeholder="https://google.com/image.jpeg" id="editor.clientAvatarInput"></input></p>
-              </div>
+              <p id="errorMessage_email" style='display:none' style="color: red">Something is wrong with this email, double check it!</p>
             </div>
           </div>
         </div>
