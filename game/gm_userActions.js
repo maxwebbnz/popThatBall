@@ -4,9 +4,16 @@
  */
 
 
-// what happens when the mouse is pressed on the ball?
-
-
+/**========================================================================
+ **                           Mouse Pressed
+ *?  What does it do? p5.js lib event function runs when mouse is pressed
+ *@param name type  
+ *@param check bool  
+ *@param Balls module  
+ *@param sound module  
+ *@param scoreModule module  
+ *@return type
+ *========================================================================**/
 function mousePressed() {
     for (let i = Balls.length - 1; i >= 0; i--) {
         check = true;
@@ -19,17 +26,23 @@ function mousePressed() {
 }
 
 
-// ball listener can go in here due to it reacting on what is happening inside the game;
-
-// level changer to enable the game to change levels after the user pushes the space button.
-
-// this seems to work but is this really efficent?
-
+/**================================================================================================
+ *                                         User Action Module
+ *================================================================================================**/
 let userAction = {
+    /**========================================================================
+     **                           Stop 
+     *?  What does it do? Stops the Game upon user action
+     *@param name type  
+     *@param check bool  
+     *@param timerVal int  
+     *@param Balls array
+     *@param fb_store firebase module 
+     *@return type
+     *========================================================================**/
     stop: function() {
         check = false
         timerVal = 0;
-        messages = "Game Stopped!";
         Balls.length = 0;
         fb_store.level(client.uid, level)
     },
