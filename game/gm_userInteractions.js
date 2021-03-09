@@ -31,6 +31,7 @@ function gm_stop(){
   timerVal = 0;
   messages = "Game Stopped!";
   Balls.length = 0;
+  fb_store.level(client.uid, level)
 }
 
 // listening for ball collisons

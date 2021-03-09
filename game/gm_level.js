@@ -8,15 +8,19 @@
 let level = 1;
 let timerVal;
 let timerHTML = document.getElementById("timeHTMl")
+
 // lvl set is for when ethier the user needs to reset their level or the game needs to due to error or handling with issues.
 function gm_levelchange(_lvlnum, _lvlset){
     if(!_lvlset){
         level = level + 1
+        client.currentLevel = level
         var lvl = levels[level - 1]
         var lvlIndentifer = lvl.identifer
         var lvlBallAmount = lvl.balls
         var lvlBallSpeed = lvl.speed
         timerVal = lvl.timeLimit
+        // solution for now.
+        html_append();
         gm_playEffect(clockTick, false)
         console.log(timerVal)
         console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
@@ -28,6 +32,7 @@ function gm_levelchange(_lvlnum, _lvlset){
         var lvlIndentifer = lvl.identifer
         var lvlBallAmount = lvl.balls
         var lvlBallSpeed = lvl.velInt
+        level = _lvlnum
         timerVal = lvl.timeLimit
         console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
         gm_generateBalls(lvlBallAmount, lvlBallSpeed)

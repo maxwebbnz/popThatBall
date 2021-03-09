@@ -49,3 +49,7 @@ header{
     color:#333;
     background-color:#333;
   }
+
+  #profileModal{
+    z-index: 9999; /* Sit on top - higher than any other z-index in your site*/
+  }

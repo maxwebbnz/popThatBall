@@ -78,7 +78,7 @@ let gameStarted = false;
         console.log("gm_start | Starting Game")
         Balls.length = 0;
         // start level 1 by calling gm_levelchagne() and passing the value of 1 to define level 1
-        gm_levelchange(1,true);
+        gm_levelchange(client.currentLevel,true);
        // start ball listener to listen to events 
     }
 // generate balls

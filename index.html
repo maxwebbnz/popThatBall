@@ -23,7 +23,7 @@
         <!-- Bootstrap CSS + JS -->
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
     <!-- Local Files  -->
            <!-- Firebase Modules -->
@@ -49,6 +49,7 @@
     <!-- End of Modules and CDN's -->
             <title>popThatBall!</title>
 </head>
+
 <header>
     <!-- <div class="container">
         <div class="row">
@@ -89,6 +90,7 @@
         </div>
         <hr>
         <h6 class="display-7" style="margin-left: 9px;">Game Infomation</h6>
+        <p><b>Level:</b> <span id="levelHTML"></span> </p>
         <p><b>Time:</b> <span id="timeHTMl"></span> </p>
         <p><b>Score:</b> <span id="scoreHTML"></span> </p>
         <p><b>Highscore:</b> <span id="highScoreHTML"></span> </p>
@@ -128,8 +130,40 @@
                   </div>
               </div>
           </div>
-    
     </section>
+    <!-- Modal for Profile Infomation -->
+<!-- Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profileModalTitle">Profile Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <img id="editorClientAvatar" width="100" height="100" src="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255634-stock-illustration-avatar-icon-male-profile-gray.jpg" alt="Profile" class="rounded-circle">
+            </div>
+            <div class="col userInfo">
+              <h6>User Information: <span id="clientName"></span></h6>
+              <p><b>Name:</b> <input style="display: none;" placeholder="First Name Last Name" id="editor.clientName"></input><span style="display: block;" id="editorClientName"></span> </p>
+              <p><b>Email:</b><input style="display: none;" placeholder="example@example.com" id="editor.clientEmail"></input> <span id="editorClientEmail"></span> </p>
+              <div id="editor.clientAvatar" style="display: none;">
+                <p><b>Edit Profile URL:</b> <input style="display: none;" placeholder="https://google.com/image.jpeg" id="editor.clientAvatarInput"></input></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="eventDetermined" onclick="html_profilePage.showEditor()"><span id="eventFunction"></span></button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 
 </html>

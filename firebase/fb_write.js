@@ -23,5 +23,11 @@ let fb_store = {
             highScore: _valInput,
           });
           console.log("fb_store | Stored data for " + _id + " with the value of " + _valInput)
+    },
+    level: function(_id, _valInput){
+      firebase.database().ref('users/' + _id + "/").update({
+        currentLevel: _valInput,
+      });    
+      console.log("fb_store | Stored data for " + _id + " with the value of " + _valInput)
     }
 }

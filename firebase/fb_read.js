@@ -20,7 +20,7 @@ function fb_initUserData(_userToken, _userObject) {
             score: 0,
             highScore: 0,
             // in terms of postion in array
-            currentLevel: 0,
+            currentLevel: 1,
         });
         let tokenParse = _userToken 
         fb_initUserData(tokenParse)
