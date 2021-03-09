@@ -37,7 +37,7 @@ let auth = {
     profileHandler: function(){
         if(authStatus){
             console.log("fb_profileHandler | Displaying User's profile")
-            html_profilePage.show();
+            profilePage.show();
         }else if(!authStatus){
             this.login(google)
         }
