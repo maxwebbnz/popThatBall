@@ -96,7 +96,17 @@ let core = {
     }
 }
 
-// start p5 with setup()
+/**========================================================================
+ **                           Setup
+ *?  What does it do? p5.js lib uses this to do all the stuff that needs to be
+ *? only ran once.
+ *@param name type  
+ *@param canvas p5 module variable  
+ *@param core module 
+ *@param sound module 
+ *@param levelModule module 
+ *@return n/a
+ *========================================================================**/
 function setup() {
     // on page load configure firebase
     fb_init()
@@ -111,12 +121,19 @@ function setup() {
     setInterval(levelModule.timer, 1000);
     // being able to use gm_messageHandler as a timer
 }
-// call draw()
+
+/**========================================================================
+ **                           Draw
+ *?  What does it do? p5.js lib uses this to do things at a interval (processing made it 60s)
+ *@param name type  
+ *@param core module  
+ *@param check bool  
+ *@param levelModule module  
+ *@return n/a
+ *========================================================================**/
 function draw() {
     background(100)
     core.showBalls();
-    textAlign(CENTER, CENTER);
-    textSize(30);
     fill(255);
     // needs to be checked everytime draw is ran.
     html_updateGameState();

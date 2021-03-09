@@ -8,10 +8,20 @@ let editorInputs;
 let editorOpen = false;
 
 
-
+/**================================================================================================
+ *                                         Validation Module
+ *================================================================================================**/
 let validate = {
-    text: function(str) {
-        if (textReg.test(str)) {
+    /**========================================================================
+     **                           Text Validation
+     *?  What does it do? Checks a string with the textRegex and tests it
+     *@param name type  
+     *@param textReg regex  
+     *@param _str string  
+     *@return bool
+     *========================================================================**/
+    text: function(_str) {
+        if (textReg.test(_str)) {
             // If string parsed through matches the nameReg-ex
             return true
                 // return true
@@ -21,10 +31,13 @@ let validate = {
                 // return false
         }
     },
-    /*
-  Function Name: nameSpecfc
-  Purpose: Vaildating name input
-  */
+    /**========================================================================
+     **                           Name Vaildation
+     *?  What does it do? Checks a string with the nameRegex and tests it
+     *@param name type  
+     *@param name type  
+     *@return type
+     *========================================================================**/
     nameSpecfic: function(str) {
         if (nameReg.test(str)) {
             // If string parsed through matches the nameReg-ex

@@ -3,25 +3,34 @@
  * All rights reserved.
  */
 
-// Browser Related Variables:
-let viewPortHeight = $(window).height()
-let viewPortWidth = $(window).width()
-    // Game Variables:
+
+/**============================================
+ *               Canvas/Browser Variables
+ *=============================================**/
+var viewPortHeight = $(window).height()
+var viewPortWidth = $(window).width()
 let canvas;
-// Balls set to an array
-let Balls = [];
-// Messages set to empty string
-let messages = "";
-// Empty timer
-let timer;
-// Check set to false
+
+/**============================================
+ *               Balls Class Variables
+ *=============================================**/
+var Balls = [];
+
+
+/**============================================
+ *               Core/Misc Game Variables
+ *=============================================**/
 let check = false;
-// User Variables
-// Base user score
 let score = 0;
-// Base high score
 let highScore = 0;
-// Level Array
+
+/**============================================
+ *               Level Variables
+ *=============================================**/
+let timer;
+/**======================
+ *    Level Array
+ *========================**/
 const levels = [{
         identifer: 1,
         balls: 2,
@@ -85,7 +94,9 @@ const levels = [{
 
 ]
 
-// regex's 
+/**============================================
+ *               Regex's for Validation
+ *=============================================**/
 const textReg = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
 // numReg only passes numbers, nothing else + characters
 const numReg = /^\d+$/;
