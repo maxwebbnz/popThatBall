@@ -21,7 +21,7 @@ class Ball {
     };
     /**========================================================================
      **                           Move Function
-     *?  What does it do? This moves the balls and handles basic collions with canvas
+     *?   This moves the balls and handles basic collions with canvas
      *@param name type  
      *@param this.x int/float
      *@param this.y int/float
@@ -58,7 +58,7 @@ class Ball {
     };
     /**========================================================================
      **                           Pause Balls
-     *?  What does it do? Pauses Balls incase of needing to pause game
+     *?   Pauses Balls incase of needing to pause game
      *@param name type  
      *@param this.paused bool
      *@param this.x float/int
@@ -72,7 +72,7 @@ class Ball {
         }
         /**========================================================================
          **                           Clicked
-         *?  What does it do? Checks if the ball has been clicked by the mouse
+         *?   Checks if the ball has been clicked by the mouse
          *@param name type  
          *@param _px int/float  
          *@param _py int/float  
@@ -92,7 +92,7 @@ class Ball {
     };
     /**========================================================================
      **                           Show
-     *?  What does it do? Shows the balls once they have been made
+     *?   Shows the balls once they have been made
      *@param name type  
      *@param this.x int/float  
      *@param this.y int/float  

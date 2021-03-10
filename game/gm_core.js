@@ -7,14 +7,14 @@ let levelnum = "";
 // need to check if game is stopped or started for gm_gameHandler function
 let gameStopped = false;
 let gameStarted = false;
-
-/**========================================================================
- *                           Core Module
- *========================================================================**/
+let sideNavWidth = 400
+    /**========================================================================
+     *                           Core Module
+     *========================================================================**/
 let core = {
     /**========================================================================
      **                           Start
-     *?  What does it do? Handles starting the game
+     *?   Handles starting the game
      *@param name type  
      *@param Balls array  
      *@param levelModule module  
@@ -30,7 +30,7 @@ let core = {
     },
     /**========================================================================
      **                           Generate Balls
-     *?  What does it do? Generates balls before showing them later on
+     *?   Generates balls before showing them later on
      *@param name type  
      *@param x int/float  
      *@param y int/float  
@@ -51,7 +51,7 @@ let core = {
     },
     /**========================================================================
      **                           Show Balls
-     *?  What does it do? Displays balls after being generated
+     *?   Displays balls after being generated
      *@param name type  
      *@param Balls array  
      *@return n/a
@@ -65,7 +65,7 @@ let core = {
     },
     /**========================================================================
      **                           Game Handler
-     *?  What does it do? Handling dication if the game has started or not, and changing the start/stop button 
+     *?   Handling dication if the game has started or not, and changing the start/stop button 
      *? accordingly
      *@param name type  
      *@param gameStarted bool  
@@ -98,7 +98,7 @@ let core = {
 
 /**========================================================================
  **                           Setup
- *?  What does it do? p5.js lib uses this to do all the stuff that needs to be
+ *?   p5.js lib uses this to do all the stuff that needs to be
  *? only ran once.
  *@param name type  
  *@param canvas p5 module variable  
@@ -108,10 +108,11 @@ let core = {
  *@return n/a
  *========================================================================**/
 function setup() {
+    $("#registrationModule").hide();
     // on page load configure firebase
     fb_init()
         // make the canvas not go under/over the navbar (400 is the width of the navbar)
-    canvas = createCanvas(viewPortWidth - 400, viewPortHeight)
+    canvas = createCanvas(viewPortWidth - sideNavWidth, viewPortHeight)
     canvas.position(0, 0)
     canvas.style('z-index', '-1')
     $(".landingPrompt").fadeIn()
@@ -124,7 +125,7 @@ function setup() {
 
 /**========================================================================
  **                           Draw
- *?  What does it do? p5.js lib uses this to do things at a interval (processing made it 60s)
+ *?   p5.js lib uses this to do things at a interval (processing made it 60s)
  *@param name type  
  *@param core module  
  *@param check bool  

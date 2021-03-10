@@ -14,7 +14,7 @@ let editorOpen = false;
 let validate = {
     /**========================================================================
      **                           Text Validation
-     *?  What does it do? Checks a string with the textRegex and tests it
+     *?   Checks a string with the textRegex and tests it
      *@param name type  
      *@param textReg regex  
      *@param _str string  
@@ -33,7 +33,7 @@ let validate = {
     },
     /**========================================================================
      **                           Name Vaildation
-     *?  What does it do? Checks a string with the nameRegex and tests it
+     *?   Checks a string with the nameRegex and tests it
      *@param name type  
      *@param name type  
      *@return type

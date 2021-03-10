@@ -21,14 +21,18 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS + JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
     <!-- Local Files  -->
     <!-- Firebase Modules -->
     <script src="firebase/fb_init.js"></script>
+    <script src="firebase/fb_register.js"></script>
     <script src="firebase/fb_auth.js"></script>
     <script src="firebase/fb_write.js"></script>
     <script src="firebase/fb_read.js"></script>
@@ -163,6 +167,41 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Registration Module -->
+    <div id="registrationModule">
+        <h1 class="display-6">We just need a bit more information from you, Max</h1>
+        <form style="padding-top: 9px;" class="row g-3">
+            <div class="col-md-6">
+                <label for="regDisplayName" class="form-label">Game Display Name </label>
+                <input type="string" class="form-control" id="regDisplayName">
+            </div>
+            <div class="col-md-6">
+                <label for="regPhoneNum" class="form-label">Phone Number <i class="bi bi-phone-fill"></i> </label>
+                <input type="string" class="form-control" id="regPhoneNum">
+            </div>
+            <div class="col-12">
+                <label for="regSuburb" class="form-label">Suburb <i class="bi bi-house-fill"></i></label>
+                <input type="text" class="form-control" id="regSuburb" placeholder="Johnville">
+            </div>
+            <div class="col-md-6">
+                <label for="regCity" class="form-label">City <i class="bi bi-signpost-fill"></i></label>
+                <input type="text" class="form-control" id="regCity">
+            </div>
+            <div class="col-md-4">
+                <label for="regGender" class="form-label">Gender</label>
+                <select id="regGender" class="form-select">
+                <option selected>Choose...</option>
+                <option>Female</option>
+                <option>Male</option>
+                <option>Perfer not to disclose</option>
+                <option>Other</option>  
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="button" onclick="registration.collectUserInput()" class="btn btn-primary">Complete</button>
+            </div>
+        </form>
     </div>
 </body>
 

@@ -18,7 +18,7 @@ let authStatus = false;
 let auth = {
     /**==============================================
      **              Login Function
-     *?  What does it do? Handles Logining users
+     *?   Handles Logining users
      *@param name type 
      *@param _provider selected auth method 
      *@return type (n/a)
@@ -48,7 +48,7 @@ let auth = {
     },
     /**==============================================
      **              Profile Handler
-     *?  What does it do? Handles the Profile Button in the GUI
+     *?   Handles the Profile Button in the GUI
      *@param name type
      *@param authStatus bool  
      *@return n/a

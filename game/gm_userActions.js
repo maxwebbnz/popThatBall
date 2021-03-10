@@ -6,7 +6,7 @@
 
 /**========================================================================
  **                           Mouse Pressed
- *?  What does it do? p5.js lib event function runs when mouse is pressed
+ *?   p5.js lib event function runs when mouse is pressed
  *@param name type  
  *@param check bool  
  *@param Balls module  
@@ -32,7 +32,7 @@ function mousePressed() {
 let userAction = {
     /**========================================================================
      **                           Stop 
-     *?  What does it do? Stops the Game upon user action
+     *?   Stops the Game upon user action
      *@param name type  
      *@param check bool  
      *@param timerVal int  

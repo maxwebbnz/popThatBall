@@ -22,34 +22,51 @@ header{
 
 #sidenav {
     height: 100%;
-    width: 400px; 
-    position: fixed; 
+    width: 400px;
+    position: absolute;
     z-index: 1;
-    top: 0; 
+    top: 0;
     right: 0;
     background-color: #6ABEEA;
-    overflow-x: hidden; 
-  }
+    overflow-x: hidden;
+}
 
-  #sidenav .btn-primary {
-      display: block;
-      margin-left: 6%;
-      margin-top: 10%;
-  }
+#sidenav .btn-primary {
+    display: block;
+    margin-left: 6%;
+    margin-top: 10%;
+}
 
-  #sidenav .userInfo #avatar .btn-primary{
-      margin-left: 4%;
-      margin-top: 30%;
+#sidenav .userInfo #avatar .btn-primary {
+    margin-left: 4%;
+    margin-top: 30%;
+}
 
-  }
+hr {
+    height: 1px;
+    border: none;
+    color: #333;
+    background-color: #333;
+}
 
-  hr{
-    height:1px;
-    border:none;
-    color:#333;
-    background-color:#333;
-  }
+#profileModal {
+    z-index: 9999;
+    /* Sit on top - higher than any other z-index in your site*/
+}
 
-  #profileModal{
-    z-index: 9999; /* Sit on top - higher than any other z-index in your site*/
-  }
+#registrationModule {
+    padding: 9%;
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(4px);
+    -o-backdrop-filter: blur(4px);
+    -moz-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+canvas {
+    background-color: #646464
+}
