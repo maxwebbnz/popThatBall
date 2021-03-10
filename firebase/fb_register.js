@@ -9,6 +9,15 @@
  *========================================================================**/
 let userId;
 let registration = {
+    /**========================================================================
+     **                           Parse User ID
+     *?  This gets the ball rolling on this chain of events, this takes the user
+     *? token from the auth handler and parse it through to store rego data.
+     *@param name type  
+     *@param _userId unique id  
+     *@param userId unique id  
+     *@return n/a
+     *========================================================================**/
     parseUserId: function(_userId) {
         userId = _userId
         this.show()

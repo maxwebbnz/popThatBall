@@ -1,0 +1,55 @@
+{
+    "rules": {
+        "users": {
+            "$uid": {
+                // Users that match the path's user Id can read and write
+                ".read": "$uid == auth.uid",
+                ".write": "$uid == auth.uid",
+                "name": {
+                    // names must be a string and must be no longer than 26
+                    ".validate": "newData.isString() && newData.val().length < 26"
+                },
+                "email": {
+                    // emails must be a string and must be no longer than 320
+                    ".validate": "newData.isString() && newData.val().length < 320"
+                },
+                "score": {
+                    // scores must be a number
+                    ".validate": "newData.isNumber()"
+                },
+                "currentLevel": {
+                    // current level must be a number
+                    ".validate": "newData.isNumber()"
+                },
+                "highScore": {
+                    // high score must be a number
+                    ".validate": "newData.isNumber()"
+                },
+                "city": {
+                    // city must be a string
+                    ".validate":"newData.isString()"
+                },
+                "gender":{
+                    // gender must be a string
+                    ".validate": "newData.isString()"
+                },
+                "phoneNum":{
+                    // phone number can  be a string due to having white space in some cases and must be no greater than 9
+                    ".validate": "newData.isString() && newData.val().length < 9"
+                },
+                "suburb":{
+                    // suburb must be a string
+                    ".validate": "newData.isString()"
+                },
+                "gameName":{
+                    ".validate":"newData.isString() && newData.val().length < 10"
+                },
+                "$other":{ 
+                    // users should not be able to store any new data through this path.
+                    ".validate": false 
+                }
+
+            }
+        }
+    }
+}
