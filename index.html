@@ -37,6 +37,7 @@
     <script src="firebase/fb_write.js"></script>
     <script src="firebase/fb_read.js"></script>
     <script src="firebase/fb_userRoles.js"></script>
+    <script src="firebase/fb_leaderboard.js"></script>
     <!-- Game Modules -->
     <!-- This stuff here needs to be called first due to it being used in the init file -->
     <script src="game/gm_html.js"></script>
@@ -101,7 +102,7 @@
         <p><b>Highscore:</b> <span id="highScoreHTML"></span> </p>
         <hr>
         <h6 style="margin-left: 9px;" class="display-7">Scoreboard</h6>
-        <table class="table">
+        <table class="table" id="scoreBoard">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -109,18 +110,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>200</td>
-                </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>50</td>
-                </tr>
             </tbody>
         </table>
         <hr>

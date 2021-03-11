@@ -32,6 +32,7 @@ let registration = {
     show: function() {
         $("#registrationModule").slideToggle("slow");
         $("#registrationModule").show();
+        3
 
     },
     /**========================================================================

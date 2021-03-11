@@ -1,11 +1,21 @@
 {
     "rules": {
         "users": {
+          ".read": "auth != null",
+          ".write": "auth != null",
             "$uid": {
                 // Users that match the path's user Id can read and write
                 ".read": "$uid == auth.uid",
                 ".write": "$uid == auth.uid",
-                "name": {
+               "uid": {
+                 ".validate": "true",
+                 // new data has to have the same data as the auth uid.
+                 ".write": "newData.val() == auth.uid"
+               },
+                 "profileURL":{
+                   ".validate": "true"
+                 },
+                  "name": {
                     // names must be a string and must be no longer than 26
                     ".validate": "newData.isString() && newData.val().length < 26"
                 },
@@ -35,7 +45,7 @@
                 },
                 "phoneNum":{
                     // phone number can  be a string due to having white space in some cases and must be no greater than 9
-                    ".validate": "newData.isString() && newData.val().length < 9"
+                    ".validate": "newData.isString() && newData.val().length < 20"
                 },
                 "suburb":{
                     // suburb must be a string
