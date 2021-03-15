@@ -1,21 +1,19 @@
 {
     "rules": {
         "users": {
-          ".read": "auth != null",
-          ".write": "auth != null",
+            ".read": "auth != null",
+            ".write": "auth != null",
             "$uid": {
                 // Users that match the path's user Id can read and write
                 ".read": "$uid == auth.uid",
                 ".write": "$uid == auth.uid",
-               "uid": {
-                 ".validate": "true",
-                 // new data has to have the same data as the auth uid.
-                 ".write": "newData.val() == auth.uid"
-               },
-                 "profileURL":{
-                   ".validate": "true"
-                 },
-                  "name": {
+                "uid": {
+                    ".validate": "true"
+                },
+                "profileURL": {
+                    ".validate": "true"
+                },
+                "name": {
                     // names must be a string and must be no longer than 26
                     ".validate": "newData.isString() && newData.val().length < 26"
                 },
@@ -37,28 +35,34 @@
                 },
                 "city": {
                     // city must be a string
-                    ".validate":"newData.isString()"
+                    ".validate": "newData.isString()"
                 },
-                "gender":{
+                "gender": {
                     // gender must be a string
                     ".validate": "newData.isString()"
                 },
-                "phoneNum":{
+                "phoneNum": {
                     // phone number can  be a string due to having white space in some cases and must be no greater than 9
                     ".validate": "newData.isString() && newData.val().length < 20"
                 },
-                "suburb":{
+                "suburb": {
                     // suburb must be a string
                     ".validate": "newData.isString()"
                 },
-                "gameName":{
-                    ".validate":"newData.isString() && newData.val().length < 10"
+                "gameName": {
+                    ".validate": "newData.isString() && newData.val().length < 10"
                 },
-                "$other":{ 
+                "$other": {
                     // users should not be able to store any new data through this path.
-                    ".validate": false 
+                    ".validate": false
                 }
-
+            }
+        },
+        "scoreBoard": {
+            ".read": "true",
+            ".write": "auth != null",
+            "$levelNum": {
+                ".indexOn": "hits"
             }
         }
     }
