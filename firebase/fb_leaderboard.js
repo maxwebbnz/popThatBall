@@ -27,9 +27,9 @@ let leaderBoard = {
         leaderboard.once('value').then(
             (_snapshot) => {
                 _snapshot.forEach(function(childSnapshot) {
-                    console.log(childSnapshot.key)
+                    // console.log(childSnapshot.key)
                     scores.unshift(childSnapshot.child("hits"))
-                    console.log(childSnapshot.child("hits").val())
+                        // console.log(childSnapshot.child("hits").val())
                     let userObject = {
                         "name": childSnapshot.child("name").val(),
                         "avatar": childSnapshot.child("avatar").val(),
@@ -38,13 +38,12 @@ let leaderBoard = {
                         "userToken": childSnapshot.key
                     }
                     leaderBoardArray.push(userObject)
-                    console.log(leaderBoardArray)
+                        // console.log(leaderBoardArray)
                 })
                 for (i = leaderBoardArray.length; i--;) {
-                    $("tbody#scoreBoard tr").remove()
                     let userAverage = leaderBoardArray[i].hits / leaderBoardArray[i].misses
                     this.appendTable(leaderBoardArray[i].avatar, leaderBoardArray[i].name, leaderBoardArray[i].hits, leaderBoardArray[i].misses, userAverage)
-                    console.log(leaderBoardArray[i].name)
+                        // console.log(leaderBoardArray[i].name)
                 }
             });
     },
@@ -60,11 +59,22 @@ let leaderBoard = {
         $('#scoreBoardTable').append(content);
     },
     handler: function(_lvlnum, _method) {
-        document.getElementById("leaderBoardHTML").style.display = "block";
-        this.init(_lvlnum);
         if (_method == "close") {
+            console.log("leaderboard.handler | Hiding leaderboard")
             document.getElementById("leaderBoardHTML").style.display = "none";
+        } else if (_method == "changeLeaderboard") {
+            console.log("leaderboard.handler | Changing to level " + _lvlnum)
+                // removing content out of the array
+            leaderBoardArray.length = 0;
+            // then removing the current info on the page
+            $("#scoreBoardTable tbody").children().remove()
+            this.init(_lvlnum);
+        } else {
+            console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
+            document.getElementById("leaderBoardHTML").style.display = "block";
+            this.init(_lvlnum);
 
         }
+
     }
 }
