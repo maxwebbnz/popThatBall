@@ -9,9 +9,8 @@
  ** This handles outputting the leaderboard document into the webpage.
  *========================================================================**/
 
-// Base object
-
-let leaderBoardArray = [];
+// This is for storing all currently displayed leaderboard infomation
+let storedLeaderBoardInfo = [];
 
 let leaderBoard = {
     /**========================================================================
@@ -37,16 +36,26 @@ let leaderBoard = {
                         "misses": childSnapshot.child('misses').val(),
                         "userToken": childSnapshot.key
                     }
-                    leaderBoardArray.push(userObject)
-                        // console.log(leaderBoardArray)
+                    storedLeaderBoardInfo.push(userObject)
+                        // console.log(storedLeaderBoardInfo)
                 })
-                for (i = leaderBoardArray.length; i--;) {
-                    let userAverage = leaderBoardArray[i].hits / leaderBoardArray[i].misses
-                    this.appendTable(leaderBoardArray[i].avatar, leaderBoardArray[i].name, leaderBoardArray[i].hits, leaderBoardArray[i].misses, userAverage)
-                        // console.log(leaderBoardArray[i].name)
+                for (i = storedLeaderBoardInfo.length; i--;) {
+                    let userAverage = storedLeaderBoardInfo[i].hits / storedLeaderBoardInfo[i].misses
+                    this.appendTable(storedLeaderBoardInfo[i].avatar, storedLeaderBoardInfo[i].name, storedLeaderBoardInfo[i].hits, storedLeaderBoardInfo[i].misses, userAverage)
+                        // console.log(storedLeaderBoardInfo[i].name)
                 }
             });
     },
+    /**========================================================================
+     **                           Append Table
+     *?  Writes data from the leaderboard into the HTML Table on the page
+     *@param _userAvatar an image  
+     *@param _userName string
+     *@param _userHits intger
+     *@param _userMisses intger
+     *@param _userAverage float
+     *@return n/a
+     *========================================================================**/
     appendTable: function(_userAvatar, _userName, _userHits, _userMisses, _userAverage) {
         var content = '';
         content += '<tr>';
@@ -58,6 +67,14 @@ let leaderBoard = {
         content += '</tr>';
         $('#scoreBoardTable').append(content);
     },
+    /**========================================================================
+     **                           Handler
+     *?  This handles all of the 'handling' or directing of the module
+     *@param name type  
+     *@param _lvlnum intger  
+     *@param _method string  
+     *@return n/a
+     *========================================================================**/
     handler: function(_lvlnum, _method) {
         if (_method == "close") {
             console.log("leaderboard.handler | Hiding leaderboard")
@@ -65,7 +82,7 @@ let leaderBoard = {
         } else if (_method == "changeLeaderboard") {
             console.log("leaderboard.handler | Changing to level " + _lvlnum)
                 // removing content out of the array
-            leaderBoardArray.length = 0;
+            storedLeaderBoardInfo.length = 0;
             // then removing the current info on the page
             $("#scoreBoardTable tbody").children().remove()
             this.init(_lvlnum);
