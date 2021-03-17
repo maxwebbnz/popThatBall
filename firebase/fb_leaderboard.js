@@ -79,7 +79,7 @@ let leaderBoard = {
         if (_method == "close") {
             console.log("leaderboard.handler | Hiding leaderboard")
             document.getElementById("leaderBoardHTML").style.display = "none";
-        } else if (_method == "changeLeaderboard") {
+        } else if (_method == true) {
             console.log("leaderboard.handler | Changing to level " + _lvlnum)
                 // removing content out of the array
             storedLeaderBoardInfo.length = 0;
@@ -90,7 +90,7 @@ let leaderBoard = {
             console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
             document.getElementById("leaderBoardHTML").style.display = "block";
             this.init(_lvlnum);
-
+            this.generateNavBarLinks();
         }
 
     },
@@ -115,5 +115,35 @@ let leaderBoard = {
                 console.log("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id)
             }
         });
+    },
+
+    /**========================================================================
+     **                           Generate Navbar Links
+     *?  Generates navigation bar links with corropsondense to how many levels there are
+     *@param name type  
+     *@param name type  
+     *@return n/a
+     *========================================================================**/
+    /*                        <li class="nav-item">
+    <
+    a class = "nav-link active"
+    aria - current = "page"
+    href = "#"
+    onclick = "leaderBoard.handler(1, 'changeLeaderboard')" > Level 1 < /a> <
+    /li>
+    */
+    generateNavBarLinks: function() {
+        // append navigation bar class
+        for (var i = 0; i < levels.length; i++) {
+            console.log("leaderBoard.generateNavBarLinks | Generated navigation links")
+            var content = '';
+            content += '<li class="nav-item">';
+            content += '<a class="nav-link active leaderboardLevel' + levels[i].identifer + '"aria-current="page" href="#"';
+            content += "onclick='leaderBoard.handler(" + levels[i].identifer + ", true)'>";
+            content += "Level " + levels[i].identifer;
+            $('.navbar-nav').append(content);
+        }
+
+
     }
 }
