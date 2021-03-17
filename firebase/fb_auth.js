@@ -35,13 +35,14 @@ let auth = {
                             fb_initUserData(fb_result.uid, fb_result)
                             console.log("auth.login | Authentication Process Successful")
                             authStatus = true;
+                            alert.authSuccess();
                         })
                         .catch(function(error) {
                             // Handle Errors here.
                             var errorCode = error.code;
                             var errorMessage = error.message;
                             console.warn("fb_auth | Error: " + errorMessage)
-                            alert.error("We couldn't log you in, Error:" + error)
+                            alert.error("We couldn't log you in, " + error)
 
                         });
                 })

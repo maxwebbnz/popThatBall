@@ -55,4 +55,23 @@ let alert = {
             text: _info,
         })
     },
+    /**========================================================================
+     **                           Success Authed
+     *?  Gets success information from the auth function, and displays it.
+     *@param name type  
+     *@param _info string
+     *@param _errorcode intger
+     *@return n/a
+     *========================================================================**/
+    authSuccess: function() {
+        console.log("alert.authSuccess | User Successfully logged in, now showing success information")
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Woohoo! You logged in!',
+            showConfirmButton: true,
+            timerProgressBar: true,
+            timer: 2500
+        })
+    },
 }

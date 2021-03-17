@@ -76,24 +76,27 @@ let leaderBoard = {
      *@return n/a
      *========================================================================**/
     handler: function(_lvlnum, _method) {
-        if (_method == "close") {
-            console.log("leaderboard.handler | Hiding leaderboard")
-            document.getElementById("leaderBoardHTML").style.display = "none";
-            $('.navbar-nav li').remove();
-        } else if (_method == true) {
-            console.log("leaderboard.handler | Changing to level " + _lvlnum)
-                // removing content out of the array
-            storedLeaderBoardInfo.length = 0;
-            // then removing the current info on the page
-            $("#scoreBoardTable tbody").children().remove()
-            this.init(_lvlnum);
+        if (authStatus) {
+            if (_method == "close") {
+                console.log("leaderboard.handler | Hiding leaderboard")
+                document.getElementById("leaderBoardHTML").style.display = "none";
+                $('.navbar-nav li').remove();
+            } else if (_method == true) {
+                console.log("leaderboard.handler | Changing to level " + _lvlnum)
+                    // removing content out of the array
+                storedLeaderBoardInfo.length = 0;
+                // then removing the current info on the page
+                $("#scoreBoardTable tbody").children().remove()
+                this.init(_lvlnum);
+            } else {
+                console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
+                document.getElementById("leaderBoardHTML").style.display = "block";
+                this.init(_lvlnum);
+                this.generateNavBarLinks();
+            }
         } else {
-            console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
-            document.getElementById("leaderBoardHTML").style.display = "block";
-            this.init(_lvlnum);
-            this.generateNavBarLinks();
+            alert.warn("You can't see the leaderboard without being logged in!")
         }
-
     },
     /**========================================================================
      **                           Store Leaderboard Data
@@ -111,7 +114,7 @@ let leaderBoard = {
             misses: _tableofval.misses
         }, (error) => {
             if (error) {
-                // console.warn("leaderboard.storeLeaderBoardData | Error: " + error)
+                console.warn("leaderboard.storeLeaderBoardData | Error: " + error)
                 alert.error("We couldn't show some stuff on the leaderboard, Error:" + error)
 
             } else {
