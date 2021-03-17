@@ -62,7 +62,22 @@
             ".read": "true",
             ".write": "auth != null",
             "$levelNum": {
-                ".indexOn": "hits"
+                ".indexOn": "hits",
+                "$uid": {
+                    ".validate": "$uid == auth.uid",
+                    "name": {
+                        ".validate": "newData.isString() && newData.val().length < 26"
+                    },
+                    "misses": {
+                        ".validate": "newData.isNumber()"
+                    },
+                    "hits": {
+                        ".validate": "newData.isNumber()"
+                    },
+                    "avatar": {
+                        ".validate": "true"
+                    }
+                }
             }
         }
     }

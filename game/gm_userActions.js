@@ -3,6 +3,8 @@
  * All rights reserved.
  */
 
+// let flagged = false;
+let misses = 0
 
 /**========================================================================
  **                           Mouse Pressed

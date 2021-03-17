@@ -72,6 +72,7 @@ canvas {
 }
 
 #leaderBoardHTML {
+    display: none;
     padding: 1%;
     position: fixed;
     z-index: 200;

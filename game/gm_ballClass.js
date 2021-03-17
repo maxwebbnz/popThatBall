@@ -7,7 +7,7 @@
  *                           Ball Class 
  *========================================================================**/
 let velRange = [-10, -9, -8, -7, -6, 6, 7, 8, 9, 10]
-
+let flag = false;
 // ball class
 class Ball {
     constructor(_x, _y, _r, _col) {
@@ -88,6 +88,8 @@ class Ball {
         if (d < this.r) {
             // yes
             return true;
+        } else {
+            console.log("missed ball")
         }
     };
     /**========================================================================
