@@ -48,7 +48,7 @@ let alert = {
      *@return n/a
      *========================================================================**/
     success: function(_info, _errorcode) {
-        console.log("alert.success | Displayed success with error of: " + _info)
+        console.log("alert.success | Displayed success with value of: " + _info)
         Swal.fire({
             icon: 'success',
             title: 'Success!',
@@ -69,9 +69,9 @@ let alert = {
             position: 'top-end',
             icon: 'success',
             title: 'Woohoo! You logged in!',
-            showConfirmButton: true,
+            showConfirmButton: false,
             timerProgressBar: true,
-            timer: 2500
+            timer: 1600
         })
     },
 }

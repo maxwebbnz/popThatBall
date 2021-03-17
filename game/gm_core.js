@@ -95,7 +95,7 @@ let core = {
                 console.log("gm_gameHandler | Stopping Game")
             }
         } else {
-            alert.warn("You can't start the game without being logged in But you can below!")
+            alert.warn("You can't start the game without being logged in")
         }
     }
 }
