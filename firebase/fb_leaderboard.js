@@ -111,7 +111,9 @@ let leaderBoard = {
             misses: _tableofval.misses
         }, (error) => {
             if (error) {
-                console.log("leaderboard.storeLeaderBoardData | Error: " + error)
+                // console.warn("leaderboard.storeLeaderBoardData | Error: " + error)
+                alert.error("We couldn't show some stuff on the leaderboard, Error:" + error)
+
             } else {
                 console.log("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id)
             }

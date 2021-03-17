@@ -24,7 +24,8 @@ let fb_store = {
             score: _valInput,
         }, (error) => {
             if (error) {
-                console.log("fb_store (score) | Error: " + error)
+                console.warn("fb_store (score) | Error: " + error)
+                alert.error("We couldn't save some data, Error:" + error)
             } else {
                 console.log("fb_store (score) | Stored data for " + _id + " with the value of " + _valInput)
             }
@@ -44,7 +45,8 @@ let fb_store = {
             highScore: _valInput,
         }, (error) => {
             if (error) {
-                console.log("fb_store (highScore) | Error: " + error)
+                console.warn("fb_store (highScore) | Error: " + error)
+                alert.error("We couldn't save some data, Error:" + error)
             } else {
                 console.log("fb_store (highScore) | Stored data for " + _id + " with the value of " + _valInput)
 
@@ -66,7 +68,8 @@ let fb_store = {
             currentLevel: _valInput,
         }, (error) => {
             if (error) {
-                console.log("fb_store (level) | Error: " + error)
+                console.warn("fb_store (level) | Error: " + error)
+                alert.error("We couldn't save some data, Error:" + error)
             } else {
                 console.log("fb_store (level) | Stored data for " + _id + " with the value of " + _valInput)
 
