@@ -93,5 +93,27 @@ let leaderBoard = {
 
         }
 
+    },
+    /**========================================================================
+     **                           Store Leaderboard Data
+     *?  Stores leaderboard data once user has completed a level.
+     *@param name type  
+     *@param name type  
+     *@return n/a
+     *========================================================================**/
+    storeLeaderBoardData: function(_id, _tableofval, _currentLevel) {
+        // console.log(_id + _valInput)
+        firebase.database().ref('scoreBoard/level' + _currentLevel + "/" + _id).update({
+            name: _tableofval.name,
+            avatar: _tableofval.avatar,
+            hits: _tableofval.hits,
+            misses: _tableofval.misses
+        }, (error) => {
+            if (error) {
+                console.log("leaderboard.storeLeaderBoardData | Error: " + error)
+            } else {
+                console.log("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id)
+            }
+        });
     }
 }
