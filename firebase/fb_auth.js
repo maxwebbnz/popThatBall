@@ -29,19 +29,21 @@ let auth = {
                 .then(function() {
                     provider = new firebase.auth.GoogleAuthProvider();
                     console.log("fb_auth | Starting Authentication process")
-
                     return firebase.auth().signInWithPopup(provider).then(function(result) {
                             var token = result.credential.accessToken;
                             let fb_result = result.user;
                             fb_initUserData(fb_result.uid, fb_result)
                             console.log("auth.login | Authentication Process Successful")
                             authStatus = true;
+                            alert.authSuccess();
                         })
                         .catch(function(error) {
                             // Handle Errors here.
                             var errorCode = error.code;
                             var errorMessage = error.message;
-                            console.log("fb_auth | Error: " + errorMessage)
+                            console.warn("fb_auth | Error: " + errorMessage)
+                            alert.error("We couldn't log you in, " + error)
+
                         });
                 })
         }

@@ -4,7 +4,8 @@
  */
 
 // let flagged = false;
-let misses = 0
+// let misses = 0
+let missed = false;
 
 /**========================================================================
  **                           Mouse Pressed
@@ -23,7 +24,13 @@ function mousePressed() {
             Balls.splice(i, 1);
             sound.play(popSound, true)
             scoreModule.handler("add");
+        } else if (!Balls[i].clicked(mouseX, mouseY)) {
+            missed = true;
         }
+    }
+    if (missed == true) {
+        console.log("missed ball")
+        missed = false;
     }
 }
 

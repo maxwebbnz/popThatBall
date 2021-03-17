@@ -43,9 +43,15 @@ let levelModule = {
     },
     levelReset: function() {
         // remove balls before resetting
-        Balls.length = 0
-        sound.play(clockTick, false)
-        this.levelChange(level, true)
+        if (authStatus) {
+            Balls.length = 0
+            sound.play(clockTick, false)
+            this.levelChange(level, true)
+        } else {
+            alert.warn("You cannot restart a level without being authed!")
+            console.warn("levelModule.levelReset | Cannot restart a level without being authed!")
+        }
+
     },
     timer: function() {
         if (timerVal > 0) {

@@ -27,14 +27,15 @@ function fb_initUserData(_userToken, _userObject) {
             fb_initUserData(tokenParse)
         } else {
             const userData = snapshot.val();
-            console.log("User has logged in before, no need to write more data")
+            console.log("fb_initUserData | User has logged in before, no need to write more data")
                 // write data to local variables
                 // now it needs to read data
             client = userData;
             // set game variables to userData
             score = client.score
             highScore = client.highScore
-            console.log(client)
+            console.log("fb_initUserData | User Data Table below.")
+            console.table(client)
                 // assign new html infomation
             html_append();
 

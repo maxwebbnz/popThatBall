@@ -77,6 +77,7 @@ let profilePage = {
         //   then update locally for the remainder of the session
         client.name = editorInputs[0].value;
         client.email = editorInputs[1].value;
+        alert.success("Saved new user data!")
         html_append();
         // hide modal and reset information
         for (let i = 0; i < editorInputs.length; i++) {

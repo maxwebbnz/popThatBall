@@ -76,23 +76,27 @@ let leaderBoard = {
      *@return n/a
      *========================================================================**/
     handler: function(_lvlnum, _method) {
-        if (_method == "close") {
-            console.log("leaderboard.handler | Hiding leaderboard")
-            document.getElementById("leaderBoardHTML").style.display = "none";
-        } else if (_method == "changeLeaderboard") {
-            console.log("leaderboard.handler | Changing to level " + _lvlnum)
-                // removing content out of the array
-            storedLeaderBoardInfo.length = 0;
-            // then removing the current info on the page
-            $("#scoreBoardTable tbody").children().remove()
-            this.init(_lvlnum);
+        if (authStatus) {
+            if (_method == "close") {
+                console.log("leaderboard.handler | Hiding leaderboard")
+                document.getElementById("leaderBoardHTML").style.display = "none";
+                $('.navbar-nav li').remove();
+            } else if (_method == true) {
+                console.log("leaderboard.handler | Changing to level " + _lvlnum)
+                    // removing content out of the array
+                storedLeaderBoardInfo.length = 0;
+                // then removing the current info on the page
+                $("#scoreBoardTable tbody").children().remove()
+                this.init(_lvlnum);
+            } else {
+                console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
+                document.getElementById("leaderBoardHTML").style.display = "block";
+                this.init(_lvlnum);
+                this.generateNavBarLinks();
+            }
         } else {
-            console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
-            document.getElementById("leaderBoardHTML").style.display = "block";
-            this.init(_lvlnum);
-
+            alert.warn("You can't see the leaderboard without being logged in!")
         }
-
     },
     /**========================================================================
      **                           Store Leaderboard Data
@@ -110,10 +114,42 @@ let leaderBoard = {
             misses: _tableofval.misses
         }, (error) => {
             if (error) {
-                console.log("leaderboard.storeLeaderBoardData | Error: " + error)
+                console.warn("leaderboard.storeLeaderBoardData | Error: " + error)
+                alert.error("We couldn't show some stuff on the leaderboard, Error:" + error)
+
             } else {
                 console.log("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id)
             }
         });
+    },
+
+    /**========================================================================
+     **                           Generate Navbar Links
+     *?  Generates navigation bar links with corropsondense to how many levels there are
+     *@param name type  
+     *@param name type  
+     *@return n/a
+     *========================================================================**/
+    /*                        <li class="nav-item">
+    <
+    a class = "nav-link active"
+    aria - current = "page"
+    href = "#"
+    onclick = "leaderBoard.handler(1, 'changeLeaderboard')" > Level 1 < /a> <
+    /li>
+    */
+    generateNavBarLinks: function() {
+        // append navigation bar class
+        for (var i = 0; i < levels.length; i++) {
+            console.log("leaderBoard.generateNavBarLinks | Generated navigation links")
+            var content = '';
+            content += '<li class="nav-item">';
+            content += '<a class="nav-link active leaderboardLevel' + levels[i].identifer + '"aria-current="page" href="#"';
+            content += "onclick='leaderBoard.handler(" + levels[i].identifer + ", true)'>";
+            content += "Level " + levels[i].identifer;
+            $('.navbar-nav').append(content);
+        }
+
+
     }
 }

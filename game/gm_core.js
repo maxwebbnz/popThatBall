@@ -75,23 +75,27 @@ let core = {
      *========================================================================**/
     gameHandler: function() {
         // if the game hasn't started
-        if (!gameStarted) {
-            // start the game
-            this.start();
-            // change the variable
-            gameStarted = true;
-            // log
-            console.log("gm_gameHandler | Starting Game due to game needing starting")
-                // else if the game has started
-        } else if (gameStarted) {
-            // set gameStopped to true
-            gameStopped = true;
-            // reset gameStarted variable
-            gameStarted = false;
-            // stop the game
-            userAction.stop()
-                // logp
-            console.log("gm_gameHandler | Stopping Game")
+        if (authStatus) {
+            if (!gameStarted) {
+                // start the game
+                this.start();
+                // change the variable
+                gameStarted = true;
+                // log
+                console.log("gm_gameHandler | Starting Game due to game needing starting")
+                    // else if the game has started
+            } else if (gameStarted) {
+                // set gameStopped to true
+                gameStopped = true;
+                // reset gameStarted variable
+                gameStarted = false;
+                // stop the game
+                userAction.stop()
+                    // logp
+                console.log("gm_gameHandler | Stopping Game")
+            }
+        } else {
+            alert.warn("You can't start the game without being logged in")
         }
     }
 }
