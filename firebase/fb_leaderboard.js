@@ -79,6 +79,7 @@ let leaderBoard = {
         if (_method == "close") {
             console.log("leaderboard.handler | Hiding leaderboard")
             document.getElementById("leaderBoardHTML").style.display = "none";
+            $('.navbar-nav li').remove();
         } else if (_method == true) {
             console.log("leaderboard.handler | Changing to level " + _lvlnum)
                 // removing content out of the array
