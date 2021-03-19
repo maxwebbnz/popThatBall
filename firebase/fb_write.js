@@ -18,16 +18,18 @@ let fb_store = {
      *@param error callback
      *@return n/a
      *========================================================================**/
-    score: function(_id, _valInput) {
+    score: function(_id, _valInput1, _valInput2) {
         // console.log(_id + _valInput)
         firebase.database().ref('users/' + _id + "/").update({
-            score: _valInput,
+            hits: _valInput1,
+            misses: _valInput2,
+            score: _valInput1 / _valInput2,
         }, (error) => {
             if (error) {
-                console.warn("fb_store (score) | Error: " + error)
+                console.warn("fb_store (hits) | Error: " + error)
                 alert.error("We couldn't save some data, Error:" + error)
             } else {
-                console.log("fb_store (score) | Stored data for " + _id + " with the value of " + _valInput)
+                console.log("fb_store (hits) | Stored data for " + _id + " with the value of " + _valInput1 + " " + _valInput2)
             }
         });
     },

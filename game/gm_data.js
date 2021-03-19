@@ -21,7 +21,8 @@ var Balls = [];
  *               Core/Misc Game Variables
  *=============================================**/
 let check = false;
-let score = 0;
+let hits = 0;
+let misses = 0;
 let highScore = 0;
 
 /**============================================

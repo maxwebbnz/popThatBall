@@ -80,11 +80,15 @@ let validate = {
 
 function html_append() {
     let clNameHTML = document.getElementById("clientName");
+    let clHitsHTML = document.getElementById("hitsHTML");
+    let clMissesHTML = document.getElementById("missesHTML");
     let clScoreHTML = document.getElementById("scoreHTML");
     let clHighScoreHTML = document.getElementById("highScoreHTML");
     let clAvatar = document.getElementById("clientAvatar");
     let clLevel = document.getElementById("levelHTML");
     clNameHTML.innerHTML = client.name;
+    clHitsHTML.innerHTML = client.hits;
+    clMissesHTML.innerHTML = client.misses;
     clScoreHTML.innerHTML = client.score;
     clHighScoreHTML.innerHTML = client.highScore;
     clAvatar.src = client.profileURL;

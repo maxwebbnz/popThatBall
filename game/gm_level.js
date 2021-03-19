@@ -22,8 +22,8 @@ let levelModule = {
                 // solution for now.
             document.getElementById('levelHTML').innerHTML = lvlIndentifer
             sound.play(clockTick, false)
+            scoreModule.handler("setToZero")
             console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
-            leaderBoard.storeLeaderBoardData(client.uid, { name: client.name, avatar: client.profileURL, hits: score, misses: 4 }, lvlIndentifer)
             if (client.highScore < highScore) {
                 fb_store.highScore(client.uid, highScore)
             }
@@ -32,6 +32,7 @@ let levelModule = {
             var lvl = levels[_lvlnum - 1]
             console.log(lvl)
             var lvlIndentifer = lvl.identifer
+                // scoreModule.handler("setToZero")
             var lvlBallAmount = lvl.balls
             var lvlBallSpeed = lvl.velInt
             level = _lvlnum
@@ -46,6 +47,7 @@ let levelModule = {
         if (authStatus) {
             Balls.length = 0
             sound.play(clockTick, false)
+            scoreModule.handler("setToZero")
             this.levelChange(level, true)
         } else {
             alert.warn("You cannot restart a level without being authed!")
@@ -86,6 +88,7 @@ let levelModule = {
     handler: function() {
         if (Balls.length < 1) {
             check = false;
+            leaderBoard.storeLeaderBoardData(client.uid, { name: client.name, avatar: client.profileURL, hits: hits, misses: misses, score: score }, level)
             levelModule.levelChange(0, false)
         }
     }

@@ -8,7 +8,7 @@
  *========================================================================**/
 let velRange = [-10, -9, -8, -7, -6, 6, 7, 8, 9, 10]
 let flag = false;
-let misses = 0;
+// let misses = 0;
 // ball class
 class Ball {
     constructor(_x, _y, _r, _col) {

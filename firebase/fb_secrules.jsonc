@@ -25,6 +25,14 @@
                     // scores must be a number
                     ".validate": "newData.isNumber()"
                 },
+                "hits": {
+                    // scores must be a number
+                    ".validate": "newData.isNumber()"
+                },
+                "misses": {
+                    // scores must be a number
+                    ".validate": "newData.isNumber()"
+                },
                 "currentLevel": {
                     // current level must be a number
                     ".validate": "newData.isNumber()"

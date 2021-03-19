@@ -32,8 +32,9 @@ function fb_initUserData(_userToken, _userObject) {
                 // now it needs to read data
             client = userData;
             // set game variables to userData
+            hits = client.hits
+            misses = client.misses
             score = client.score
-            highScore = client.highScore
             console.log("fb_initUserData | User Data Table below.")
             console.table(client)
                 // assign new html infomation

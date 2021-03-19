@@ -34,14 +34,14 @@ let leaderBoard = {
                         "avatar": childSnapshot.child("avatar").val(),
                         "hits": childSnapshot.child('hits').val(),
                         "misses": childSnapshot.child('misses').val(),
+                        "userAverage": childSnapshot.child('score').val(),
                         "userToken": childSnapshot.key
                     }
                     storedLeaderBoardInfo.push(userObject)
                         // console.log(storedLeaderBoardInfo)
                 })
                 for (i = storedLeaderBoardInfo.length; i--;) {
-                    let userAverage = storedLeaderBoardInfo[i].hits / storedLeaderBoardInfo[i].misses
-                    this.appendTable(storedLeaderBoardInfo[i].avatar, storedLeaderBoardInfo[i].name, storedLeaderBoardInfo[i].hits, storedLeaderBoardInfo[i].misses, userAverage)
+                    this.appendTable(storedLeaderBoardInfo[i].avatar, storedLeaderBoardInfo[i].name, storedLeaderBoardInfo[i].hits, storedLeaderBoardInfo[i].misses, storedLeaderBoardInfo[i].userAverage)
                         // console.log(storedLeaderBoardInfo[i].name)
                 }
             });
@@ -111,14 +111,15 @@ let leaderBoard = {
             name: _tableofval.name,
             avatar: _tableofval.avatar,
             hits: _tableofval.hits,
-            misses: _tableofval.misses
+            misses: _tableofval.misses,
+            score: _tableofval.score,
         }, (error) => {
             if (error) {
                 console.warn("leaderboard.storeLeaderBoardData | Error: " + error)
                 alert.error("We couldn't show some stuff on the leaderboard, Error:" + error)
 
             } else {
-                console.log("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id)
+                console.log("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id + " in level " + _currentLevel)
             }
         });
     },

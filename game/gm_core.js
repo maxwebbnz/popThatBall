@@ -121,7 +121,8 @@ function setup() {
     canvas.style('z-index', '-1')
     $(".landingPrompt").fadeIn()
     core.generateBalls();
-    // load sound config
+    canvas.mouseClicked(userAction.mouseClickedOnCanvas)
+        // load sound config
     sound.init()
     setInterval(levelModule.timer, 1000);
     // being able to use gm_messageHandler as a timer
