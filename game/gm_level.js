@@ -60,18 +60,12 @@ let levelModule = {
             document.getElementById("timeHTMl").innerHTML = timerVal;
             //   console.log(timerVal)
         }
-        if (timerVal > 10) {
-            messages = "Timer 0:" + timerVal;
-        }
         if (timerVal == 5) {
             // play clocktick effect
             sound.play(clockTick, true)
         }
-        if (timerVal < 10 && timerVal > 0) {
-            messages = "Timer: " + timerVal;
-        }
+
         if (timerVal == 0 && !gameStopped) {
-            messages = "You couldn't beat the timer! Resetting level!"
                 // play failsound
             sound.play(failSound, true)
                 // stop clockTick effect
