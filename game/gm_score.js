@@ -7,12 +7,12 @@ let scoreModule = {
         if (_action == "add") {
             hits = hits + 1;
             score = hits - misses
-            document.getElementById("hitsHTML").innerHTML = hits;
-            document.getElementById("scoreHTML").innerHTML = score;
+            document.getElementById("p_hits").innerHTML = hits;
+            document.getElementById("p_score").innerHTML = score;
             fb_store.score(client.uid, hits, misses)
             if (highScore < hits) {
                 highScore = hits;
-                document.getElementById("highScoreHTML").innerHTML = highScore;
+                document.getElementById("p_highscore").innerHTML = highScore;
             }
 
         }
@@ -21,11 +21,11 @@ let scoreModule = {
             hits = 0;
             misses = 0;
             // fb_store.score(client.uid, hits, misses)
-            document.getElementById("hitsHTML").innerHTML = hits;
-            document.getElementById("missesHTML").innerHTML = misses;
+            document.getElementById("p_hits").innerHTML = hits;
+            document.getElementById("p_misses").innerHTML = misses;
         } else if (_action == "missed") {
             misses = misses + 1;
-            document.getElementById("missesHTML").innerHTML = misses;
+            document.getElementById("p_misses").innerHTML = misses;
 
         }
     }

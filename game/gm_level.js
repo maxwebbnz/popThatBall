@@ -7,7 +7,7 @@
 
 let level = 1;
 let timerVal;
-let timerHTML = document.getElementById("timeHTMl")
+let timerHTML = document.getElementById("g_time")
 
 let levelModule = {
     levelChange: function(_lvlnum, _lvlset) {
@@ -20,7 +20,7 @@ let levelModule = {
             var lvlBallSpeed = lvl.speed
             timerVal = lvl.timeLimit
                 // solution for now.
-            document.getElementById('levelHTML').innerHTML = lvlIndentifer
+            document.getElementById('g_level').innerHTML = lvlIndentifer
             sound.play(clockTick, false)
             scoreModule.handler("setToZero")
             console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
@@ -59,7 +59,7 @@ let levelModule = {
         if (timerVal > 0) {
             timerVal--;
             // ** THIS NEEDS IMPROVING
-            document.getElementById("timeHTMl").innerHTML = timerVal;
+            document.getElementById("g_time").innerHTML = timerVal;
             //   console.log(timerVal)
         }
         if (timerVal > 10) {

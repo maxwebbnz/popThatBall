@@ -5,20 +5,20 @@
 
 let profilePage = {
     show: function() {
-        $("#profileModal").modal("show");
+        $("#pp").modal("show");
         let eventButton = document.getElementById("eventFunction");
         eventButton.innerHTML = "Edit";
         // changing values again
-        let clNameHTML = document.getElementById("editorClientName");
-        let clAvatar = document.getElementById("editorClientAvatar");
-        let clEmail = document.getElementById("editorClientEmail");
+        let clNameHTML = document.getElementById("pp_name");
+        let clAvatar = document.getElementById("pp_avatar");
+        let clEmail = document.getElementById("pp_email");
         clNameHTML.innerHTML = client.name;
         clAvatar.src = client.profileURL;
         clEmail.innerHTML = client.email;
     },
     showEditor: function(_hide) {
-        let inputName = document.getElementById("editor.clientName");
-        let inputEmail = document.getElementById("editor.clientEmail");
+        let inputName = document.getElementById("pp_input-name");
+        let inputEmail = document.getElementById("pp_input-email");
         editorInputs = [inputName, inputEmail];
         editorOpen = true;
 
@@ -83,6 +83,6 @@ let profilePage = {
         for (let i = 0; i < editorInputs.length; i++) {
             editorInputs[i].style.display = "none";
         }
-        $("#profileModal").modal("hide");
+        $("#pp").modal("hide");
     },
 };

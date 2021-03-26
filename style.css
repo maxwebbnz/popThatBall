@@ -37,7 +37,7 @@ header{
     margin-top: 10%;
 }
 
-#sidenav .userInfo #avatar .btn-primary {
+#sidenav .p_p_userInfo #avatar .btn-primary {
     margin-left: 4%;
     margin-top: 30%;
 }
@@ -71,7 +71,7 @@ canvas {
     background-color: #646464
 }
 
-#leaderBoardHTML {
+#ldbrd {
     display: none;
     padding: 1%;
     position: fixed;
@@ -85,6 +85,6 @@ canvas {
     backdrop-filter: blur(4px);
 }
 
-.leaderBoardHTML #scoreBoardTable {
+#ldbrd #ldbrd_scoreboard-table {
     background-color: white;
 }

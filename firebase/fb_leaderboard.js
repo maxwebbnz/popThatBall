@@ -65,7 +65,7 @@ let leaderBoard = {
         content += '<td>' + _userMisses + '</td>';
         content += '<td>' + _userAverage + '</td>';
         content += '</tr>';
-        $('#scoreBoardTable').append(content);
+        $('#ldbrd_scoreboard-table').append(content);
     },
     /**========================================================================
      **                           Handler
@@ -79,18 +79,18 @@ let leaderBoard = {
         if (authStatus) {
             if (_method == "close") {
                 console.log("leaderboard.handler | Hiding leaderboard")
-                document.getElementById("leaderBoardHTML").style.display = "none";
+                document.getElementById("ldbrd").style.display = "none";
                 $('.navbar-nav li').remove();
             } else if (_method == true) {
                 console.log("leaderboard.handler | Changing to level " + _lvlnum)
                     // removing content out of the array
                 storedLeaderBoardInfo.length = 0;
                 // then removing the current info on the page
-                $("#scoreBoardTable tbody").children().remove()
+                $("#ldbrd_scoreboard-table tbody").children().remove()
                 this.init(_lvlnum);
             } else {
                 console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
-                document.getElementById("leaderBoardHTML").style.display = "block";
+                document.getElementById("ldbrd").style.display = "block";
                 this.init(_lvlnum);
                 this.generateNavBarLinks();
             }

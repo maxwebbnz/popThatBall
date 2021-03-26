@@ -79,13 +79,13 @@ let validate = {
 }
 
 function html_append() {
-    let clNameHTML = document.getElementById("clientName");
-    let clHitsHTML = document.getElementById("hitsHTML");
-    let clMissesHTML = document.getElementById("missesHTML");
-    let clScoreHTML = document.getElementById("scoreHTML");
-    let clHighScoreHTML = document.getElementById("highScoreHTML");
-    let clAvatar = document.getElementById("clientAvatar");
-    let clLevel = document.getElementById("levelHTML");
+    let clNameHTML = document.getElementById("p_name");
+    let clHitsHTML = document.getElementById("p_hits");
+    let clMissesHTML = document.getElementById("p_misses");
+    let clScoreHTML = document.getElementById("p_score");
+    let clHighScoreHTML = document.getElementById("p_highscore");
+    let clAvatar = document.getElementById("p_avatar");
+    let clLevel = document.getElementById("g_level");
     clNameHTML.innerHTML = client.name;
     clHitsHTML.innerHTML = client.hits;
     clMissesHTML.innerHTML = client.misses;
@@ -96,7 +96,7 @@ function html_append() {
 }
 
 function html_updateGameState() {
-    let gameStateHTML = document.getElementById("gameStatus-HTML")
+    let gameStateHTML = document.getElementById("g_status")
     if (Balls.length != 0) {
         gameStateHTML.innerHTML = "Stop"
     } else {
