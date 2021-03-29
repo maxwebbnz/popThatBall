@@ -56,6 +56,11 @@ let admin = {
                         users[i].uid
                     )
                 }
+            }, (error) => {
+                if (error) {
+                    console.warn("fb_admin.readUserTable  | Error: " + error)
+                    alert.error("We couldn't show you data for admins! " + error)
+                }
             });
     }
 }
