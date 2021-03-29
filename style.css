@@ -28,7 +28,7 @@ header{
     top: 0;
     right: 0;
     background-color: #6ABEEA;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 #sidenav .btn-primary {

@@ -58,7 +58,7 @@ let levelModule = {
     timer: function() {
         if (timerVal > 0) {
             timerVal--;
-            // ** THIS NEEDS IMPROVING
+            // !! THIS NEEDS IMPROVING
             document.getElementById("g_time").innerHTML = timerVal;
             //   console.log(timerVal)
         }

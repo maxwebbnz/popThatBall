@@ -6,7 +6,8 @@ let scoreModule = {
     handler: function(_action) {
         if (_action == "add") {
             hits = hits + 1;
-            score = hits - misses
+            scoreNotRonded = hits - misses
+            score = Math.round(scoreNotRonded)
             document.getElementById("p_hits").innerHTML = hits;
             document.getElementById("p_score").innerHTML = score;
             fb_store.score(client.uid, hits, misses)
