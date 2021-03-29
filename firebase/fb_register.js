@@ -30,7 +30,7 @@ let registration = {
      *@return n/a
      *========================================================================**/
     show: function() {
-        $("#registrationModule").slideToggle("slow");
+        $("#registrationModule").fadeIn();
         $("#registrationModule").show();
         3
 
@@ -77,7 +77,7 @@ let registration = {
             gender: _data.gender,
         });
         // finished registration, concluding.
-        $("#registrationModule").slideToggle("slow");
+        $("#registrationModule").fadeOut();
         // $("#registrationModule").hide();
 
     }

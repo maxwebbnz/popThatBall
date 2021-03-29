@@ -40,6 +40,7 @@
     <!-- Local Files  -->
     <!-- Firebase Modules -->
     <script src="firebase/fb_init.js"></script>
+    <script src="firebase/fb_admin.js"></script>
     <script src="firebase/fb_register.js"></script>
     <script src="firebase/fb_auth.js"></script>
     <script src="firebase/fb_write.js"></script>
@@ -61,6 +62,7 @@
     <!-- Other Modules  -->
     <!-- UI Modules -->
     <script src="ui/ui_alert.js"></script>
+    <script src="ui/ui_admin.js"></script>
     <!-- None here for now -->
     <!-- End of Modules and CDN's -->
     <title>popThatBall!</title>
@@ -239,14 +241,72 @@
     </div>
     <!-- Admin Module -->
     <section id="admin">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Admin Center</a>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="#">Users List</a>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h3><i class="bi bi-x-circle" onclick="adminUI.handler('hide')"></i></h3>
 
+                </div>
+            </div>
+        </nav>
+        <!-- Page 0 or User List -->
+        <div class="w3-row">
+            <div class="w3-twothird w3-container">
+                <div class="admin_userList">
+                    <table style="margin-top: 2%;" class="table" id="admin_userlist-table">
+                        <thead>
+                            <tr>
+                                <th style="padding-right: 0; padding-left: 1%;" scope="col"><i class="bi bi-person-circle"></i></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">High Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="w3-third w3-container">
+                <div id="admin_selectedUserCard" style="margin-top: 4%; padding:8px;">
+                    <div class="w3-row">
+                        <h1>Selected...</h1>
+                        <div class="w3-third">
+                            <img width="100" height="100" src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg" class="rounded-circle" id="admin_selectedUserCard-avatar" alt="...">
+                        </div>
+                        <div class="w3-rest">
+                            <h3>Username: <span id="admin_selectedUserCard-username">Max Webb</span></h3>
+                            <h6>Email: <span id="admin_selectedUserCard-email">maxwebblighting@gmail.com</span></h6>
+                            <h6>Current Score: <span id="admin_selectedUserCard-score">4</span></h6>
+                            <div class="btn-group" style="margin-top: 9px;">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Actions</button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" onclick="adminUI.action('deleteUser', 0)">Delete User</a></li>
+                                    <li><a class="dropdown-item" onclick="adminUI.action('editUserInfo', 0)">Edit User Information</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page 1 or Logs -->
     </section>
-    <div class="section"></div>
 
 
     <!-- Alerts and Misc stuff used inside the program -->
     <!-- Small Tooltip -->
-    <div class="alert alert-warning fixed-bottom mx-auto" style="display:none; width: 60%" role="alert"><b>Focus changed! Slowing down game</b></div>
+    <div class="alert alert-danger fixed-bottom mx-auto" style="display:none; width: 60%" role="alert">
+        <center><b>Timer is still going!</b> Slowing down balls</center>
+    </div>
 </body>
 
 </html>

@@ -79,7 +79,7 @@ let leaderBoard = {
         if (authStatus) {
             if (_method == "close") {
                 console.log("leaderboard.handler | Hiding leaderboard")
-                document.getElementById("ldbrd").style.display = "none";
+                $("#ldbrd").fadeOut();
                 $('.navbar-nav li').remove();
             } else if (_method == true) {
                 console.log("leaderboard.handler | Changing to level " + _lvlnum)
@@ -90,7 +90,7 @@ let leaderBoard = {
                 this.init(_lvlnum);
             } else {
                 console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
-                document.getElementById("ldbrd").style.display = "block";
+                $("#ldbrd").fadeIn();
                 this.init(_lvlnum);
                 this.generateNavBarLinks();
             }

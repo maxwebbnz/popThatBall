@@ -5,8 +5,8 @@
             ".write": "auth != null",
             "$uid": {
                 // Users that match the path's user Id can read and write
-                ".read": "$uid == auth.uid",
-                ".write": "$uid == auth.uid",
+                ".read": "$uid == auth.uid || auth.uid == 'mHs1wfMniTeIvVlxC6XIzTkGBdg1'",
+                ".write": "$uid == auth.uid || auth.uid == 'mHs1wfMniTeIvVlxC6XIzTkGBdg1'",
                 "uid": {
                     ".validate": "true"
                 },
