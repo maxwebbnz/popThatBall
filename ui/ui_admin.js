@@ -27,6 +27,8 @@ let adminUI = {
         }
         if (_action == "hide") {
             $('#admin').fadeOut();
+              $("#admin_userlist-table tbody").children().remove()
+
 
         }
 
