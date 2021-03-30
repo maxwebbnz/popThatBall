@@ -35,8 +35,10 @@ function fb_initUserData(_userToken, _userObject) {
             hits = client.hits
             misses = client.misses
             score = client.score
+            let uid = client.uid
             console.log("fb_initUserData | User Data Table below.")
             console.table(client)
+            admin.userRoles(uid)
                 // assign new html infomation
             html_append();
 

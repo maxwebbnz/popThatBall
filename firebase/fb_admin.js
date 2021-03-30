@@ -26,12 +26,13 @@ let admin = {
      *@return type
      *========================================================================**/
     readUserTable: function() {
+        console.log("Reading")
         let users = [];
         let userPath = firebase.database().ref("users")
         userPath.once('value').then(
             (_snapshot) => {
                 _snapshot.forEach(function(childSnapshot) {
-                    // console.log(childSnapshot.val())
+                    console.log(childSnapshot.val())
                     let retrievedUser = {
                         "name": childSnapshot.child("name").val(),
                         "gameName": childSnapshot.child("gameName").val(),
@@ -62,5 +63,28 @@ let admin = {
                     alert.error("We couldn't show you data for admins! " + error)
                 }
             });
+    },
+    /**========================================================================
+     **                           User Roles
+     *?  Handles user roles when a user authenicates into the game.
+     *@param _action action the function needs to perform.
+     *@param _userToken user's unique identifer
+     *@return n/a
+     *========================================================================**/
+    userRoles: function(_userToken) {
+        console.log("admin.userRoles | Checking for user role")
+        let userRolesDB = firebase.database().ref("userRoles").child(_userToken)
+        userRolesDB.get().then(function(snapshot) {
+            console.log(snapshot.child('rank').val())
+            if (snapshot.child('rank').val() == "admin") {
+                console.log("admin.userRoles | User is admin, displaying button")
+                $('#admincenter-button').fadeIn();
+                client.admin = true;
+            } else {
+                console.log("admin.userRoles | User is not admin")
+            }
+        }).catch(function(error) {
+            console.error(error);
+        });
     }
 }

@@ -12,13 +12,17 @@ let adminUI = {
      *?  Handles all the admin UI components inside this module
      *@param name type  
      *@param _action string  
-     *@param _pageNum integer  
      *@return type
      *========================================================================**/
-    handler: function(_action, _pageNum) {
+    handler: function(_action) {
         if (_action == "show") {
-            console.log("Admin Admin Admin Admin on the wall")
-            $('#admin').fadeIn();
+            if (client.admin) {
+                console.log("Admin Admin Admin Admin on the wall")
+                $('#admin').fadeIn();
+            } else {
+                alert.error("You cannot use the admin center mister!")
+            }
+
         }
         if (_action == "hide") {
             $('#admin').fadeOut();
@@ -101,6 +105,9 @@ let adminUI = {
         content += '<td>' + _usersEmail + '</td>';
         content += '<td>' + _usersScore + '</td>';
         content += '<td>' + _usersHighScore + '</td>';
+        rowId = rowId + 1;
+        content += '<td> <button id="' + rowId + '">Select</button></td>';
         content += '</tr>';
+        $('#admin_userlist-table').append(content);
     },
 }

@@ -62,5 +62,19 @@ let auth = {
         } else if (!authStatus) {
             this.login(google)
         }
+    },
+    /**========================================================================
+     **                           Logout
+     *?  Logs out the user no matter on their provider
+     *@param name type 
+     *@return type
+     *========================================================================**/
+    logout: function() {
+        firebase.auth().signOut().then(() => {
+            alert.success("You signed out!")
+        }).catch((error) => {
+            console.log(error)
+            alert.warn("We couldn't log you out, please try again'")
+        });
     }
 }

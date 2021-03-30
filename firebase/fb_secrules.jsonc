@@ -1,11 +1,11 @@
 {
     "rules": {
         "users": {
-            ".read": "auth != null",
-            ".write": "auth != null",
+            ".read": "auth !== null",
+            ".write": "auth !== null",
             "$uid": {
                 // Users that match the path's user Id can read and write
-                ".read": "$uid == auth.uid || auth.uid == 'mHs1wfMniTeIvVlxC6XIzTkGBdg1'",
+                ".read": "$uid == auth.uid || root.child('userRoles').child(auth.uid).child(auth.uid).val() == 'admin'",
                 ".write": "$uid == auth.uid || auth.uid == 'mHs1wfMniTeIvVlxC6XIzTkGBdg1'",
                 "uid": {
                     ".validate": "true"
@@ -87,6 +87,10 @@
                     }
                 }
             }
+        },
+        "userRoles": {
+            ".read": "true",
+            ".write": "auth.uid == 'mHs1wfMniTeIvVlxC6XIzTkGBdg1'"
         }
     }
 }
