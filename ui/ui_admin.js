@@ -19,7 +19,8 @@ let adminUI = {
             if (client.admin) {
                 console.log("Admin Admin Admin Admin on the wall")
                 $('#admin').fadeIn();
-                this.appendUserTable();
+                admin.readUserTable()
+
             } else {
                 alert.error("You cannot use the admin center mister!")
             }
