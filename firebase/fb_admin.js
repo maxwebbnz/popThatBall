@@ -86,5 +86,29 @@ let admin = {
         }).catch(function(error) {
             console.error(error);
         });
+    },
+
+    /**========================================================================
+     **                           User Card 
+     *?  Collects selected users information and funnels to the UI Component handler
+     *@param _uid unique token  
+     *@return type
+     *========================================================================**/
+    userCard: function(_uid) {
+
+        console.log("admin.userCard | Generating uer information for " + _uid);
+        let selectedUserInfo = {};
+        let userPath = firebase.database().ref("users/" + _uid)
+        userPath.get().then(function(snapshot) {
+            selectedUserInfo = {
+                name: snapshot.child('name').val(),
+                email: snapshot.child('email').val(),
+                avatar: snapshot.child('profileURL').val(),
+                score: snapshot.child('score').val(),
+            }
+            adminUI.userCardUI(selectedUserInfo)
+        }).catch(function(error) {
+            console.error(error);
+        });
     }
 }
