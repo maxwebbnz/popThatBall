@@ -54,9 +54,6 @@ let registration = {
         userDetails.suburb = document.getElementById('regSuburb').value
         userDetails.city = document.getElementById('regCity').value
         userDetails.gender = document.getElementById('regGender').value
-
-        console.table(userDetails)
-
         this.storeUserData(userDetails)
     },
     /**========================================================================

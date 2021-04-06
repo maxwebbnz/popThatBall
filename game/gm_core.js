@@ -25,7 +25,7 @@ let core = {
      *========================================================================**/
     start: function() {
         $('.landingPrompt').fadeOut();
-        console.log("core.start | Starting Game")
+        debug.handler("core.start | Starting Game", 'info')
         Balls.length = 0;
         // start level 1 by calling gm_levelchagne() and passing the value of 1 to define level 1
         levelModule.levelChange(client.currentLevel, true);
@@ -85,7 +85,7 @@ let core = {
                 // change the variable
                 gameStarted = true;
                 // log
-                console.log("gm_gameHandler | Starting Game due to game needing starting")
+                debug.handler("gm_gameHandler | Starting Game due to game needing starting", 'info')
                     // else if the game has started
             } else if (gameStarted) {
                 // set gameStopped to true
@@ -95,7 +95,7 @@ let core = {
                 // stop the game
                 userAction.stop()
                     // logp
-                console.log("gm_gameHandler | Stopping Game")
+                debug.handler("gm_gameHandler | Stopping Game", 'info')
             }
         } else {
             alert.warn("You can't start the game without being logged in")
@@ -152,6 +152,9 @@ function draw() {
     html_updateGameState();
     if (check) {
         levelModule.handler();
+    }
+    if (adminOpen) {
+        adminUI.tableRowClickListener();
     }
 
 }

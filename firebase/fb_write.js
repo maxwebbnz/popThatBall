@@ -19,17 +19,16 @@ let fb_store = {
      *@return n/a
      *========================================================================**/
     score: function(_id, _valInput1, _valInput2) {
-        // console.log(_id + _valInput)
         firebase.database().ref('users/' + _id + "/").update({
             hits: _valInput1,
             misses: _valInput2,
             score: _valInput1 / _valInput2,
         }, (error) => {
             if (error) {
-                console.warn("fb_store (hits) | Error: " + error)
+                debug.handler("fb_store (hits) | Error: " + error, 'warn')
                 alert.error("We couldn't save some data, Error:" + error)
             } else {
-                console.log("fb_store (hits) | Stored data for " + _id + " with the value of " + _valInput1 + " " + _valInput2)
+                debug.handler("fb_store (hits) | Stored data for " + _id + " with the value of " + _valInput1 + " " + _valInput2, 'info')
             }
         });
     },
@@ -47,14 +46,13 @@ let fb_store = {
             highScore: _valInput,
         }, (error) => {
             if (error) {
-                console.warn("fb_store (highScore) | Error: " + error)
+                debug.handler("fb_store (highScore) | Error: " + error, error)
                 alert.error("We couldn't save some data, Error:" + error)
             } else {
-                console.log("fb_store (highScore) | Stored data for " + _id + " with the value of " + _valInput)
+                debug.handler("fb_store (highScore) | Stored data for " + _id + " with the value of " + _valInput, info)
 
             }
         });
-        console.log("fb_store | Stored data for " + _id + " with the value of " + _valInput)
     },
     /**========================================================================
      **                           Level Storing
@@ -70,10 +68,10 @@ let fb_store = {
             currentLevel: _valInput,
         }, (error) => {
             if (error) {
-                console.warn("fb_store (level) | Error: " + error)
+                debug.handler("fb_store (level) | Error: " + error, 'error')
                 alert.error("We couldn't save some data, Error:" + error)
             } else {
-                console.log("fb_store (level) | Stored data for " + _id + " with the value of " + _valInput)
+                debug.handler("fb_store (level) | Stored data for " + _id + " with the value of " + _valInput, 'info')
 
             }
         });

@@ -16,7 +16,7 @@ let alert = {
      *@return n/a
      *========================================================================**/
     warn: function(_error, _errorcode) {
-        console.log("alert.warn | Displayed warning with error of: " + _error)
+        debug.handler("alert.warn | Displayed warning with error of: " + _error, 'info')
         Swal.fire({
             icon: 'warning',
             title: 'Warning',
@@ -32,7 +32,7 @@ let alert = {
      *@return n/a
      *========================================================================**/
     error: function(_error, _errorcode) {
-        console.log("alert.error | Displayed error with error of: " + _error)
+        debug.handler("alert.error | Displayed error with error of: " + _error, 'info')
         Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -48,7 +48,7 @@ let alert = {
      *@return n/a
      *========================================================================**/
     success: function(_info, _errorcode) {
-        console.log("alert.success | Displayed success with value of: " + _info)
+        debug.handler("alert.success | Displayed success with value of: " + _info, 'info')
         Swal.fire({
             icon: 'success',
             title: 'Success!',
@@ -64,7 +64,7 @@ let alert = {
      *@return n/a
      *========================================================================**/
     authSuccess: function() {
-        console.log("alert.authSuccess | User Successfully logged in, now showing success information")
+        debug.handler("alert.authSuccess | User Successfully logged in, now showing success information", 'info')
         Swal.fire({
             position: 'top-end',
             icon: 'success',

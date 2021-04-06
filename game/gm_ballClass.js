@@ -38,12 +38,10 @@ class Ball {
             this.y = this.y + this.speedY;
         }
 
-        // if ball x value is greater than width of canvas
         if (this.x > width - this.r) {
             // move the ball the other way
             this.speedX *= -1;
             this.x = width - this.r;
-            // console.log(this.x)
         } else if (this.x < this.r) {
             this.speedX *= -1;
             this.x = this.r;

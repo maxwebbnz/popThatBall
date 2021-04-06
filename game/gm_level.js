@@ -10,6 +10,13 @@ let timerVal;
 let timerHTML = document.getElementById("g_time")
 
 let levelModule = {
+    /**========================================================================
+     **                           Level Change Handler
+     *? Handles changing the level inside the game and running storing commands
+     *@param _lvlnum the level number that the program needs to change too  
+     *@param _lvlset a bool to indicate if the program wants to change the level 
+     *@return type
+     *========================================================================**/
     levelChange: function(_lvlnum, _lvlset) {
         if (!_lvlset) {
             level = level + 1
@@ -19,29 +26,32 @@ let levelModule = {
             var lvlBallAmount = lvl.balls
             var lvlBallSpeed = lvl.speed
             timerVal = lvl.timeLimit
-                // solution for now.
             document.getElementById('g_level').innerHTML = lvlIndentifer
             sound.play(clockTick, false)
             scoreModule.handler("setToZero")
-            console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
+            debug.handler("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed, 'info')
             if (client.highScore < highScore) {
                 fb_store.highScore(client.uid, highScore)
             }
             core.generateBalls(lvlBallAmount, lvlBallSpeed)
         } else if (_lvlset) {
             var lvl = levels[_lvlnum - 1]
-            console.log(lvl)
             var lvlIndentifer = lvl.identifer
-                // scoreModule.handler("setToZero")
             var lvlBallAmount = lvl.balls
             var lvlBallSpeed = lvl.velInt
             level = _lvlnum
             timerVal = lvl.timeLimit
-            console.log("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed)
+            debug.handler("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed, 'info')
             core.generateBalls(lvlBallAmount, lvlBallSpeed)
         }
 
     },
+    /**========================================================================
+     **                           Level Reset
+     *?  Handles Reseting the level/game
+     *@param name type  
+     *@return n/a
+     *========================================================================**/
     levelReset: function() {
         // remove balls before resetting
         if (authStatus) {
@@ -51,16 +61,22 @@ let levelModule = {
             this.levelChange(level, true)
         } else {
             alert.warn("You cannot restart a level without being authed!")
-            console.warn("levelModule.levelReset | Cannot restart a level without being authed!")
+            debug.handler("levelModule.levelReset | Cannot restart a level without being authed!", 'warn')
         }
 
     },
+    /**========================================================================
+     **                           Timer 
+     *?  Runs the timer and manages events once the counter gets to zero.
+     *@param name type  
+     *@param name type  
+     *@return type
+     *========================================================================**/
     timer: function() {
         if (timerVal > 0) {
             timerVal--;
             // !! THIS NEEDS IMPROVING
             document.getElementById("g_time").innerHTML = timerVal;
-            //   console.log(timerVal)
         }
         if (timerVal > 10) {
             messages = "Timer 0:" + timerVal;

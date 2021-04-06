@@ -6,6 +6,9 @@
  *                           Admin Module
  *========================================================================**/
 let rowId = 0
+let adminUserTableElement = document.getElementById('admin')
+let adminOpen = false;
+let selectedUserId
 let adminUI = {
     /**========================================================================
      **                           Handler
@@ -17,22 +20,23 @@ let adminUI = {
     handler: function(_action) {
         if (_action == "show") {
             if (client.admin) {
-                console.log("adminUI.handler | Opening admin center for client")
+                debug.handler("adminUI.handler | Opening admin center for " + client.name, 'info')
                 $('#admin').fadeIn();
                 admin.readUserTable()
+                adminOpen = true
 
             } else {
-                alert.error("You cannot use the admin center mister!")
+                alert.error("You do not have vaild permisson to open the admin center!!")
+                debug.handler("adminUI.handler | Not allowing admin center for client", 'warn')
+
             }
 
         }
         if (_action == "hide") {
             $('#admin').fadeOut();
             $("#admin_userlist-table tbody").children().remove()
-
-
+            adminOpen = false
         }
-
     },
 
     /**========================================================================
@@ -41,7 +45,7 @@ let adminUI = {
      *@param name type  
      *@param _action string  
      *@param _pageNum integer 
-     *@return type
+     *@return n/a
      *========================================================================**/
     action: function(_action, _pageNum) {
         if (_pageNum == 0) {
@@ -54,7 +58,13 @@ let adminUI = {
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        Swal.fire('Removed User!', '', 'success')
+                        if (selectedUserId == client.uid) {
+                            alert.error("You cannot delete yourself!", 002)
+
+                        } else {
+                            admin.actionHandler(selectedUserId, "delete");
+                            Swal.fire('Removed User!', '', 'success')
+                        }
                     } else if (result.isDenied) {
                         Swal.fire('Changes are not saved', '', 'info')
                     }
@@ -78,7 +88,7 @@ let adminUI = {
                         let newUserName = answers[0]
                         let score = answers[1]
                         let highScore = answers[2]
-                        console.log(answers)
+                        admin.actionHandler(selectedUserId, "updateUserInfo", answers)
                         Swal.fire({
                             title: 'Users Information Saved!',
                             confirmButtonText: 'Lovely!'
@@ -104,14 +114,12 @@ let adminUI = {
     appendUserTable: function(_usersName, _usersGameName, _usersAvatar, _usersEmail, _usersScore, _usersHighScore, _usersPhoneNum, _usersUid) {
         var content = '';
         let usesrId = toString(_usersUid);
-        console.log(usesrId)
         content += '<tr data-userId="' + _usersUid + '">';
         content += '<td><img src="' + _usersAvatar + '" class="rounded-circle" width="20" height="20"></td>';
         content += '<td>' + _usersName + '</td>';
         content += '<td>' + _usersEmail + '</td>';
         content += '<td>' + _usersScore + '</td>';
         content += '<td>' + _usersHighScore + '</td>';
-        content += '<td> <button id="admin-selectButton" onclick="adminUI.selectButtonHandler(' + usesrId + ')">Select</button></td>';
         content += '</tr>';
         $('#admin_userlist-table').append(content);
     },
@@ -123,8 +131,7 @@ let adminUI = {
      *@return n/a
      *========================================================================**/
     userCardUI: function(_selectedUser) {
-        console.log("adminUI.userCardUI | Funneled " + _selectedUser.name + "'s information!")
-            // create DOM references for HTML page
+        debug.handler("adminUI.userCardUI | Funneled " + _selectedUser.name + "'s information!", 'info');
         let avatarHTML = document.getElementById('admin_selectedUserCard-avatar')
         let userNameHTML = document.getElementById('admin_selectedUserCard-username')
         let emailHTML = document.getElementById('admin_selectedUserCard-email')
@@ -144,8 +151,11 @@ let adminUI = {
      *@param name type  
      *@return type
      *========================================================================**/
-    selectButtonHandler: function(_uid) {
-        console.log("adminUI.selectButtonHandler | Select button called, gotta dash!")
-        admin.userCard(_uid)
+    tableRowClickListener: function() {
+        $('tr').click(function() {
+            let selectedData = $(this).attr("data-userId")
+            selectedUserId = $(this).attr("data-userId")
+            admin.userCard(selectedData);
+        });
     },
 }

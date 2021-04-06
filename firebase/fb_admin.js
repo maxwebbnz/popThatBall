@@ -16,7 +16,7 @@ let admin = {
      *@return n/a
      *========================================================================**/
     userGroupsHandler: function(_action, _uid) {
-        console.log("admin.userGroupsHandler | Performed " + _action);
+        debug.handler("admin.userGroupsHandler | Performed " + _action, "info");
     },
     /**========================================================================
      **                           Read User Table
@@ -26,13 +26,12 @@ let admin = {
      *@return type
      *========================================================================**/
     readUserTable: function() {
-        console.log("Reading")
+        $("#admin_userlist-table tbody").children().remove()
         let users = [];
         let userPath = firebase.database().ref("users")
         userPath.once('value').then(
             (_snapshot) => {
                 _snapshot.forEach(function(childSnapshot) {
-                    console.log(childSnapshot.val())
                     let retrievedUser = {
                         "name": childSnapshot.child("name").val(),
                         "gameName": childSnapshot.child("gameName").val(),
@@ -45,6 +44,7 @@ let admin = {
                     }
                     users.push(retrievedUser);
                 })
+                debug.handler("admin.readUserTable | Successfully read through user table, appending user table", "info")
                 for (i = users.length; i--;) {
                     adminUI.appendUserTable(
                         users[i].name,
@@ -59,7 +59,7 @@ let admin = {
                 }
             }, (error) => {
                 if (error) {
-                    console.warn("fb_admin.readUserTable  | Error: " + error)
+                    debug.handler("fb_admin.readUserTable  | Error: " + error, "error")
                     alert.error("We couldn't show you data for admins! " + error)
                 }
             });
@@ -72,19 +72,18 @@ let admin = {
      *@return n/a
      *========================================================================**/
     userRoles: function(_userToken) {
-        console.log("admin.userRoles | Checking for user role")
+        debug.handler("admin.userRoles | Checking for user role", "info")
         let userRolesDB = firebase.database().ref("userRoles").child(_userToken)
         userRolesDB.get().then(function(snapshot) {
-            console.log(snapshot.child('rank').val())
             if (snapshot.child('rank').val() == "admin") {
-                console.log("admin.userRoles | User is admin, displaying button")
+                debug.handler("admin.userRoles | User is admin, displaying button", "info")
                 $('#admincenter-button').fadeIn();
                 client.admin = true;
             } else {
-                console.log("admin.userRoles | User is not admin")
+                debug.handler("admin.userRoles | User is not admin", "warn")
             }
         }).catch(function(error) {
-            console.error(error);
+            debug.handler("admin.userRoles | Error checking for permissons", "error");
         });
     },
 
@@ -96,7 +95,7 @@ let admin = {
      *========================================================================**/
     userCard: function(_uid) {
 
-        console.log("admin.userCard | Generating uer information for " + _uid);
+        debug.handler("admin.userCard | Generating uer information for " + _uid, "info");
         let selectedUserInfo = {};
         let userPath = firebase.database().ref("users/" + _uid)
         userPath.get().then(function(snapshot) {
@@ -108,7 +107,39 @@ let admin = {
             }
             adminUI.userCardUI(selectedUserInfo)
         }).catch(function(error) {
-            console.error(error);
+            debug.handler("admin.userCard | Error generating user card", "error");
         });
-    }
+    },
+    /**========================================================================
+     **                           Action Handler
+     *?  Handles actions made towards the selected user in the admin module
+     *@param name type  
+     *@param _userId unique identifer  
+     *@return n/a
+     *========================================================================**/
+    actionHandler: function(_userId, _action, _newInfo) {
+        debug.handler("admin.actionHandler | Performing action of: " + _action, "info")
+        if (_action == "delete") {
+            // we dont want the user to be able to delete themselves
+            firebase.database().ref("users/" + _userId).remove()
+            debug.handler("admin.actionHandler | Successfully deleted user: " + _userId, "info");
+            // update user table with new Information
+            this.readUserTable()
+        }
+        if (_action == "updateUserInfo") {
+            let newName = _newInfo[0]
+            let score = _newInfo[1]
+            let highScore = _newInfo[1]
+            firebase.database().ref("users/" + _userId).update({
+                name: newName,
+                score: score,
+                highScore: highScore
+            }).catch(function(error) {
+                alert.error("We couldn't update the users information", error)
+            })
+            debug.handler("admin.actionHandler | Successfully updated information for user: " + _userId, "info");
+            // update user table with new Information
+            this.readUserTable()
+        }
+    },
 }

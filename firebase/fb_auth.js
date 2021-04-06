@@ -28,12 +28,12 @@ let auth = {
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
                 .then(function() {
                     provider = new firebase.auth.GoogleAuthProvider();
-                    console.log("fb_auth | Starting Authentication process")
+                    debug.handler("fb_auth | Starting Authentication process", "info")
                     return firebase.auth().signInWithPopup(provider).then(function(result) {
                             var token = result.credential.accessToken;
                             let fb_result = result.user;
                             fb_initUserData(fb_result.uid, fb_result)
-                            console.log("auth.login | Authentication Process Successful")
+                            debug.handler("auth.login | Authentication Process Successful", "info")
                             authStatus = true;
                             alert.authSuccess();
                         })
@@ -41,7 +41,7 @@ let auth = {
                             // Handle Errors here.
                             var errorCode = error.code;
                             var errorMessage = error.message;
-                            console.warn("fb_auth | Error: " + errorMessage)
+                            debug.handler("fb_auth | Error: " + errorMessage, "warn")
                             alert.error("We couldn't log you in, " + error)
 
                         });
@@ -57,7 +57,7 @@ let auth = {
      *=============================================**/
     profileHandler: function() {
         if (authStatus) {
-            console.log("fb_profileHandler | Displaying User's profile")
+            debug.handler("fb_profileHandler | Displaying User's profile", "info");
             profilePage.show();
         } else if (!authStatus) {
             this.login(google)
@@ -73,7 +73,7 @@ let auth = {
         firebase.auth().signOut().then(() => {
             alert.success("You signed out!")
         }).catch((error) => {
-            console.log(error)
+            debug.handler("auth.logout | ", error)
             alert.warn("We couldn't log you out, please try again'")
         });
     }

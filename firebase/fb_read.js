@@ -10,7 +10,7 @@ function fb_initUserData(_userToken, _userObject) {
     db.once('value', (snapshot) => {
         if (snapshot.val() == null) {
             // store data to firebase
-            console.log("fb_initUserData | User's first time on site, recording infomation!")
+            debug.handler("fb_initUserData | User's first time on site, recording infomation!", info)
             firebase.database().ref('users/' + _userToken).set({
                 name: _userObject.displayName,
                 email: _userObject.email,
@@ -21,25 +21,24 @@ function fb_initUserData(_userToken, _userObject) {
                 highScore: 0,
                 // in terms of postion in array
                 currentLevel: 1,
+                sound: true,
+                debug: false,
             });
             let tokenParse = _userToken
             registration.parseUserId(tokenParse)
             fb_initUserData(tokenParse)
         } else {
             const userData = snapshot.val();
-            console.log("fb_initUserData | User has logged in before, no need to write more data")
-                // write data to local variables
-                // now it needs to read data
+            debug.handler("fb_initUserData | User has logged in before, no need to write more data", 'info')
             client = userData;
-            // set game variables to userData
             hits = client.hits
             misses = client.misses
             score = client.score
+            soundOn = client.sound
+            debugOn = client.debug
             let uid = client.uid
-            console.log("fb_initUserData | User Data Table below.")
-            console.table(client)
+            debug.handler("fb_initUserData | User Data Table below.", 'info')
             admin.userRoles(uid)
-                // assign new html infomation
             html_append();
 
         }

@@ -38,6 +38,7 @@
     <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
     <link rel="stylesheet" href="sweetalert2.css">
     <!-- Local Files  -->
+    <script src="ui/ui_debug.js"></script>
     <!-- Firebase Modules -->
     <script src="firebase/fb_init.js"></script>
     <script src="firebase/fb_admin.js"></script>
@@ -63,6 +64,7 @@
     <!-- UI Modules -->
     <script src="ui/ui_alert.js"></script>
     <script src="ui/ui_admin.js"></script>
+    <script src="ui/ui_settings.js"></script>
     <!-- None here for now -->
     <!-- End of Modules and CDN's -->
     <title>popThatBall!</title>
@@ -92,7 +94,7 @@
         <div class="w3-third w3-container">
             <section id="sidenav">
                 <!-- Navbar header -->
-                <h2><i class="bi bi-gear-fill float-right" style="padding-right: 9px;" onclick="console.log('hello')"></i></h2>
+                <h2><i class="bi bi-gear-fill float-right" style="padding-right: 9px;" onclick="userSettings.uiComponent('show')"></i></h2>
                 <h1 class="display-4" style="padding-left: 9%; text-align: center;">popThatBall</h1>
                 <p style="text-align: center;"><i>It's simple, just click on the ball!</i></p>
                 <hr>
@@ -290,8 +292,9 @@
                             <div class="btn-group" style="margin-top: 9px;">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Actions</button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="admin_selectedUserCard-deleteuser">Delete User</a></li>
-                                    <li><a class="dropdown-item" id="admin_selectedUserCard-edituserinfo">Edit User Information</a></li>
+                                    <li>
+                                        <a class="dropdown-item" id="admin_selectedUserCard-deleteuser" onclick="adminUI.action('deleteUser',0)">Delete User</a></li>
+                                    <li><a class="dropdown-item " id="admin_selectedUserCard-edituserinfo " onclick="adminUI.action('editUserInfo',0)">Edit User Information</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -302,10 +305,37 @@
         <!-- Page 1 or Logs -->
     </section>
 
-
+    <!-- Settings Module -->
+    <section id="settings">
+        <!-- Modal -->
+        <div id="settings_modal" class="modal fade" tabindex="-1" aria-labelledby="settigs-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">User Preferences</h5>
+                        <button type="button" style="border: none; background-color: white;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="settings_modal-sound" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Sound/Music On</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="settings_modal-debug" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Debugging Mode On</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="userSettings.action()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Alerts and Misc stuff used inside the program -->
     <!-- Small Tooltip -->
-    <div class="alert alert-danger fixed-bottom mx-auto" style="display:none; width: 60%" role="alert">
+    <div class="alert alert-danger fixed-bottom mx-auto " style="display:none; width: 60% " role="alert ">
         <center><b>Timer is still going!</b> Slowing down balls</center>
     </div>
 </body>

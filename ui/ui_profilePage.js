@@ -67,7 +67,7 @@ let profilePage = {
         }
     },
     saveProfileData: function() {
-        console.log("html_profilePage | Updated User data in table");
+        debug.handler("html_profilePage | Updated User data in table", 'info');
         firebase
             .database().ref("users/" + client.uid + "/")
             .update({

@@ -26,9 +26,7 @@ let leaderBoard = {
         leaderboard.once('value').then(
             (_snapshot) => {
                 _snapshot.forEach(function(childSnapshot) {
-                    // console.log(childSnapshot.key)
                     scores.unshift(childSnapshot.child("hits"))
-                        // console.log(childSnapshot.child("hits").val())
                     let userObject = {
                         "name": childSnapshot.child("name").val(),
                         "avatar": childSnapshot.child("avatar").val(),
@@ -38,11 +36,9 @@ let leaderBoard = {
                         "userToken": childSnapshot.key
                     }
                     storedLeaderBoardInfo.push(userObject)
-                        // console.log(storedLeaderBoardInfo)
                 })
                 for (i = storedLeaderBoardInfo.length; i--;) {
                     this.appendTable(storedLeaderBoardInfo[i].avatar, storedLeaderBoardInfo[i].name, storedLeaderBoardInfo[i].hits, storedLeaderBoardInfo[i].misses, storedLeaderBoardInfo[i].userAverage)
-                        // console.log(storedLeaderBoardInfo[i].name)
                 }
             });
     },
@@ -78,18 +74,16 @@ let leaderBoard = {
     handler: function(_lvlnum, _method) {
         if (authStatus) {
             if (_method == "close") {
-                console.log("leaderboard.handler | Hiding leaderboard")
+                debug.handler("leaderboard.handler | Hiding leaderboard", "info")
                 $("#ldbrd").fadeOut();
                 $('.navbar-nav li').remove();
             } else if (_method == true) {
-                console.log("leaderboard.handler | Changing to level " + _lvlnum)
-                    // removing content out of the array
+                debug.handler("leaderboard.handler | Changing to level " + _lvlnum, "info")
                 storedLeaderBoardInfo.length = 0;
-                // then removing the current info on the page
                 $("#ldbrd_scoreboard-table tbody").children().remove()
                 this.init(_lvlnum);
             } else {
-                console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
+                debug.handler("leaderboard.handler | Showing leaderboard for " + _lvlnum, 'info')
                 $("#ldbrd").fadeIn();
                 this.init(_lvlnum);
                 this.generateNavBarLinks();
@@ -106,7 +100,6 @@ let leaderBoard = {
      *@return n/a
      *========================================================================**/
     storeLeaderBoardData: function(_id, _tableofval, _currentLevel) {
-        // console.log(_id + _valInput)
         firebase.database().ref('scoreBoard/level' + _currentLevel + "/" + _id).update({
             name: _tableofval.name,
             avatar: _tableofval.avatar,
@@ -115,11 +108,11 @@ let leaderBoard = {
             score: _tableofval.score,
         }, (error) => {
             if (error) {
-                console.warn("leaderboard.storeLeaderBoardData | Error: " + error)
+                debug.handler("leaderboard.storeLeaderBoardData | Error: " + error, 'error')
                 alert.error("We couldn't show some stuff on the leaderboard, Error:" + error)
 
             } else {
-                console.log("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id + " in level " + _currentLevel)
+                debug.handler("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id + " in level " + _currentLevel, 'info')
             }
         });
     },
@@ -131,18 +124,9 @@ let leaderBoard = {
      *@param name type  
      *@return n/a
      *========================================================================**/
-    /*                        <li class="nav-item">
-    <
-    a class = "nav-link active"
-    aria - current = "page"
-    href = "#"
-    onclick = "leaderBoard.handler(1, 'changeLeaderboard')" > Level 1 < /a> <
-    /li>
-    */
     generateNavBarLinks: function() {
-        // append navigation bar class
         for (var i = 0; i < levels.length; i++) {
-            console.log("leaderBoard.generateNavBarLinks | Generated navigation links")
+            debug.handler("leaderBoard.generateNavBarLinks | Generated navigation links", 'info')
             var content = '';
             content += '<li class="nav-item">';
             content += '<a class="nav-link active leaderboardLevel' + levels[i].identifer + '"aria-current="page" href="#"';
