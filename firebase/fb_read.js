@@ -33,7 +33,7 @@ function fb_initUserData(_userToken, _userObject) {
             client = userData;
             hits = client.hits
             misses = client.misses
-            score = client.score
+            score = Math.round((client.score + Number.EPSILON) * 100) / 100
             soundOn = client.sound
             debugOn = client.debug
             let uid = client.uid

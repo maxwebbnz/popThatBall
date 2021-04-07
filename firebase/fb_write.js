@@ -49,7 +49,7 @@ let fb_store = {
                 debug.handler("fb_store (highScore) | Error: " + error, error)
                 alert.error("We couldn't save some data, Error:" + error)
             } else {
-                debug.handler("fb_store (highScore) | Stored data for " + _id + " with the value of " + _valInput, info)
+                debug.handler("fb_store (highScore) | Stored data for " + _id + " with the value of " + _valInput, 'info')
 
             }
         });

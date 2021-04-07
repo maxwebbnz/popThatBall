@@ -76,5 +76,6 @@ let auth = {
             debug.handler("auth.logout | ", error)
             alert.warn("We couldn't log you out, please try again'")
         });
-    }
+    },
+
 }

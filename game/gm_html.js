@@ -89,7 +89,7 @@ function html_append() {
     clNameHTML.innerHTML = client.name;
     clHitsHTML.innerHTML = client.hits;
     clMissesHTML.innerHTML = client.misses;
-    clScoreHTML.innerHTML = client.score;
+    clScoreHTML.innerHTML = Math.round((client.score + Number.EPSILON) * 100) / 100;
     clHighScoreHTML.innerHTML = client.highScore;
     clAvatar.src = client.profileURL;
     clLevel.innerHTML = client.currentLevel;
