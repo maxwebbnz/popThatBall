@@ -84,11 +84,8 @@ let adminUI = {
                     'High Score'
                 ]).then((result) => {
                     if (result.value) {
-                        const answers = JSON.stringify(result.value)
-                        let newUserName = answers[0]
-                        let score = answers[1]
-                        let highScore = answers[2]
-                        admin.actionHandler(selectedUserId, "updateUserInfo", answers)
+                        // console.log(result.value)
+                        admin.actionHandler(selectedUserId, "updateUserInfo", result.value)
                         Swal.fire({
                             title: 'Users Information Saved!',
                             confirmButtonText: 'Lovely!'

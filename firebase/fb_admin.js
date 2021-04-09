@@ -115,6 +115,8 @@ let admin = {
      *?  Handles actions made towards the selected user in the admin module
      *@param name type  
      *@param _userId unique identifer  
+     *@param _action string 
+     *@param _newInfo array 
      *@return n/a
      *========================================================================**/
     actionHandler: function(_userId, _action, _newInfo) {
@@ -128,8 +130,8 @@ let admin = {
         }
         if (_action == "updateUserInfo") {
             let newName = _newInfo[0]
-            let score = _newInfo[1]
-            let highScore = _newInfo[1]
+            let score = parseInt(_newInfo[1])
+            let highScore = parseInt(_newInfo[2])
             firebase.database().ref("users/" + _userId).update({
                 name: newName,
                 score: score,

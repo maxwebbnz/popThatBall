@@ -71,7 +71,7 @@ let userSettings = {
             alert.error("Couldn't store users preferences, please try again later.");
             debug.handler("settings | Couldn't store users preferences: " + err, 'error')
         })
-        alert.success("Updated users preferences")
+        alert.successDismissed("Updated users preferences")
         debug.handler("userSettings | Updating user preferences", 'info');
         this.uiComponent("hide")
     }

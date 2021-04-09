@@ -1,12 +1,11 @@
 {
     "rules": {
         "users": {
-            ".read": "auth !== null",
-            ".write": "auth !== null || auth.uid == 'mHs1wfMniTeIvVlxC6XIzTkGBdg1'",
+            ".read": "root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'",
             "$uid": {
                 // Users that match the path's user Id can read and write
-                ".read": "$uid == auth.uid || root.child('userRoles').child(auth.uid).child(auth.uid).val() == 'admin'",
-                ".write": "$uid == auth.uid || root.child('userRoles').child(auth.uid).child(auth.uid).val() == 'admin'",
+                ".read": "$uid === auth.uid || root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'",
+                ".write": "$uid === auth.uid ||  root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'",
                 "uid": {
                     ".validate": "true"
                 },

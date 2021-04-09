@@ -10,7 +10,7 @@ function fb_initUserData(_userToken, _userObject) {
     db.once('value', (snapshot) => {
         if (snapshot.val() == null) {
             // store data to firebase
-            debug.handler("fb_initUserData | User's first time on site, recording infomation!", info)
+            debug.handler("fb_initUserData | User's first time on site, recording infomation!", "info")
             firebase.database().ref('users/' + _userToken).set({
                 name: _userObject.displayName,
                 email: _userObject.email,

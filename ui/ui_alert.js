@@ -66,7 +66,7 @@ let alert = {
     authSuccess: function() {
         debug.handler("alert.authSuccess | User Successfully logged in, now showing success information", 'info')
         Swal.fire({
-            position: 'top-end',
+            position: 'center',
             icon: 'success',
             title: 'Woohoo! You logged in!',
             showConfirmButton: false,
@@ -74,4 +74,23 @@ let alert = {
             timer: 1600
         })
     },
+    /**========================================================================
+     **                           Success Dismissed
+     *?  Gets success information from any function, and displays it then automatically dismissed it.
+     *@param name type  
+     *@param name type  
+     *@return type
+     *========================================================================**/
+    successDismissed: function(_info) {
+        debug.handler("alert.successDismissed | Displayed success with value of: " + _info, 'info')
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Success!',
+            text: _info,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 1600
+        })
+    }
 }
