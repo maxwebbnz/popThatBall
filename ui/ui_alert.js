@@ -92,5 +92,33 @@ let alert = {
             timerProgressBar: true,
             timer: 1600
         })
+    },
+    /**========================================================================
+     **                           Game Finished
+     *?  Handles pop up when game is finished :D
+     *@param name type  
+     *@param name type  
+     *@return type
+     *========================================================================**/
+    gameFinished: function() {
+        debug.handler("alert.gameFinished | User fiished game, handling pop up", "info")
+        Swal.fire({
+            title: 'Well done you finished the game!',
+            text: "Want to reset your data to play again?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, reset it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fb_store.resetUserData(client.uid);
+                Swal.fire(
+                    'Data reset!',
+                    'Your data has been reset',
+                    'success'
+                )
+            }
+        })
     }
 }

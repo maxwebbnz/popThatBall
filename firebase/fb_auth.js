@@ -35,6 +35,7 @@ let auth = {
                             fb_initUserData(fb_result.uid, fb_result)
                             debug.handler("auth.login | Authentication Process Successful", "info")
                             authStatus = true;
+                            $('#landingPage').fadeOut();
                             alert.authSuccess();
                         })
                         .catch(function(error) {
@@ -72,6 +73,7 @@ let auth = {
     logout: function() {
         firebase.auth().signOut().then(() => {
             alert.success("You signed out!")
+            location.reload();
         }).catch((error) => {
             debug.handler("auth.logout | ", error)
             alert.warn("We couldn't log you out, please try again'")

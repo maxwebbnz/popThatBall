@@ -15,8 +15,8 @@ class Ball {
         this.x = _x;
         this.y = _y;
         this.r = _r;
-        this.speedX = random(velRange) * levels[level].velInt
-        this.speedY = random(velRange) * levels[level].velInt
+        this.speedX = random(velRange) * levels[level - 1].velInt
+        this.speedY = random(velRange) * levels[level - 1].velInt
         this.colour = (_col);
         this.paused = false;
     };

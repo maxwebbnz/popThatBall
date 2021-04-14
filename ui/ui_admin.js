@@ -84,7 +84,6 @@ let adminUI = {
                     'High Score'
                 ]).then((result) => {
                     if (result.value) {
-                        // console.log(result.value)
                         admin.actionHandler(selectedUserId, "updateUserInfo", result.value)
                         Swal.fire({
                             title: 'Users Information Saved!',

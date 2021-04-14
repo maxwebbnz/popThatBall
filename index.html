@@ -32,7 +32,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
-
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
     <!-- Sweetalert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
@@ -87,6 +89,20 @@
 </header>
 
 <body>
+    <!-- Home/Landing Page -->
+    <section id="landingPage">
+        <div id="landingPage-Header">
+            <h1 class="display-1">popThatBall</h1>
+            <h5 class="display-4">Login below</h5>
+        </div>
+        <center>
+            <hr style="width: 50%">
+        </center>
+        <div id="landingPage-authSection">
+            <button type="button" class="btn btn-success btn-lg" onclick="auth.profileHandler()"><i class="bi bi-google"></i> | Login with Google</button>
+
+        </div>
+    </section>
     <div class="w3-row">
         <div class="w3-threequarter w3-container">
             <section id="canvas">
@@ -131,7 +147,8 @@
                         </div>
                         <div class="col">
                             <h2 class="display-6">Welcome, <span id="p_name"></span></h2>
-                            <button class="btn btn-primary btn-sml" onclick="auth.profileHandler()">Profile Page</button>
+                            <button class="btn btn-dark btn-sml" onclick="auth.logout()"><i class="bi bi-box-arrow-left"> | Logout</i></button>
+                            <button class="btn btn-primary btn-sml" onclick="profilePage.show()">Profile Page</button>
                         </div>
                     </div>
                 </div>

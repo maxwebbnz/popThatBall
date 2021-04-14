@@ -75,5 +75,28 @@ let fb_store = {
 
             }
         });
+    },
+    /**========================================================================
+     **                           Reset User Game Data
+     *?  Handles the resetting and storing of new game data for clients
+     *@param uid unique identifer  
+     *@return n/a
+     *========================================================================**/
+    resetUserData: function(_id) {
+        debug.handler('fb_store.resetUserData | Resetting ' + _id + "'s game data")
+        firebase.database().ref('users/' + _id + "/").update({
+            currentLevel: 1,
+            score: 0,
+            hits: 0,
+            misses: 0,
+        }, (error) => {
+            if (error) {
+                debug.handler("fb_store.resetUserData | Error: " + error, 'error')
+                alert.error("We couldn't reset some of your data :(, Error:" + error)
+            } else {
+                debug.handler("fb_store (fb_store.resetUserData) | Reset data for " + _id)
+
+            }
+        });
     }
 }

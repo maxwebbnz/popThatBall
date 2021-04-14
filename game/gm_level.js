@@ -22,18 +22,23 @@ let levelModule = {
             level = level + 1
             client.currentLevel = level
             var lvl = levels[level - 1]
-            var lvlIndentifer = lvl.identifer
-            var lvlBallAmount = lvl.balls
-            var lvlBallSpeed = lvl.speed
-            timerVal = lvl.timeLimit
-            document.getElementById('g_level').innerHTML = lvlIndentifer
-            sound.play(clockTick, false)
-            scoreModule.handler("setToZero")
-            debug.handler("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed, 'info')
-            if (client.highScore < highScore) {
-                fb_store.highScore(client.uid, highScore)
+                // stop errors before they happen
+            if (typeof lvl == 'undefined') {
+                alert.gameFinished("You have completed the game! Well done, want to reset your progress")
+            } else {
+                var lvlIndentifer = lvl.identifer
+                var lvlBallAmount = lvl.balls
+                var lvlBallSpeed = lvl.velInt
+                timerVal = lvl.timeLimit
+                document.getElementById('g_level').innerHTML = lvlIndentifer
+                sound.play(clockTick, false)
+                scoreModule.handler("setToZero")
+                debug.handler("gm_level | Changing to level #" + lvlIndentifer + " with an amount of balls of " + lvlBallAmount + " with the speed of " + lvlBallSpeed, 'info')
+                if (client.highScore < highScore) {
+                    fb_store.highScore(client.uid, highScore)
+                }
+                core.generateBalls(lvlBallAmount, lvlBallSpeed)
             }
-            core.generateBalls(lvlBallAmount, lvlBallSpeed)
         } else if (_lvlset) {
             var lvl = levels[_lvlnum - 1]
             var lvlIndentifer = lvl.identifer
