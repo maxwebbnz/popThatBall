@@ -130,7 +130,7 @@ let alert = {
             position: 'center',
             title: 'Loading',
             showConfirmButton: false,
-            timerProgressBar: true,
+            timerProgressBar: false,
             timer: 100000
         })
     }

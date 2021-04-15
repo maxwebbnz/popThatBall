@@ -147,8 +147,8 @@
                         </div>
                         <div class="col">
                             <h2 class="display-6">Welcome, <span id="p_name"></span></h2>
-                            <button class="btn btn-dark btn-sml" onclick="auth.logout()"><i class="bi bi-box-arrow-left"> | Logout</i></button>
                             <button class="btn btn-primary btn-sml" onclick="profilePage.show()">Profile Page</button>
+                            <button class="btn btn-primary btn-sml" onclick="auth.logout()"><i class="bi bi-box-arrow-left"></i> | Logout</button>
                         </div>
                     </div>
                 </div>
@@ -344,6 +344,11 @@
                             <input class="form-check-input" id="settings_modal-debug" type="checkbox" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Debugging Mode On</label>
                         </div>
+                        <div class="form-check form-switch">
+                            <label for="settings_modal-volume" class="form-label">Volume</label>
+                            <input type="range" class="form-range" min="0" max="1" id="settings_modal-volume">
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
