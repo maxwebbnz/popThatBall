@@ -24,30 +24,42 @@ let auth = {
      *@return type (n/a)
      *=============================================**/
     login: function(_provider) {
-        if (_provider == google) {
-            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-                .then(function() {
-                    provider = new firebase.auth.GoogleAuthProvider();
-                    debug.handler("fb_auth | Starting Authentication process", "info")
-                    return firebase.auth().signInWithPopup(provider).then(function(result) {
-                            var token = result.credential.accessToken;
-                            let fb_result = result.user;
-                            fb_initUserData(fb_result.uid, fb_result)
-                            debug.handler("auth.login | Authentication Process Successful", "info")
-                            authStatus = true;
-                            $('#landingPage').fadeOut();
-                            alert.authSuccess();
-                        })
-                        .catch(function(error) {
-                            // Handle Errors here.
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            debug.handler("fb_auth | Error: " + errorMessage, "warn")
-                            alert.error("We couldn't log you in, " + error)
+        alert.loading()
+        firebase.auth().onAuthStateChanged(function(_user) {
+            if (_user) {
+                swal.close();
+                fb_initUserData(_user.uid, _user)
+                debug.handler("auth.login | Authentication Process Successful", "info")
+                authStatus = true;
+                $('#landingPage').fadeOut();
+            } else if (!_user) {
+                if (_provider == google) {
+                    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                        .then(function() {
+                            provider = new firebase.auth.GoogleAuthProvider();
+                            debug.handler("fb_auth | Starting Authentication process", "info")
+                            return firebase.auth().signInWithPopup(provider).then(function(result) {
+                                    swal.close();
+                                    var token = result.credential.accessToken;
+                                    let fb_result = result.user;
+                                    fb_initUserData(fb_result.uid, fb_result)
+                                    debug.handler("auth.login | Authentication Process Successful", "info")
+                                    authStatus = true;
+                                    $('#landingPage').fadeOut();
+                                    alert.authSuccess();
+                                })
+                                .catch(function(error) {
+                                    // Handle Errors here.
+                                    var errorCode = error.code;
+                                    var errorMessage = error.message;
+                                    debug.handler("fb_auth | Error: " + errorMessage, "warn")
+                                    alert.error("We couldn't log you in, " + error)
 
-                        });
-                })
-        }
+                                });
+                        })
+                }
+            }
+        });
     },
     /**==============================================
      **              Profile Handler

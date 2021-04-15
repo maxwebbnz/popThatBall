@@ -120,5 +120,18 @@ let alert = {
                 )
             }
         })
+    },
+    /**========================================================================
+     **                           Loading
+     *?  Generates a loading alert (mostly used in auth processes)
+     *========================================================================**/
+    loading: function() {
+        Swal.fire({
+            position: 'center',
+            title: 'Loading',
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 100000
+        })
     }
 }
