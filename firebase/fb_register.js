@@ -32,7 +32,6 @@ let registration = {
     show: function() {
         $("#registrationModule").fadeIn();
         $("#registrationModule").show();
-        3
 
     },
     /**========================================================================
@@ -55,6 +54,7 @@ let registration = {
         userDetails.city = document.getElementById('regCity').value
         userDetails.gender = document.getElementById('regGender').value
         this.storeUserData(userDetails)
+        console.log(userDetails)
     },
     /**========================================================================
      **                           Store User Data

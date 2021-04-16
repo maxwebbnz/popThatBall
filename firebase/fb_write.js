@@ -18,11 +18,11 @@ let fb_store = {
      *@param error callback
      *@return n/a
      *========================================================================**/
-    score: function(_id, _valInput1, _valInput2) {
+    score: function(_id, _valInput1, _valInput2, _valInput3) {
         firebase.database().ref('users/' + _id + "/").update({
             hits: _valInput1,
             misses: _valInput2,
-            score: _valInput1 / _valInput2,
+            score: _valInput3,
         }, (error) => {
             if (error) {
                 debug.handler("fb_store (hits) | Error: " + error, 'warn')

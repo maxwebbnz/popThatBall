@@ -10,7 +10,7 @@ let scoreModule = {
             score = Math.round(scoreNotRounded)
             document.getElementById("p_hits").innerHTML = hits;
             document.getElementById("p_score").innerHTML = score;
-            fb_store.score(client.uid, hits, misses)
+            fb_store.score(client.uid, hits, misses, score)
             if (highScore < hits) {
                 highScore = hits;
                 document.getElementById("p_highscore").innerHTML = highScore;

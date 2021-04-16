@@ -18,7 +18,7 @@ let authStatus = false;
 let auth = {
     /**==============================================
      **              Login Function
-     *?   Handles Logining users
+     *?   Handles logging in users
      *@param name type 
      *@param _provider selected auth method 
      *@return type (n/a)
