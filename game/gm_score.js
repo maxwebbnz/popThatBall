@@ -2,7 +2,17 @@
  * Copyright (c) 2021 Max Webb
  * All rights reserved.
  */
+
+/**========================================================================
+ *                           Score module
+ *========================================================================**/
 let scoreModule = {
+    /**========================================================================
+     **                           Score Handler
+     *?  Handles ALL score functions, events and actions
+     *@param _action method transleted by a string  
+     *@return n/a
+     *========================================================================**/
     handler: function(_action) {
         if (_action == "add") {
             hits = hits + 1;

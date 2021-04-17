@@ -119,7 +119,7 @@ function setup() {
     fb_init()
     frameRate(6)
         // make the canvas not go under/over the navbar (400 is the width of the navbar)
-    canvas = createCanvas(viewPortWidth - 400, viewPortHeight)
+    canvas = createCanvas(viewPortWidth, viewPortHeight)
     canvas.parent("#canvas")
     canvas.position(0, 0)
     canvas.style('z-index', '-1')
@@ -185,7 +185,11 @@ function mouseIsOnCanvas() {
 }
 
 function windowResized() {
-    resizeCanvas(windowWidth - 400, windowHeight);
+    if (landingPageState) {
+        resizeCanvas(windowWidth, windowHeight)
+    } else {
+        resizeCanvas(windowWidth - 400, windowHeight);
+    }
 }
 
 /**========================================================================

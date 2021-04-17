@@ -4,6 +4,12 @@
  */
 
 let profilePage = {
+    /**========================================================================
+     **                           Show Profile Page
+     *?  Displays the UI Component Profile page
+     *@param name type  
+     *@return n/a
+     *========================================================================**/
     show: function() {
         $("#pp").modal("show");
         let eventButton = document.getElementById("eventFunction");
@@ -16,6 +22,13 @@ let profilePage = {
         clAvatar.src = client.profileURL;
         clEmail.innerHTML = client.email;
     },
+    /**========================================================================
+     **                           Show Editor
+     *?  Displays the editor in the module
+     *@param name type  
+     *@param _hide method transleted by a string  
+     *@return n/a
+     *========================================================================**/
     showEditor: function(_hide) {
         let inputName = document.getElementById("pp_input-name");
         let inputEmail = document.getElementById("pp_input-email");
@@ -66,6 +79,13 @@ let profilePage = {
             }
         }
     },
+    /**========================================================================
+     **                           Save Profile Data
+     *?  Saves and updates the user's information insde the DB
+     *@param name typ
+     *@param name type  
+     *@return type
+     *========================================================================**/
     saveProfileData: function() {
         debug.handler("html_profilePage | Updated User data in table", 'info');
         fb_store.userInformation(client.uid, editorInputs[0].value, editorInputs[1].value)

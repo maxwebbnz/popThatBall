@@ -2,6 +2,13 @@
  * Copyright (c) 2021 Max Webb
  * All rights reserved.
  */
+
+/**========================================================================
+ **                           Init Firebase
+ *?  Setups firebase code for the program
+ *@param name type  
+ *@return n/a
+ *========================================================================**/
 function fb_init() {
     var firebaseConfig = {
         apiKey: "AIzaSyBUvUMLAUUGOslx5tuXRDRTZ8a0JwyakVc",

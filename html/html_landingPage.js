@@ -5,7 +5,7 @@
 /**========================================================================
  *                           Landing Page Module
  *========================================================================**/
-
+let landingPageState = true
 let landingPage = {
     /**========================================================================
      **                           Show
@@ -29,7 +29,10 @@ let landingPage = {
      *@return type
      *========================================================================**/
     hide: function() {
+        $('#sidenav').fadeIn();
+        resizeCanvas(windowWidth - 400, windowHeight);
         $('#landingPage').fadeOut();
         Balls.length = 0;
+        landingPageState = false;
     }
 }

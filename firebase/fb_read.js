@@ -5,6 +5,13 @@
 
 let client;
 
+/**========================================================================
+ **                           Init User Data
+ *?  Reads the users data from the database or stores new information into the database
+ *@param _userToken user identifer  
+ *@param _userObject table of user attrubites
+ *@return n/a
+ *========================================================================**/
 function fb_initUserData(_userToken, _userObject) {
     var db = firebase.database().ref('users/' + _userToken)
     db.once('value', (snapshot) => {
