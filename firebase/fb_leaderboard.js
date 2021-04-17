@@ -22,7 +22,7 @@ let leaderBoard = {
      *========================================================================**/
     init: function(_levelNum) {
         let scores = []
-        var leaderboard = firebase.database().ref("scoreBoard/level" + _levelNum).orderByChild("hits").limitToLast(100);;
+        var leaderboard = firebase.database().ref("scoreBoard/level" + _levelNum).orderByChild("score").limitToLast(10);;
         leaderboard.once('value').then(
             (_snapshot) => {
                 _snapshot.forEach(function(childSnapshot) {

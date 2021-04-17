@@ -31,7 +31,7 @@ let auth = {
                 fb_initUserData(_user.uid, _user)
                 debug.handler("auth.login | Authentication Process Successful", "info")
                 authStatus = true;
-                $('#landingPage').fadeOut();
+                landingPage.hide();
             } else if (!_user) {
                 if (_provider == google) {
                     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)

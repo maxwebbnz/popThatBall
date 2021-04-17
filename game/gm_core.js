@@ -61,7 +61,6 @@ let core = {
      *========================================================================**/
     showBalls: function() {
         for (let i = 0; i < Balls.length; i++) {
-
             Balls[i].move()
             Balls[i].show()
         }
@@ -133,6 +132,7 @@ function setup() {
     sound.init()
     timerInterval = setInterval(levelModule.timer, levelModuleTimerRate);
     // being able to use gm_messageHandler as a timer
+    landingPage.show();
 }
 
 /**========================================================================
@@ -149,7 +149,7 @@ function draw() {
     core.showBalls();
     fill(255);
     // needs to be checked everytime draw is ran.
-    html_updateGameState();
+    html_game.gameStateHandler();
     if (check) {
         levelModule.handler();
     }
@@ -187,3 +187,11 @@ function mouseIsOnCanvas() {
 function windowResized() {
     resizeCanvas(windowWidth - 400, windowHeight);
 }
+
+/**========================================================================
+ **                           landing page handler
+ *?  Generates balls for effect during landing page displayment,
+ *@param name type  
+ *@param name type  
+ *@return type
+ *========================================================================**/

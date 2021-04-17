@@ -98,5 +98,37 @@ let fb_store = {
 
             }
         });
+    },
+    /**========================================================================
+     **                           User Information
+     *? Stores updated user information for the user.
+     *@param _id user's identifer 
+     *@param _valInput information value to be stored
+     *@param _valInput2 2nd information value to be stored
+     *@return type
+     *========================================================================**/
+    userInformation: function(_id, _valInput, _valInput2) {
+        firebase.database().ref("users/" + _id + "/").update({
+            name: _valInput,
+            email: _valInput2,
+        });
+    },
+    /**========================================================================
+     **                           User Settings
+     *? Updates and stores users perferences for their settings.
+     *@param name type  
+     *@param _id user's identifer 
+     *@param _valInput information value to be stored
+     *@param _valInput2 2nd information value to be stored 
+     *@return n/a
+     *========================================================================**/
+    userSettings: function(_id, _valInput, _valInput2) {
+        firebase.database().ref("users/" + _id + "/").update({
+            sound: _valInput,
+            debug: _valInput2,
+        }).catch(function(err) {
+            alert.error("Couldn't store users preferences, please try again later.");
+            debug.handler("settings | Couldn't store users preferences: " + err, 'error')
+        });
     }
 }

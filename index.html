@@ -1,3 +1,4 @@
+/* * Copyright (c) 2021 Max Webb * All rights reserved. */
 <!DOCTYPE html>
 
 <html lang="en">
@@ -68,6 +69,10 @@
     <script src="ui/ui_alert.js"></script>
     <script src="ui/ui_admin.js"></script>
     <script src="ui/ui_settings.js"></script>
+    <!-- HTML Modules -->
+    <script src="html/html_landingPage.js"></script>
+    <script src="html/html_game.js"></script>
+    <script src="html/html_profilePage.js"></script>
     <!-- None here for now -->
     <!-- End of Modules and CDN's -->
     <title>popThatBall!</title>
@@ -143,7 +148,7 @@
                 <div class="container userInfo">
                     <div class="row">
                         <div class="col">
-                            <img id="p_avatar" width="100" height="100" src="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255634-stock-illustration-avatar-icon-male-profile-gray.jpg" alt="Profile" class="rounded-circle">
+                            <img id="p_avatar" width="100" height="100" src="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255634-stock-illustration-avatar-icon-male-profile-gray.jpg" alt="Profile" class="rounded-circle borderx">
                         </div>
                         <div class="col">
                             <h2 class="display-6">Welcome, <span id="p_name"></span></h2>
@@ -198,28 +203,38 @@
             <div class="col-md-6">
                 <label for="regDisplayName" class="form-label">Game Display Name </label>
                 <input type="string" class="form-control" id="regDisplayName">
+                <p id="registrationModule_form-name--error" style='display:none' style="color: red">Please make sure you have included your first and last name</p>
+
             </div>
             <div class="col-md-6">
                 <label for="regPhoneNum" class="form-label">Phone Number <i class="bi bi-phone-fill"></i> </label>
                 <input type="string" class="form-control" id="regPhoneNum">
+                <p id="registrationModule_form-phonenum--error" style='display:none' style="color: red">Is this phone number correct?</p>
+
             </div>
             <div class="col-12">
                 <label for="regSuburb" class="form-label">Suburb <i class="bi bi-house-fill"></i></label>
                 <input type="text" class="form-control" id="regSuburb" placeholder="Johnville">
+                <p id="registrationModule_form-suburb--error" style='display:none' style="color: red">This doesn't look right!</p>
+
             </div>
             <div class="col-md-6">
                 <label for="regCity" class="form-label">City <i class="bi bi-signpost-fill"></i></label>
                 <input type="text" class="form-control" id="regCity">
+                <p id="registrationModule_form-city--error" style='display:none' style="color: red">This doesn't look right!</p>
+
             </div>
             <div class="col-md-4">
                 <label for="regGender" class="form-label">Gender</label>
                 <select id="regGender" class="form-select">
-                <option selected>Choose...</option>
                 <option>Female</option>
                 <option>Male</option>
                 <option>Perfer not to disclose</option>
                 <option>Other</option>  
                 </select>
+                <p id="registrationModule_form-gender--error" style='display:none' style="color: red">This doesn't look right!</p>
+
+
             </div>
             <div class="col-12">
                 <button type="button" onclick="registration.collectUserInput()" class="btn btn-primary">Complete</button>

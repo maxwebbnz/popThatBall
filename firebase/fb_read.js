@@ -10,7 +10,6 @@ function fb_initUserData(_userToken, _userObject) {
     db.once('value', (snapshot) => {
         if (snapshot.val() == null) {
             // store data to firebase
-            console.log(_userObject)
             debug.handler("fb_initUserData | User's first time on site, recording infomation!", "info")
             firebase.database().ref('users/' + _userToken).set({
 
@@ -43,7 +42,7 @@ function fb_initUserData(_userToken, _userObject) {
             let uid = client.uid
             debug.handler("fb_initUserData | User Data Table below.", 'info')
             admin.userRoles(uid)
-            html_append();
+            html_game.update();
 
         }
     });

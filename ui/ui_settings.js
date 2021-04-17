@@ -63,14 +63,9 @@ let userSettings = {
         } else if (debugInput.checked == false) {
             debugOn = false;
         }
-
-        firebase.database().ref('users/' + client.uid).update({
-            sound: soundInput.checked,
-            debug: debugInput.checked
-        }).catch(function(err) {
-            alert.error("Couldn't store users preferences, please try again later.");
-            debug.handler("settings | Couldn't store users preferences: " + err, 'error')
-        })
+        let soundPref = soundInput.checked
+        let debugPref = debugInput.checked
+        fb_store.userSettings(client.uid, soundPref, debugPref)
         alert.successDismissed("Updated users preferences")
         debug.handler("userSettings | Updating user preferences", 'info');
         this.uiComponent("hide")

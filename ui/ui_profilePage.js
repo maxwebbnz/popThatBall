@@ -68,17 +68,12 @@ let profilePage = {
     },
     saveProfileData: function() {
         debug.handler("html_profilePage | Updated User data in table", 'info');
-        firebase
-            .database().ref("users/" + client.uid + "/")
-            .update({
-                name: editorInputs[0].value,
-                email: editorInputs[1].value,
-            });
-        //   then update locally for the remainder of the session
+        fb_store.userInformation(client.uid, editorInputs[0].value, editorInputs[1].value)
+            //  then update locally for the remainder of the session
         client.name = editorInputs[0].value;
         client.email = editorInputs[1].value;
         alert.success("Saved new user data!")
-        html_append();
+        html_game.update();
         // hide modal and reset information
         for (let i = 0; i < editorInputs.length; i++) {
             editorInputs[i].style.display = "none";

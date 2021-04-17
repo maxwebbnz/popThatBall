@@ -8,6 +8,8 @@
  *          This will handle all stuff registration, including data handling
  *========================================================================**/
 let userId;
+let userDetails = {};
+
 let registration = {
     /**========================================================================
      **                           Parse User ID
@@ -47,14 +49,53 @@ let registration = {
      *@return n/a
      *========================================================================**/
     collectUserInput: function() {
-        let userDetails = {};
-        userDetails.displayName = document.getElementById('regDisplayName').value
-        userDetails.phoneNumber = document.getElementById('regPhoneNum').value
-        userDetails.suburb = document.getElementById('regSuburb').value
-        userDetails.city = document.getElementById('regCity').value
-        userDetails.gender = document.getElementById('regGender').value
-        this.storeUserData(userDetails)
-        console.log(userDetails)
+        let nameVaild = false;
+        let phoneVaild = false;
+        let subVaild = false;
+        let cityVaild = false;
+        let genderVaild = false;
+
+        if (validate.nameSpecfic(document.getElementById('regDisplayName').value)) {
+            userDetails.displayName = document.getElementById('regDisplayName').value
+            $('#registrationModule_form-name--error').hide();
+            nameVaild = true
+
+        } else {
+            $('#registrationModule_form-name--error').show();
+        }
+        if (validate.num(document.getElementById('regPhoneNum').value)) {
+            userDetails.phoneNumber = document.getElementById('regPhoneNum').value
+            $('#registrationModule_form-phonenum--error').hide();
+            phoneVaild = true
+
+
+        } else {
+            $('#registrationModule_form-phonenum--error').show();
+        }
+        if (validate.text(document.getElementById('regSuburb').value)) {
+            userDetails.suburb = document.getElementById('regSuburb').value
+            $('#registrationModule_form-sub--error').hide();
+            subVaild = true
+
+
+        } else {
+            $('#registrationModule_form-sub--error').show();
+        }
+        if (validate.text(document.getElementById('regCity').value)) {
+            userDetails.city = document.getElementById('regCity').value
+            $('#registrationModule_form-city--error').hide();
+            cityVaild = true
+
+
+        } else {
+            $('#registrationModule_form-city--error').show();
+        }
+
+
+        if (nameVaild && phoneVaild && cityVaild && subVaild && phoneVaild) {
+            userDetails.gender = document.getElementById('regGender').value
+            this.storeUserData(userDetails)
+        }
     },
     /**========================================================================
      **                           Store User Data
