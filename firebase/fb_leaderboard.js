@@ -77,6 +77,7 @@ let leaderBoard = {
                 debug.handler("leaderboard.handler | Hiding leaderboard", "info")
                 $("#ldbrd").fadeOut();
                 $('.navbar-nav li').remove();
+                $("#ldbrd_scoreboard-table tbody").children().remove()
             } else if (_method == true) {
                 debug.handler("leaderboard.handler | Changing to level " + _lvlnum, "info")
                 storedLeaderBoardInfo.length = 0;

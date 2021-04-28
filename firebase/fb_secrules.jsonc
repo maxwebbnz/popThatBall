@@ -75,7 +75,7 @@
             ".read": "true",
             ".write": "auth != null",
             "$levelNum": {
-                ".indexOn": "hits",
+                ".indexOn": "score",
                 "$uid": {
                     ".validate": "$uid == auth.uid",
                     "name": {
