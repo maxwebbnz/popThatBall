@@ -1,12 +1,11 @@
 {
     "rules": {
         "users": {
-            ".read": "auth != null",
-            ".write": "auth != null",
+            ".read": "root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'",
             "$uid": {
                 // Users that match the path's user Id can read and write
-                ".read": "$uid == auth.uid",
-                ".write": "$uid == auth.uid",
+                ".read": "$uid === auth.uid || root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'",
+                ".write": "$uid === auth.uid ||  root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'",
                 "uid": {
                     ".validate": "true"
                 },
@@ -52,6 +51,12 @@
                 "gameName": {
                     ".validate": "newData.isString() && newData.val().length < 10"
                 },
+                "sound": {
+                    ".validate": "newData.isBoolean()"
+                },
+                "debug": {
+                    ".validate": "newData.isBoolean()"
+                },
                 "$other": {
                     // users should not be able to store any new data through this path.
                     ".validate": false
@@ -62,7 +67,7 @@
             ".read": "true",
             ".write": "auth != null",
             "$levelNum": {
-                ".indexOn": "hits",
+                ".indexOn": "score",
                 "$uid": {
                     ".validate": "$uid == auth.uid",
                     "name": {
@@ -77,6 +82,27 @@
                     "avatar": {
                         ".validate": "true"
                     }
+                }
+            }
+        },
+        "userRoles": {
+            ".read": "true",
+            ".write": "auth.uid == 'mHs1wfMniTeIvVlxC6XIzTkGBdg1'"
+        },
+        "scores": {
+            "$uid": {
+                ".write": "$uid === auth.uid ||  root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'",
+                ".read": "$uid === auth.uid || root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'"
+            },
+            "popThatBall": {
+                "misses": {
+                    ".validate": "newData.isNumber()"
+                },
+                "hits": {
+                    ".validate": "newData.isNumber()"
+                },
+                "score": {
+                    ".validate": "newData.isNumber()"
                 }
             }
         }

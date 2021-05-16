@@ -22,27 +22,23 @@ let leaderBoard = {
      *========================================================================**/
     init: function(_levelNum) {
         let scores = []
-        var leaderboard = firebase.database().ref("scoreBoard/level" + _levelNum).orderByChild("hits").limitToLast(100);;
+        var leaderboard = firebase.database().ref("scoreBoard/level" + _levelNum).orderByChild("score").limitToLast(10);;
         leaderboard.once('value').then(
             (_snapshot) => {
                 _snapshot.forEach(function(childSnapshot) {
-                    // console.log(childSnapshot.key)
                     scores.unshift(childSnapshot.child("hits"))
-                        // console.log(childSnapshot.child("hits").val())
                     let userObject = {
                         "name": childSnapshot.child("name").val(),
                         "avatar": childSnapshot.child("avatar").val(),
                         "hits": childSnapshot.child('hits').val(),
                         "misses": childSnapshot.child('misses').val(),
+                        "userAverage": childSnapshot.child('score').val(),
                         "userToken": childSnapshot.key
                     }
                     storedLeaderBoardInfo.push(userObject)
-                        // console.log(storedLeaderBoardInfo)
                 })
                 for (i = storedLeaderBoardInfo.length; i--;) {
-                    let userAverage = storedLeaderBoardInfo[i].hits / storedLeaderBoardInfo[i].misses
-                    this.appendTable(storedLeaderBoardInfo[i].avatar, storedLeaderBoardInfo[i].name, storedLeaderBoardInfo[i].hits, storedLeaderBoardInfo[i].misses, userAverage)
-                        // console.log(storedLeaderBoardInfo[i].name)
+                    this.appendTable(storedLeaderBoardInfo[i].avatar, storedLeaderBoardInfo[i].name, storedLeaderBoardInfo[i].hits, storedLeaderBoardInfo[i].misses, storedLeaderBoardInfo[i].userAverage)
                 }
             });
     },
@@ -65,7 +61,7 @@ let leaderBoard = {
         content += '<td>' + _userMisses + '</td>';
         content += '<td>' + _userAverage + '</td>';
         content += '</tr>';
-        $('#scoreBoardTable').append(content);
+        $('#ldbrd_scoreboard-table').append(content);
     },
     /**========================================================================
      **                           Handler
@@ -78,19 +74,18 @@ let leaderBoard = {
     handler: function(_lvlnum, _method) {
         if (authStatus) {
             if (_method == "close") {
-                console.log("leaderboard.handler | Hiding leaderboard")
-                document.getElementById("leaderBoardHTML").style.display = "none";
+                debug.handler("leaderboard.handler | Hiding leaderboard", "info")
+                $("#ldbrd").fadeOut();
                 $('.navbar-nav li').remove();
+                $("#ldbrd_scoreboard-table tbody").children().remove()
             } else if (_method == true) {
-                console.log("leaderboard.handler | Changing to level " + _lvlnum)
-                    // removing content out of the array
+                debug.handler("leaderboard.handler | Changing to level " + _lvlnum, "info")
                 storedLeaderBoardInfo.length = 0;
-                // then removing the current info on the page
-                $("#scoreBoardTable tbody").children().remove()
+                $("#ldbrd_scoreboard-table tbody").children().remove()
                 this.init(_lvlnum);
             } else {
-                console.log("leaderboard.handler | Showing leaderboard for " + _lvlnum)
-                document.getElementById("leaderBoardHTML").style.display = "block";
+                debug.handler("leaderboard.handler | Showing leaderboard for " + _lvlnum, 'info')
+                $("#ldbrd").fadeIn();
                 this.init(_lvlnum);
                 this.generateNavBarLinks();
             }
@@ -106,19 +101,19 @@ let leaderBoard = {
      *@return n/a
      *========================================================================**/
     storeLeaderBoardData: function(_id, _tableofval, _currentLevel) {
-        // console.log(_id + _valInput)
         firebase.database().ref('scoreBoard/level' + _currentLevel + "/" + _id).update({
             name: _tableofval.name,
             avatar: _tableofval.avatar,
             hits: _tableofval.hits,
-            misses: _tableofval.misses
+            misses: _tableofval.misses,
+            score: _tableofval.score,
         }, (error) => {
             if (error) {
-                console.warn("leaderboard.storeLeaderBoardData | Error: " + error)
+                debug.handler("leaderboard.storeLeaderBoardData | Error: " + error, 'error')
                 alert.error("We couldn't show some stuff on the leaderboard, Error:" + error)
 
             } else {
-                console.log("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id)
+                debug.handler("leaderboard.storeLeaderBoardData | Stored data leaderboard data for " + _id + " in level " + _currentLevel, 'info')
             }
         });
     },
@@ -130,18 +125,9 @@ let leaderBoard = {
      *@param name type  
      *@return n/a
      *========================================================================**/
-    /*                        <li class="nav-item">
-    <
-    a class = "nav-link active"
-    aria - current = "page"
-    href = "#"
-    onclick = "leaderBoard.handler(1, 'changeLeaderboard')" > Level 1 < /a> <
-    /li>
-    */
     generateNavBarLinks: function() {
-        // append navigation bar class
         for (var i = 0; i < levels.length; i++) {
-            console.log("leaderBoard.generateNavBarLinks | Generated navigation links")
+            debug.handler("leaderBoard.generateNavBarLinks | Generated navigation links", 'info')
             var content = '';
             content += '<li class="nav-item">';
             content += '<a class="nav-link active leaderboardLevel' + levels[i].identifer + '"aria-current="page" href="#"';

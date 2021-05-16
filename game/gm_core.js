@@ -8,9 +8,12 @@ let levelnum = "";
 let gameStopped = false;
 let gameStarted = false;
 let sideNavWidth = 400
-    /**========================================================================
-     *                           Core Module
-     *========================================================================**/
+let frmRate = 60;
+let levelModuleTimerRate = 1000;
+let timerInterval;
+/**========================================================================
+ *                           Core Module
+ *========================================================================**/
 let core = {
     /**========================================================================
      **                           Start
@@ -22,7 +25,7 @@ let core = {
      *========================================================================**/
     start: function() {
         $('.landingPrompt').fadeOut();
-        console.log("core.start | Starting Game")
+        debug.handler("core.start | Starting Game", 'info')
         Balls.length = 0;
         // start level 1 by calling gm_levelchagne() and passing the value of 1 to define level 1
         levelModule.levelChange(client.currentLevel, true);
@@ -58,7 +61,6 @@ let core = {
      *========================================================================**/
     showBalls: function() {
         for (let i = 0; i < Balls.length; i++) {
-
             Balls[i].move()
             Balls[i].show()
         }
@@ -82,7 +84,7 @@ let core = {
                 // change the variable
                 gameStarted = true;
                 // log
-                console.log("gm_gameHandler | Starting Game due to game needing starting")
+                debug.handler("gm_gameHandler | Starting Game due to game needing starting", 'info')
                     // else if the game has started
             } else if (gameStarted) {
                 // set gameStopped to true
@@ -92,7 +94,7 @@ let core = {
                 // stop the game
                 userAction.stop()
                     // logp
-                console.log("gm_gameHandler | Stopping Game")
+                debug.handler("gm_gameHandler | Stopping Game", 'info')
             }
         } else {
             alert.warn("You can't start the game without being logged in")
@@ -115,16 +117,22 @@ function setup() {
     $("#registrationModule").hide();
     // on page load configure firebase
     fb_init()
+    frameRate(6)
         // make the canvas not go under/over the navbar (400 is the width of the navbar)
-    canvas = createCanvas(viewPortWidth - sideNavWidth, viewPortHeight)
+    canvas = createCanvas(viewPortWidth, viewPortHeight)
+    canvas.parent("#canvas")
     canvas.position(0, 0)
     canvas.style('z-index', '-1')
     $(".landingPrompt").fadeIn()
     core.generateBalls();
-    // load sound config
+    canvas.mouseOut(mouseIsOffCanvas)
+    canvas.mouseOver(mouseIsOnCanvas)
+    canvas.mouseClicked(userAction.mouseClickedOnCanvas)
+        // load sound config
     sound.init()
-    setInterval(levelModule.timer, 1000);
+    timerInterval = setInterval(levelModule.timer, levelModuleTimerRate);
     // being able to use gm_messageHandler as a timer
+    landingPage.show();
 }
 
 /**========================================================================
@@ -141,8 +149,53 @@ function draw() {
     core.showBalls();
     fill(255);
     // needs to be checked everytime draw is ran.
-    html_updateGameState();
+    html_game.gameStateHandler();
     if (check) {
         levelModule.handler();
     }
+    if (adminOpen) {
+        adminUI.tableRowClickListener();
+    }
+
 }
+
+/**========================================================================
+ **                           Mouse is Off Canvas
+ *?  This function is used to listen for CANVAS and mouse movements, it handles 'stopping the game
+ *@param name type  
+ *@return n.a
+ *========================================================================**/
+function mouseIsOffCanvas() {
+    // change framerate
+    frameRate(1)
+    if (gameStarted) {
+        $(".alert").fadeIn()
+    }
+}
+/**========================================================================
+ **                           Mouse is On Canvas
+ *?  This function is used to listen for CANVAS and mouse movements, it handles 'starting the game
+ *@param name type  
+ *@return n.a
+ *========================================================================**/
+function mouseIsOnCanvas() {
+    frameRate(60)
+    $(".alert").fadeOut()
+
+}
+
+function windowResized() {
+    if (landingPageState) {
+        resizeCanvas(windowWidth, windowHeight)
+    } else {
+        resizeCanvas(windowWidth - 400, windowHeight);
+    }
+}
+
+/**========================================================================
+ **                           landing page handler
+ *?  Generates balls for effect during landing page displayment,
+ *@param name type  
+ *@param name type  
+ *@return type
+ *========================================================================**/

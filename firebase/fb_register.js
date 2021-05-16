@@ -8,6 +8,8 @@
  *          This will handle all stuff registration, including data handling
  *========================================================================**/
 let userId;
+let userDetails = {};
+
 let registration = {
     /**========================================================================
      **                           Parse User ID
@@ -18,9 +20,10 @@ let registration = {
      *@param userId unique id  
      *@return n/a
      *========================================================================**/
-    parseUserId: function(_userId) {
+    parseUserId: function(_userId, _userObject) {
         userId = _userId
-        this.show()
+        let userObject = _userObject
+        this.show(userObject)
     },
     /**========================================================================
      **                           Show
@@ -29,10 +32,14 @@ let registration = {
      *@param registrationModule dom element
      *@return n/a
      *========================================================================**/
-    show: function() {
-        $("#registrationModule").slideToggle("slow");
+    show: function(_userObject) {
+        $("#registrationModule").fadeIn();
         $("#registrationModule").show();
-        3
+
+        //* Auto fill objects that we know
+
+        document.getElementById('regFirstLastName').value = _userObject.displayName
+        document.getElementById('regEmail').value = _userObject.email
 
     },
     /**========================================================================
@@ -48,16 +55,81 @@ let registration = {
      *@return n/a
      *========================================================================**/
     collectUserInput: function() {
-        let userDetails = {};
-        userDetails.displayName = document.getElementById('regDisplayName').value
-        userDetails.phoneNumber = document.getElementById('regPhoneNum').value
-        userDetails.suburb = document.getElementById('regSuburb').value
-        userDetails.city = document.getElementById('regCity').value
-        userDetails.gender = document.getElementById('regGender').value
+        let nameVaild = false;
+        let emailVaild = false;
+        let gameNameVaild = false;
+        let phoneVaild = false;
+        let subVaild = false;
+        let cityVaild = false;
+        let genderVaild = false;
 
-        console.table(userDetails)
+        // References to DOM Objects
+        let regFirstLastName = document.getElementById('regFirstLastName')
+        let regEmail = document.getElementById('regEmail')
+        let regGameNameField = document.getElementById('regDisplayName')
+        let regPhoneField = document.getElementById('regPhoneNum')
+        let regSuburbField = document.getElementById('regSuburb')
+        let regCityField = document.getElementById('regCity')
+        let regGenderField = document.getElementById('regGender')
 
-        this.storeUserData(userDetails)
+        //* Validation for Registration Module 
+        if (validate.nameSpecfic(regFirstLastName.value)) {
+            userDetails.firstLastName = regFirstLastName.value;
+            $('#registrationModule_form-firstLastName--error').hide();
+            nameVaild = true
+        } else {
+            $('#registrationModule_form-firstLastName--error').show();
+        }
+        if (validate.email(regEmail.value)) {
+            userDetails.email = regEmail.value;
+            $('#registrationModule_form-email--error').hide();
+            emailVaild = true
+        } else {
+            $('#registrationModule_form-email--error').show();
+        }
+
+        if (validate.text(regGameNameField.value)) {
+            userDetails.gameName = regGameNameField.value
+            $('#registrationModule_form-name--error').hide();
+            gameNameVaild = true
+
+
+        } else {
+            $('#registrationModule_form-name--error').show();
+        }
+        if (validate.num(regPhoneField.value)) {
+            userDetails.phoneNumber = regPhoneField.value
+            $('#registrationModule_form-phonenum--error').hide();
+            phoneVaild = true
+
+
+        } else {
+            $('#registrationModule_form-phonenum--error').show();
+        }
+        if (validate.text(regSuburbField.value)) {
+            userDetails.suburb = regSuburbField.value
+            $('#registrationModule_form-sub--error').hide();
+            subVaild = true
+
+
+        } else {
+            $('#registrationModule_form-sub--error').show();
+        }
+        if (validate.text(regCityField.value)) {
+            userDetails.city = regCityField.value
+            $('#registrationModule_form-city--error').hide();
+            cityVaild = true
+
+
+        } else {
+            $('#registrationModule_form-city--error').show();
+        }
+
+
+        if (nameVaild && emailVaild && gameNameVaild && phoneVaild && cityVaild && subVaild && phoneVaild) {
+            userDetails.gender = regGenderField.value
+            this.storeUserData(userDetails)
+        }
     },
     /**========================================================================
      **                           Store User Data
@@ -70,14 +142,16 @@ let registration = {
     storeUserData: function(_data) {
         var db = firebase.database().ref('users/' + userId)
         firebase.database().ref('users/' + userId).update({
-            gameName: _data.displayName,
+            name: _data.firstLastName,
+            email: _data.email,
+            gameName: _data.gameName,
             phoneNum: _data.phoneNumber,
             suburb: _data.suburb,
             city: _data.city,
             gender: _data.gender,
         });
         // finished registration, concluding.
-        $("#registrationModule").slideToggle("slow");
+        $("#registrationModule").fadeOut();
         // $("#registrationModule").hide();
 
     }

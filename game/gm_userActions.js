@@ -3,9 +3,7 @@
  * All rights reserved.
  */
 
-// let flagged = false;
-// let misses = 0
-let missed = false;
+
 
 /**========================================================================
  **                           Mouse Pressed
@@ -15,23 +13,10 @@ let missed = false;
  *@param Balls module  
  *@param sound module  
  *@param scoreModule module  
- *@return type
+ *@return n/a
  *========================================================================**/
 function mousePressed() {
-    for (let i = Balls.length - 1; i >= 0; i--) {
-        check = true;
-        if (Balls[i].clicked(mouseX, mouseY)) {
-            Balls.splice(i, 1);
-            sound.play(popSound, true)
-            scoreModule.handler("add");
-        } else if (!Balls[i].clicked(mouseX, mouseY)) {
-            missed = true;
-        }
-    }
-    if (missed == true) {
-        console.log("missed ball")
-        missed = false;
-    }
+
 }
 
 
@@ -47,7 +32,7 @@ let userAction = {
      *@param timerVal int  
      *@param Balls array
      *@param fb_store firebase module 
-     *@return type
+     *@return n/a
      *========================================================================**/
     stop: function() {
         check = false
@@ -55,4 +40,23 @@ let userAction = {
         Balls.length = 0;
         fb_store.level(client.uid, level)
     },
+    mouseClickedOnCanvas: function() {
+        if (gameStarted) {
+            let hitBall = false;
+            for (let i = Balls.length - 1; i >= 0; i--) {
+                check = true;
+                if (Balls[i].clicked(mouseX, mouseY)) {
+                    Balls.splice(i, 1);
+                    sound.play(popSound, true)
+                    scoreModule.handler("add");
+                    hitBall = true;
+                }
+
+            }
+            if (!hitBall) {
+                scoreModule.handler("missed")
+                    // misses = misses + 1
+            }
+        }
+    }
 }

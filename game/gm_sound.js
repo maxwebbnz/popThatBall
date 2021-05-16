@@ -42,11 +42,13 @@ let sound = {
      *========================================================================**/
     play: function(_soundEffect, _play) {
         if (_play) {
-            // play sound effect
-            _soundEffect.play();
-            // log effet
-            console.log("gm_playEffect | " + _soundEffect + " has been played")
-                // else if sound needs stopping
+            if (soundOn) {
+                // play sound effect
+                _soundEffect.play();
+                // log effet
+                debug.handler("gm_playEffect | " + _soundEffect + " has been played", "info")
+                    // else if sound needs stopping
+            }
         } else if (!_play) {
             // stop selected effect
             _soundEffect.stop();

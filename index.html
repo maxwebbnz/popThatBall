@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Description" content="Enter your description here" />
+    <meta name="theme-color" content="#1b3021">
 
     <link rel="stylesheet" href="style.css">
     <!--CDNs: Core Modules -->
@@ -22,31 +23,45 @@
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <!-- W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <!-- Bootstrap CSS + JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
     <!-- Sweetalert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
     <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
     <link rel="stylesheet" href="sweetalert2.css">
     <!-- Local Files  -->
+    <script src="game/gm_data.js"></script>
+    <script src="ui/ui_debug.js"></script>
     <!-- Firebase Modules -->
     <script src="firebase/fb_init.js"></script>
+    <script src="firebase/fb_admin.js"></script>
     <script src="firebase/fb_register.js"></script>
     <script src="firebase/fb_auth.js"></script>
     <script src="firebase/fb_write.js"></script>
     <script src="firebase/fb_read.js"></script>
     <script src="firebase/fb_userRoles.js"></script>
+    <script src="firebase/fb_gameData.js"></script>
     <script src="firebase/fb_leaderboard.js"></script>
-    <!-- Game Modules -->
     <!-- This stuff here needs to be called first due to it being used in the init file -->
-    <script src="game/gm_html.js"></script>
+    <!-- HTML Modules -->
+    <script src="html/html_landingPage.js"></script>
+    <script src="html/html_game.js"></script>
+    <script src="html/html_profilePage.js"></script>
+    <script src="html/html_validate.js"></script>
     <script src="ui/ui_profilePage.js"></script>
-    <script src="game/gm_data.js"></script>
+    <!-- Game Modules -->
+    <script src="game/gm_events.js"></script>
     <script src="game/gm_ballClass.js"></script>
     <script src="game/gm_sound.js"></script>
     <script src="game/gm_core.js"></script>
@@ -56,6 +71,9 @@
     <!-- Other Modules  -->
     <!-- UI Modules -->
     <script src="ui/ui_alert.js"></script>
+    <script src="ui/ui_admin.js"></script>
+    <script src="ui/ui_settings.js"></script>
+
     <!-- None here for now -->
     <!-- End of Modules and CDN's -->
     <title>popThatBall!</title>
@@ -77,53 +95,78 @@
 </header>
 
 <body>
-
-
-    <section id="canvas">
-    </section>
-    <section id="sidenav">
-        <!-- Navbar header -->
-        <h1 class="display-4" style="padding-left: 9%; text-align: center;">popThatBall</h1>
-        <p style="text-align: center;"><i>It's simple, just click on the ball!</i></p>
-        <hr>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="core.gameHandler()"><span id="gameStatus-HTML"></span> Game</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="levelModule.levelReset()">Restart Game</button>
-                </div>
-                <div class="col">
-                    <!-- Score saves automatically now -->
-                    <!-- <button type="button" class="btn btn-primary btn-lg" onclick="fb_saveData(score)">Update Score</button> -->
-                </div>
-            </div>
+    <!-- Home/Landing Page -->
+    <section id="landingPage">
+        <div id="landingPage-Header">
+            <h1 class="display-1">popThatBall</h1>
         </div>
-        <hr>
-        <h6 class="display-7" style="margin-left: 9px;">Game Infomation</h6>
-        <p><b>Level:</b> <span id="levelHTML"></span> </p>
-        <p><b>Time:</b> <span id="timeHTMl"></span> </p>
-        <p><b>Score:</b> <span id="scoreHTML"></span> </p>
-        <p><b>Highscore:</b> <span id="highScoreHTML"></span> </p>
-        <hr>
-        <button type="button" class="btn btn-primary btn-lg" onclick="leaderBoard.handler()">View Leaderboards</button>
-        <hr>
-        <div class="container userInfo">
-            <div class="row">
-                <div class="col">
-                    <img id="clientAvatar" width="100" height="100" src="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255634-stock-illustration-avatar-icon-male-profile-gray.jpg" alt="Profile" class="rounded-circle">
-                </div>
-                <div class="col">
-                    <h2 class="display-6">Welcome, <span id="clientName"></span></h2>
-                    <button class="btn btn-primary btn-sml" onclick="auth.profileHandler()">Profile Page</button>
-                </div>
-            </div>
+        <center>
+            <hr style="width: 50%">
+        </center>
+        <div id="landingPage-authSection">
+            <button type="button" class="btn btn-success btn-lg" onclick="auth.profileHandler()"><i class="bi bi-google"></i> | Login with Google</button>
+
         </div>
     </section>
+    <div class="w3-row">
+        <div class="w3-threequarter w3-container">
+            <section id="canvas">
+            </section>
+        </div>
+        <div class="w3-third w3-container">
+            <section id="sidenav" style="display:none">
+                <!-- Navbar header -->
+                <h2><i class="bi bi-gear-fill float-right" style="padding-right: 9px;" onclick="userSettings.uiComponent('show')"></i></h2>
+                <h1 class="display-6" style="font-family: 'Zen Dots', cursive; padding-left: 9%; text-align: center;">popThatBall</h1>
+                <p style="text-align: center;"><i>It's simple, just click the ball!</i></p>
+                <hr>
+                <div class="container">
+                    <div class="row align-self-center">
+                        <div class="col">
+                            <button type="button" class="btn btn-primary btn-lg" onclick="core.gameHandler()"><span id="g_status"></span> Game</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary btn-lg" onclick="levelModule.levelReset()">Restart Game</button>
+                        </div>
+                        <div class="col">
+                            <!-- Score saves automatically now -->
+                            <!-- <button type="button" class="btn btn-primary btn-lg" onclick="fb_saveData(score)">Update Score</button> -->
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h5 style="margin-left: 4px;">Game:</h5>
+                <p style="margin-left: 9px;"><b>Level:</b> <span id="g_level"></span> </p>
+                <p style="margin-left: 9px;"><b>Time:</b> <span id="g_time"></span> </p>
+                <p style="margin-left: 9px;"><b>Hits:</b> <span id="p_hits"></span> </p>
+                <p style="margin-left: 9px;"><b>Misses:</b> <span id="p_misses"></span> </p>
+                <p style="margin-left: 9px;"><b>Total Score:</b> <span id="p_score"></span> </p>
+                <p style="margin-left: 9px;"><b>Highscore:</b> <span id="p_highscore"></span> </p>
+                <hr>
+                <button type="button" class="btn btn-primary btn-lg" onclick="leaderBoard.handler()">View Leaderboards</button>
+                <hr>
+                <div class="container userInfo">
+                    <div class="row">
+                        <div class="col">
+                            <img id="p_avatar" width="100" height="100" src="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255634-stock-illustration-avatar-icon-male-profile-gray.jpg" alt="Profile" class="rounded-circle borderx">
+                        </div>
+                        <div class="col">
+                            <h2 class="display-6">Welcome, <span id="p_name"></span></h2>
+                            <button class="btn btn-primary btn-sml" onclick="profilePage.show()">Profile Page</button>
+                            <button class="btn btn-primary btn-sml" onclick="auth.logout()"><i class="bi bi-box-arrow-left"></i> | Logout</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Admin Center button will only be displayed if user is an admin -->
+                <center><button id="admincenter-button" class="btn btn-info btn-sml" style="margin-top: 9%;" onclick="adminUI.handler('show')"><i class="bi bi-shield-shaded" ></i> Admin Center</button>
+            </section>
+        </div>
+    </div>
+
+
     <!-- Modal for Profile Infomation -->
     <!-- Modal -->
-    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="pp" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -134,13 +177,13 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <img id="editorClientAvatar" width="100" height="100" src="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255634-stock-illustration-avatar-icon-male-profile-gray.jpg" alt="Profile" class="rounded-circle">
+                                <img id="pp_avatar" width="100" height="100" src="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255634-stock-illustration-avatar-icon-male-profile-gray.jpg" alt="Profile" class="rounded-circle">
                             </div>
-                            <div class="col userInfo">
+                            <div class="col pp_userInfo">
                                 <h6>User Information: <span id="clientName"></span></h6>
-                                <p><b>Name:</b> <input style="display: none;" placeholder="First Name Last Name" id="editor.clientName"></input><span style="display: block;" id="editorClientName"></span> </p>
+                                <p><b>Name:</b> <input style="display: none;" placeholder="First Name Last Name" id="pp_input-name"></input><span style="display: block;" id="pp_name"></span> </p>
                                 <p id="errorMessage_name" style='display:none' style="color: red">Please make sure you have included your first and last name</p>
-                                <p><b>Email:</b><input style="display: none;" placeholder="example@example.com" id="editor.clientEmail"></input> <span id="editorClientEmail"></span> </p>
+                                <p><b>Email:</b><input style="display: none;" placeholder="example@example.com" id="pp_input-email"></input> <span id="pp_email"></span> </p>
                                 <p id="errorMessage_email" style='display:none' style="color: red">Something is wrong with this email, double check it!</p>
                             </div>
                         </div>
@@ -158,40 +201,63 @@
         <h1 class="display-6">We just need a bit more information from you</h1>
         <form style="padding-top: 9px;" class="row g-3">
             <div class="col-md-6">
+                <label for="regFirstLastName" class="form-label">Name </label>
+                <input type="string" class="form-control" id="regFirstLastName">
+                <p id="registrationModule_form-firstLastName--error" style='display:none' style="color: red">Please make sure you have included your first and last name</p>
+
+            </div>
+            <div class="col-md-6">
+                <label for="regEmail" class="form-label">Email </label>
+                <input type="string" class="form-control" id="regEmail">
+                <p id="registrationModule_form-email--error" style='display:none' style="color: red">Please make sure you have correctly entered your email address</p>
+
+            </div>
+            <div class="col-md-6">
                 <label for="regDisplayName" class="form-label">Game Display Name </label>
                 <input type="string" class="form-control" id="regDisplayName">
+                <p id="registrationModule_form-name--error" style='display:none' style="color: red">Please make sure you have not included spaces</p>
+
             </div>
             <div class="col-md-6">
                 <label for="regPhoneNum" class="form-label">Phone Number <i class="bi bi-phone-fill"></i> </label>
                 <input type="string" class="form-control" id="regPhoneNum">
+                <p id="registrationModule_form-phonenum--error" style='display:none' style="color: red">Is this phone number correct?</p>
+
             </div>
             <div class="col-12">
                 <label for="regSuburb" class="form-label">Suburb <i class="bi bi-house-fill"></i></label>
                 <input type="text" class="form-control" id="regSuburb" placeholder="Johnville">
+                <p id="registrationModule_form-suburb--error" style='display:none' style="color: red">This doesn't look right!</p>
+
             </div>
             <div class="col-md-6">
                 <label for="regCity" class="form-label">City <i class="bi bi-signpost-fill"></i></label>
                 <input type="text" class="form-control" id="regCity">
+                <p id="registrationModule_form-city--error" style='display:none' style="color: red">This doesn't look right!</p>
+
             </div>
             <div class="col-md-4">
                 <label for="regGender" class="form-label">Gender</label>
                 <select id="regGender" class="form-select">
-                <option selected>Choose...</option>
                 <option>Female</option>
                 <option>Male</option>
                 <option>Perfer not to disclose</option>
                 <option>Other</option>  
                 </select>
+                <p id="registrationModule_form-gender--error" style='display:none' style="color: red">This doesn't look right!</p>
+
+
             </div>
+
             <div class="col-12">
                 <button type="button" onclick="registration.collectUserInput()" class="btn btn-primary">Complete</button>
             </div>
         </form>
     </div>
     <!-- Leaderboard Module -->
-    <div id="leaderBoardHTML">
+    <div id="ldbrd">
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ldbrd_nav">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Leaderboard</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -207,21 +273,123 @@
             </div>
         </nav>
         <!-- Table of Contents -->
-        <div class="leaderBoardHTML" id="scoreBoard">
-            <table style="margin-top: 2%;" class="table" id="scoreBoardTable">
+        <div class="ldrbrd_tableofcontents" id="ldbrd_scoreboard">
+            <table style="margin-top: 2%;" class="table" id="ldbrd_scoreboard-table">
                 <thead>
                     <tr>
                         <th style="padding-right: 0; padding-left: 1%;" scope="col"><i class="bi bi-person-circle"></i></th>
                         <th scope="col">Name</th>
                         <th scope="col">Hits</th>
                         <th scope="col">Misses</th>
-                        <th scope="col">Average Score</th>
+                        <th scope="col">Score (Hits/Misses)</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
         </div>
+    </div>
+    <!-- Admin Module -->
+    <section id="admin">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Admin Center</a>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="#">Users List</a>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h3><i class="bi bi-x-circle" onclick="adminUI.handler('hide')"></i></h3>
+
+                </div>
+            </div>
+        </nav>
+        <!-- Page 0 or User List -->
+        <div class="w3-row">
+            <div class="w3-twothird w3-container">
+                <div class="admin_userList">
+                    <table style="margin-top: 2%;" class="table" id="admin_userlist-table">
+                        <thead>
+                            <tr>
+                                <th style="padding-right: 0; padding-left: 1%;" scope="col"><i class="bi bi-person-circle"></i></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">High Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- Selected User Card -->
+            <div class="w3-third w3-container">
+                <div id="admin_selectedUserCard" style="margin-top: 4%; padding:8px;">
+                    <div class="w3-row">
+                        <h3>Click a row to view user data</h3>
+                        <div class="w3-third">
+                            <img width="100" height="100" class="rounded-circle" id="admin_selectedUserCard-avatar" alt="...">
+                        </div>
+                        <div class="w3-rest">
+                            <h6>Username: <span id="admin_selectedUserCard-username"></span></h6>
+                            <h6>Email: <span id="admin_selectedUserCard-email"></span></h6>
+                            <h6>Current Score: <span id="admin_selectedUserCard-score"></span></h6>
+                            <div class="btn-group" style="margin-top: 9px;">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Actions</button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" id="admin_selectedUserCard-deleteuser" onclick="adminUI.action('deleteUser',0)">Delete User</a></li>
+                                    <li><a class="dropdown-item " id="admin_selectedUserCard-edituserinfo " onclick="adminUI.action('editUserInfo',0)">Edit User Information</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page 1 or Logs -->
+    </section>
+
+    <!-- Settings Module -->
+    <section id="settings">
+        <!-- Modal -->
+        <div id="settings_modal" class="modal fade" tabindex="-1" aria-labelledby="settigs-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">User Preferences</h5>
+                        <button type="button" style="border: none; background-color: white;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="settings_modal-sound" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Sound/Music On</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="settings_modal-debug" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Debugging Mode On</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <label for="settings_modal-volume" class="form-label">Volume</label>
+                            <input type="range" class="form-range" min="0" max="1" id="settings_modal-volume">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="userSettings.action()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Alerts and Misc stuff used inside the program -->
+    <!-- Small Tooltip -->
+    <div class="alert alert-danger fixed-bottom mx-auto " style="display:none; width: 60% " role="alert ">
+        <center><b>Timer is still going!</b> Slowing down balls</center>
     </div>
 </body>
 

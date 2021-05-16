@@ -5,40 +5,44 @@
 
 let client;
 
+/**========================================================================
+ **                           Init User Data
+ *?  Reads the users data from the database or stores new information into the database
+ *@param _userToken user identifer  
+ *@param _userObject table of user attrubites
+ *@return n/a
+ *========================================================================**/
 function fb_initUserData(_userToken, _userObject) {
     var db = firebase.database().ref('users/' + _userToken)
     db.once('value', (snapshot) => {
         if (snapshot.val() == null) {
             // store data to firebase
-            console.log("fb_initUserData | User's first time on site, recording infomation!")
+            debug.handler("fb_initUserData | User's first time on site, recording infomation!", "info")
             firebase.database().ref('users/' + _userToken).set({
                 name: _userObject.displayName,
                 email: _userObject.email,
                 profileURL: _userObject.photoURL,
                 uid: _userToken,
-                // need to write score so leaderboard works properly. 
-                score: 0,
-                highScore: 0,
                 // in terms of postion in array
                 currentLevel: 1,
+                sound: true,
+                debug: false,
             });
             let tokenParse = _userToken
-            registration.parseUserId(tokenParse)
+            fb_gameData.init(_userToken)
+            registration.parseUserId(tokenParse, _userObject)
             fb_initUserData(tokenParse)
         } else {
             const userData = snapshot.val();
-            console.log("fb_initUserData | User has logged in before, no need to write more data")
-                // write data to local variables
-                // now it needs to read data
+            debug.handler("fb_initUserData | User has logged in before, no need to write more data", 'info')
             client = userData;
-            // set game variables to userData
-            score = client.score
-            highScore = client.highScore
-            console.log("fb_initUserData | User Data Table below.")
-            console.table(client)
-                // assign new html infomation
-            html_append();
-
+            fb_gameData.fetch(client.uid)
+            soundOn = client.sound
+            debugOn = client.debug
+            let uid = client.uid
+            debug.handler("fb_initUserData | User Data Table below.", 'info')
+            admin.userRoles(uid)
+            html_game.update(client);
         }
     });
 }

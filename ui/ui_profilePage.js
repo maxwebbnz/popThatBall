@@ -4,21 +4,34 @@
  */
 
 let profilePage = {
+    /**========================================================================
+     **                           Show Profile Page
+     *?  Displays the UI Component Profile page
+     *@param name type  
+     *@return n/a
+     *========================================================================**/
     show: function() {
-        $("#profileModal").modal("show");
+        $("#pp").modal("show");
         let eventButton = document.getElementById("eventFunction");
         eventButton.innerHTML = "Edit";
         // changing values again
-        let clNameHTML = document.getElementById("editorClientName");
-        let clAvatar = document.getElementById("editorClientAvatar");
-        let clEmail = document.getElementById("editorClientEmail");
+        let clNameHTML = document.getElementById("pp_name");
+        let clAvatar = document.getElementById("pp_avatar");
+        let clEmail = document.getElementById("pp_email");
         clNameHTML.innerHTML = client.name;
         clAvatar.src = client.profileURL;
         clEmail.innerHTML = client.email;
     },
+    /**========================================================================
+     **                           Show Editor
+     *?  Displays the editor in the module
+     *@param name type  
+     *@param _hide method transleted by a string  
+     *@return n/a
+     *========================================================================**/
     showEditor: function(_hide) {
-        let inputName = document.getElementById("editor.clientName");
-        let inputEmail = document.getElementById("editor.clientEmail");
+        let inputName = document.getElementById("pp_input-name");
+        let inputEmail = document.getElementById("pp_input-email");
         editorInputs = [inputName, inputEmail];
         editorOpen = true;
 
@@ -66,23 +79,25 @@ let profilePage = {
             }
         }
     },
+    /**========================================================================
+     **                           Save Profile Data
+     *?  Saves and updates the user's information insde the DB
+     *@param name typ
+     *@param name type  
+     *@return type
+     *========================================================================**/
     saveProfileData: function() {
-        console.log("html_profilePage | Updated User data in table");
-        firebase
-            .database().ref("users/" + client.uid + "/")
-            .update({
-                name: editorInputs[0].value,
-                email: editorInputs[1].value,
-            });
-        //   then update locally for the remainder of the session
+        debug.handler("html_profilePage | Updated User data in table", 'info');
+        fb_store.userInformation(client.uid, editorInputs[0].value, editorInputs[1].value)
+            //  then update locally for the remainder of the session
         client.name = editorInputs[0].value;
         client.email = editorInputs[1].value;
         alert.success("Saved new user data!")
-        html_append();
+        html_game.update();
         // hide modal and reset information
         for (let i = 0; i < editorInputs.length; i++) {
             editorInputs[i].style.display = "none";
         }
-        $("#profileModal").modal("hide");
+        $("#pp").modal("hide");
     },
 };

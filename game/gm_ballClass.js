@@ -8,15 +8,15 @@
  *========================================================================**/
 let velRange = [-10, -9, -8, -7, -6, 6, 7, 8, 9, 10]
 let flag = false;
-let misses = 0;
+// let misses = 0;
 // ball class
 class Ball {
     constructor(_x, _y, _r, _col) {
         this.x = _x;
         this.y = _y;
         this.r = _r;
-        this.speedX = random(velRange) * levels[level].velInt
-        this.speedY = random(velRange) * levels[level].velInt
+        this.speedX = random(velRange) * levels[level - 1].velInt
+        this.speedY = random(velRange) * levels[level - 1].velInt
         this.colour = (_col);
         this.paused = false;
     };
@@ -38,12 +38,10 @@ class Ball {
             this.y = this.y + this.speedY;
         }
 
-        // if ball x value is greater than width of canvas
         if (this.x > width - this.r) {
             // move the ball the other way
             this.speedX *= -1;
             this.x = width - this.r;
-            // console.log(this.x)
         } else if (this.x < this.r) {
             this.speedX *= -1;
             this.x = this.r;
