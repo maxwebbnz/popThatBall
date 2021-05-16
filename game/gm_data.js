@@ -5,8 +5,13 @@
 
 
 /**============================================
- *               Canvas/Browser Variables
+ *               Game Variables
  *=============================================**/
+let popThatBall
+let ticTacToe
+    /**============================================
+     *               Canvas/Browser Variables
+     *=============================================**/
 var viewPortHeight = $(window).height()
 var viewPortWidth = $(window).width()
 let canvas;
@@ -20,6 +25,7 @@ var Balls = [];
 /**============================================
  *               Core/Misc Game Variables
  *=============================================**/
+let game = popThatBall;
 let check = false;
 let hits = 0;
 let misses = 0;

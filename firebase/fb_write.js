@@ -19,18 +19,20 @@ let fb_store = {
      *@return n/a
      *========================================================================**/
     score: function(_id, _valInput1, _valInput2, _valInput3) {
-        firebase.database().ref('users/' + _id + "/").update({
-            hits: _valInput1,
-            misses: _valInput2,
-            score: _valInput3,
-        }, (error) => {
-            if (error) {
-                debug.handler("fb_store (hits) | Error: " + error, 'warn')
-                alert.error("We couldn't save some data, Error:" + error)
-            } else {
-                debug.handler("fb_store (hits) | Stored data for " + _id + " with the value of " + _valInput1 + " " + _valInput2, 'info')
-            }
-        });
+        if (game == popThatBall) {
+            firebase.database().ref('scores/' + _id + "/popThatBall").update({
+                hits: _valInput1,
+                misses: _valInput2,
+                score: _valInput3,
+            }, (error) => {
+                if (error) {
+                    debug.handler("fb_store (hits) | Error: " + error, 'warn')
+                    alert.error("We couldn't save some data, Error:" + error)
+                } else {
+                    debug.handler("fb_store (hits) | Stored data for " + _id + " with the value of " + _valInput1 + " " + _valInput2, 'info')
+                }
+            });
+        }
     },
     /**========================================================================
      **                           High Score Storing
@@ -42,17 +44,19 @@ let fb_store = {
      *@return n/a
      *========================================================================**/
     highScore: function(_id, _valInput) {
-        firebase.database().ref('users/' + _id + "/").update({
-            highScore: _valInput,
-        }, (error) => {
-            if (error) {
-                debug.handler("fb_store (highScore) | Error: " + error, error)
-                alert.error("We couldn't save some data, Error:" + error)
-            } else {
-                debug.handler("fb_store (highScore) | Stored data for " + _id + " with the value of " + _valInput, 'info')
+        if (game == popThatBall) {
+            firebase.database().ref('users/' + _id + "/").update({
+                highScore: _valInput,
+            }, (error) => {
+                if (error) {
+                    debug.handler("fb_store (highScore) | Error: " + error, error)
+                    alert.error("We couldn't save some data, Error:" + error)
+                } else {
+                    debug.handler("fb_store (highScore) | Stored data for " + _id + " with the value of " + _valInput, 'info')
 
-            }
-        });
+                }
+            });
+        }
     },
     /**========================================================================
      **                           Level Storing

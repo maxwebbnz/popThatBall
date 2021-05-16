@@ -24,26 +24,22 @@ function fb_initUserData(_userToken, _userObject) {
                 email: _userObject.email,
                 profileURL: _userObject.photoURL,
                 uid: _userToken,
-                // need to write score so leaderboard works properly. 
-                score: 0,
-                highScore: 0,
                 // in terms of postion in array
                 currentLevel: 1,
                 sound: true,
                 debug: false,
-                hits: 0,
-                misses: 0,
             });
             let tokenParse = _userToken
-            registration.parseUserId(tokenParse)
+            fb_gameData.init(_userToken)
+            registration.parseUserId(tokenParse, _userObject)
             fb_initUserData(tokenParse)
         } else {
             const userData = snapshot.val();
+            console.log(userData)
             debug.handler("fb_initUserData | User has logged in before, no need to write more data", 'info')
             client = userData;
-            hits = client.hits
-            misses = client.misses
-            score = Math.round((client.score + Number.EPSILON) * 100) / 100
+            fb_gameData.fetch(client.uid)
+            console.log
             soundOn = client.sound
             debugOn = client.debug
             let uid = client.uid

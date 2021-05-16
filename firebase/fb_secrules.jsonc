@@ -24,14 +24,6 @@
                     // scores must be a number
                     ".validate": "newData.isNumber()"
                 },
-                "hits": {
-                    // scores must be a number
-                    ".validate": "newData.isNumber()"
-                },
-                "misses": {
-                    // scores must be a number
-                    ".validate": "newData.isNumber()"
-                },
                 "currentLevel": {
                     // current level must be a number
                     ".validate": "newData.isNumber()"
@@ -96,6 +88,23 @@
         "userRoles": {
             ".read": "true",
             ".write": "auth.uid == 'mHs1wfMniTeIvVlxC6XIzTkGBdg1'"
+        },
+        "scores": {
+            "$uid": {
+                ".write": "$uid === auth.uid ||  root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'",
+                ".read": "$uid === auth.uid || root.child('userRoles').child(auth.uid).child('rank').val() == 'admin'"
+            },
+            "popThatBall": {
+                "misses": {
+                    ".validate": "newData.isNumber()"
+                },
+                "hits": {
+                    ".validate": "newData.isNumber()"
+                },
+                "score": {
+                    ".validate": "newData.isNumber()"
+                }
+            }
         }
     }
 }

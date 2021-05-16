@@ -50,6 +50,7 @@
     <script src="firebase/fb_write.js"></script>
     <script src="firebase/fb_read.js"></script>
     <script src="firebase/fb_userRoles.js"></script>
+    <script src="firebase/fb_gameData.js"></script>
     <script src="firebase/fb_leaderboard.js"></script>
     <!-- This stuff here needs to be called first due to it being used in the init file -->
     <!-- HTML Modules -->
@@ -200,9 +201,21 @@
         <h1 class="display-6">We just need a bit more information from you</h1>
         <form style="padding-top: 9px;" class="row g-3">
             <div class="col-md-6">
+                <label for="regFirstLastName" class="form-label">Name </label>
+                <input type="string" class="form-control" id="regFirstLastName">
+                <p id="registrationModule_form-firstLastName--error" style='display:none' style="color: red">Please make sure you have included your first and last name</p>
+
+            </div>
+            <div class="col-md-6">
+                <label for="regEmail" class="form-label">Email </label>
+                <input type="string" class="form-control" id="regEmail">
+                <p id="registrationModule_form-email--error" style='display:none' style="color: red">Please make sure you have correctly entered your email address</p>
+
+            </div>
+            <div class="col-md-6">
                 <label for="regDisplayName" class="form-label">Game Display Name </label>
                 <input type="string" class="form-control" id="regDisplayName">
-                <p id="registrationModule_form-name--error" style='display:none' style="color: red">Please make sure you have included your first and last name</p>
+                <p id="registrationModule_form-name--error" style='display:none' style="color: red">Please make sure you have not included spaces</p>
 
             </div>
             <div class="col-md-6">
@@ -235,6 +248,7 @@
 
 
             </div>
+
             <div class="col-12">
                 <button type="button" onclick="registration.collectUserInput()" class="btn btn-primary">Complete</button>
             </div>

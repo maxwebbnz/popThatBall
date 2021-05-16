@@ -34,11 +34,11 @@ let html_game = {
         let clAvatar = document.getElementById("p_avatar");
         let clLevel = document.getElementById("g_level");
         clNameHTML.innerHTML = client.name;
-        clHitsHTML.innerHTML = client.hits;
-        clMissesHTML.innerHTML = client.misses;
+        clHitsHTML.innerHTML = hits;
+        clMissesHTML.innerHTML = misses;
         // double check rounding errors that may of been made upon storage to firebase/
         clScoreHTML.innerHTML = Math.round((client.score + Number.EPSILON) * 100) / 100;
-        clHighScoreHTML.innerHTML = client.highScore;
+        clHighScoreHTML.innerHTML = highScore;
         clAvatar.src = client.profileURL;
         clLevel.innerHTML = client.currentLevel;
     },
