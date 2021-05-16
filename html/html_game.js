@@ -27,17 +27,16 @@ let html_game = {
      *========================================================================**/
     update: function(_clObject) {
         let clNameHTML = document.getElementById("p_name");
-        let clHitsHTML = document.getElementById("p_hits");
-        let clMissesHTML = document.getElementById("p_misses");
-        let clHighScoreHTML = document.getElementById("p_highscore");
+        // let clHitsHTML = document.getElementById("p_hits");
+        // let clMissesHTML = document.getElementById("p_misses");
+        // let clHighScoreHTML = document.getElementById("p_highscore");
         let clAvatar = document.getElementById("p_avatar");
         let clLevel = document.getElementById("g_level");
         clNameHTML.innerHTML = client.name;
-        clHitsHTML.innerHTML = hits;
-        clMissesHTML.innerHTML = misses;
+        // clHitsHTML.innerHTML = hits;
+        // clMissesHTML.innerHTML = misses;
         // double check rounding errors that may of been made upon storage to firebase/
-        console.log(_clObject.score)
-        clHighScoreHTML.innerHTML = highScore;
+        // clHighScoreHTML.innerHTML = highScore;
         clAvatar.src = client.profileURL;
         clLevel.innerHTML = client.currentLevel;
         //* Removed due to fetch taking too long for score. 

@@ -19,7 +19,6 @@ function fb_initUserData(_userToken, _userObject) {
             // store data to firebase
             debug.handler("fb_initUserData | User's first time on site, recording infomation!", "info")
             firebase.database().ref('users/' + _userToken).set({
-
                 name: _userObject.displayName,
                 email: _userObject.email,
                 profileURL: _userObject.photoURL,
@@ -35,11 +34,9 @@ function fb_initUserData(_userToken, _userObject) {
             fb_initUserData(tokenParse)
         } else {
             const userData = snapshot.val();
-            console.log(userData)
             debug.handler("fb_initUserData | User has logged in before, no need to write more data", 'info')
             client = userData;
             fb_gameData.fetch(client.uid)
-            console.log
             soundOn = client.sound
             debugOn = client.debug
             let uid = client.uid

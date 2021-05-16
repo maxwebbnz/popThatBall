@@ -14,6 +14,8 @@ let fb_gameData = {
                 // fetch hits
             scorePath.get().then(function(snapshot) {
                 hits = snapshot.child("hits").val();
+                let clHitsHTML = document.getElementById("p_hits");
+                clHitsHTML.innerHTML = hits;
 
             }).catch(function(error) {
                 debug.handler("fb_gameData (fetch) | Error fetching data, error code" + error, "error");
@@ -21,6 +23,8 @@ let fb_gameData = {
             // fetch misses
             scorePath.get().then(function(snapshot) {
                 misses = snapshot.child("misses").val();
+                let clMissesHTML = document.getElementById("p_misses");
+                clMissesHTML.innerHTML = misses;
 
             }).catch(function(error) {
                 debug.handler("fb_gameData (fetch) | Error fetching data, error code" + error, "error");
@@ -30,6 +34,15 @@ let fb_gameData = {
                 // fix for data taking to long to read from fb, solution is below:
                 let clScoreHTML = document.getElementById("p_score");
                 clScoreHTML.innerHTML = client.score;
+
+            }).catch(function(error) {
+                debug.handler("fb_gameData (fetch) | Error fetching data, error code" + error, "error");
+            });
+            scorePath.get().then(function(snapshot) {
+                client.highScore = snapshot.child("highScore").val();
+                // fix for data taking to long to read from fb, solution is below:
+                let clHighScoreHTML = document.getElementById("p_highScore");
+                clHighScoreHTML.innerHTML = client.score;
 
             }).catch(function(error) {
                 debug.handler("fb_gameData (fetch) | Error fetching data, error code" + error, "error");

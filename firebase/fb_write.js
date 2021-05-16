@@ -45,7 +45,7 @@ let fb_store = {
      *========================================================================**/
     highScore: function(_id, _valInput) {
         if (game == popThatBall) {
-            firebase.database().ref('users/' + _id + "/").update({
+            firebase.database().ref('scores/' + _id + "/popThatBall").update({
                 highScore: _valInput,
             }, (error) => {
                 if (error) {
