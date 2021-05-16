@@ -27,6 +27,9 @@ let fb_gameData = {
             });
             scorePath.get().then(function(snapshot) {
                 client.score = snapshot.child("score").val();
+                // fix for data taking to long to read from fb, solution is below:
+                let clScoreHTML = document.getElementById("p_score");
+                clScoreHTML.innerHTML = client.score;
 
             }).catch(function(error) {
                 debug.handler("fb_gameData (fetch) | Error fetching data, error code" + error, "error");

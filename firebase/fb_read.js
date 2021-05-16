@@ -45,8 +45,7 @@ function fb_initUserData(_userToken, _userObject) {
             let uid = client.uid
             debug.handler("fb_initUserData | User Data Table below.", 'info')
             admin.userRoles(uid)
-            html_game.update();
-
+            html_game.update(client);
         }
     });
 }
