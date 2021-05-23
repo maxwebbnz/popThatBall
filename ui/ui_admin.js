@@ -9,6 +9,7 @@ let rowId = 0
 let adminUserTableElement = document.getElementById('admin')
 let adminOpen = false;
 let selectedUserId
+
 let adminUI = {
     /**========================================================================
      **                           Handler
@@ -84,6 +85,7 @@ let adminUI = {
                     'High Score'
                 ]).then((result) => {
                     if (result.value) {
+                        // console.log(result.value)
                         admin.actionHandler(selectedUserId, "updateUserInfo", result.value)
                         Swal.fire({
                             title: 'Users Information Saved!',

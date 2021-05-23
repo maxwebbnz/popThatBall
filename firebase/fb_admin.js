@@ -42,21 +42,35 @@ let admin = {
                         "phoneNum": childSnapshot.child('phoneNum').val(),
                         "uid": childSnapshot.key
                     }
-                    users.push(retrievedUser);
+
+                    fetchScore(childSnapshot.key)
+
+                    async function fetchScore(uid) {
+                        let scorePath = firebase.database().ref("scores/" + uid + '/popThatBall')
+                        console.log(uid)
+                        var snapshot = await scorePath.once('value');
+                        if (snapshot.exists()) {
+                            scorePath.get().then(function(childSnapshot) {
+                                console.log(childSnapshot.child("score").val())
+                                retrievedUser.score = childSnapshot.child("score").val();
+                                retrievedUser.highScore = childSnapshot.child("highScore").val();
+                                adminUI.appendUserTable(
+                                    retrievedUser.name,
+                                    retrievedUser.gameName,
+                                    retrievedUser.avatar,
+                                    retrievedUser.email,
+                                    retrievedUser.score,
+                                    retrievedUser.highScore,
+                                    retrievedUser.phoneNum,
+                                    retrievedUser.uid
+                                )
+                            });
+                        } else {
+                            retrievedUser.score = "error"
+                        }
+                        users.push(retrievedUser);
+                    }
                 })
-                debug.handler("admin.readUserTable | Successfully read through user table, appending user table", "info")
-                for (i = users.length; i--;) {
-                    adminUI.appendUserTable(
-                        users[i].name,
-                        users[i].gameName,
-                        users[i].avatar,
-                        users[i].email,
-                        users[i].score,
-                        users[i].highScore,
-                        users[i].phoneNum,
-                        users[i].uid
-                    )
-                }
             }, (error) => {
                 if (error) {
                     debug.handler("fb_admin.readUserTable  | Error: " + error, "error")
@@ -105,7 +119,23 @@ let admin = {
                 avatar: snapshot.child('profileURL').val(),
                 score: snapshot.child('score').val(),
             }
-            adminUI.userCardUI(selectedUserInfo)
+            fetchScore(_uid)
+
+            async function fetchScore(_uid) {
+
+                let scorePath = firebase.database().ref("scores/" + _uid + '/popThatBall')
+                var snapshot = await scorePath.once('value');
+
+                if (snapshot.exists()) {
+                    scorePath.get().then(function(childSnapshot) {
+                        selectedUserInfo.score = childSnapshot.child("score").val();
+                        selectedUserInfo.highScore = childSnapshot.child("highScore").val();
+                        adminUI.userCardUI(selectedUserInfo)
+                    });
+                } else {
+                    selectedUserInfo.score = "error"
+                }
+            }
         }).catch(function(error) {
             debug.handler("admin.userCard | Error generating user card", "error");
         });
@@ -124,6 +154,7 @@ let admin = {
         if (_action == "delete") {
             // we dont want the user to be able to delete themselves
             firebase.database().ref("users/" + _userId).remove()
+            firebase.database().ref("scores/" + _userId + '/popThatBall').remove();
             debug.handler("admin.actionHandler | Successfully deleted user: " + _userId, "info");
             // update user table with new Information
             this.readUserTable()
@@ -133,7 +164,11 @@ let admin = {
             let score = parseInt(_newInfo[1])
             let highScore = parseInt(_newInfo[2])
             firebase.database().ref("users/" + _userId).update({
-                name: newName,
+                name: newName
+            }).catch(function(error) {
+                alert.error("We couldn't update the users information", error)
+            })
+            firebase.database().ref("scores/" + _userId + '/popThatBall').update({
                 score: score,
                 highScore: highScore
             }).catch(function(error) {
@@ -142,6 +177,25 @@ let admin = {
             debug.handler("admin.actionHandler | Successfully updated information for user: " + _userId, "info");
             // update user table with new Information
             this.readUserTable()
+            this.userCard(_userId)
+        }
+        if (_action == "setToAdmin") {
+            let newName = _newInfo[0]
+            firebase.database().ref("users/" + _userId).update({
+                name: newName
+            }).catch(function(error) {
+                alert.error("We couldn't update the users information", error)
+            })
+            firebase.database().ref("scores/" + _userId + '/popThatBall').update({
+                score: score,
+                highScore: highScore
+            }).catch(function(error) {
+                alert.error("We couldn't update the users information", error)
+            })
+            debug.handler("admin.actionHandler | Successfully updated information for user: " + _userId, "info");
+            // update user table with new Information
+            this.readUserTable()
+            this.userCard(_userId)
         }
     },
 }

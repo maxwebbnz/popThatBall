@@ -56,6 +56,8 @@ let fb_store = {
 
                 }
             });
+            leaderBoard.storeLeaderBoardData(client.uid, { name: client.name, avatar: client.profileURL, hits: hits, misses: misses, score: score }, level)
+
         }
     },
     /**========================================================================
