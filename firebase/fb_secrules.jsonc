@@ -103,6 +103,9 @@
                 },
                 "score": {
                     ".validate": "newData.isNumber()"
+                },
+                "highScore": {
+                    ".validate": "newData.isNumber()"
                 }
             }
         }

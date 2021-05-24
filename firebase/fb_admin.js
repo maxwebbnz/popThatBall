@@ -5,6 +5,7 @@
 /**========================================================================
  **                            Admin Firebase Module
  *========================================================================**/
+let users = [];
 
 let admin = {
     /**========================================================================
@@ -27,7 +28,6 @@ let admin = {
      *========================================================================**/
     readUserTable: function() {
         $("#admin_userlist-table tbody").children().remove()
-        let users = [];
         let userPath = firebase.database().ref("users")
         userPath.once('value').then(
             (_snapshot) => {
@@ -42,7 +42,15 @@ let admin = {
                         "phoneNum": childSnapshot.child('phoneNum').val(),
                         "uid": childSnapshot.key
                     }
+                    let scorePath = firebase.database().ref("scores/" + childSnapshot.key + '/popThatBall')
+
+                    scorePath.get().then(function(snapshot) {
+                        retrievedUser.score = snapshot.child('score').val()
+                        retrievedUser.highScore = snapshot.child('highScore').val()
+                    })
+
                     users.push(retrievedUser);
+                    console.log(retrievedUser)
                 })
                 debug.handler("admin.readUserTable | Successfully read through user table, appending user table", "info")
                 for (i = users.length; i--;) {
