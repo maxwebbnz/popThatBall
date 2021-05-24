@@ -85,7 +85,7 @@ let adminUI = {
                     'High Score'
                 ]).then((result) => {
                     if (result.value) {
-                        if (validate.nameSpecfic(result.value[0]) && validate.num(result.value[1]) && validate.num(result.value[1])) {
+                        if (validate.nameSpecfic(result.value[0]) && validate.num(result.value[1]) && validate.num(result.value[2])) {
                             admin.actionHandler(selectedUserId, "updateUserInfo", result.value)
                             Swal.fire({
                                 title: 'Users Information Saved!',

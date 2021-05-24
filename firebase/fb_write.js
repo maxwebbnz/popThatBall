@@ -113,11 +113,22 @@ let fb_store = {
      *@param _valInput2 2nd information value to be stored
      *@return type
      *========================================================================**/
-    userInformation: function(_id, _valInput, _valInput2) {
-        firebase.database().ref("users/" + _id + "/").update({
-            name: _valInput,
-            email: _valInput2,
-        });
+    userInformation: function(_method, _id, _valInput, _valInput2) {
+        if (_method == 'saveEmail') {
+            firebase.database().ref("users/" + _id + "/").update({
+                email: _valInput2,
+            });
+        } else if (_method == 'saveName') {
+            firebase.database().ref("users/" + _id + "/").update({
+                name: _valInput,
+            });
+        } else if (_method == 'save') {
+            firebase.database().ref("users/" + _id + "/").update({
+                name: _valInput,
+                email: _valInput2,
+            });
+        }
+
     },
     /**========================================================================
      **                           User Settings

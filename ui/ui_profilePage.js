@@ -88,16 +88,34 @@ let profilePage = {
      *========================================================================**/
     saveProfileData: function() {
         debug.handler("html_profilePage | Updated User data in table", 'info');
-        fb_store.userInformation(client.uid, editorInputs[0].value, editorInputs[1].value)
+        if (!validate.nameSpecfic(editorInputs[0].value) && !validate.email(editorInputs[1].value)) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Error',
+                text: "You entered some information incorrectly",
+            })
+        } else if (validate.nameSpecfic(editorInputs[0].value) && validate.email(editorInputs[1].value)) {
+            if (editorInputs[0].value == '') {
+                fb_store.userInformation("saveEmail", client.uid, editorInputs[0].value, editorInputs[1].value)
+            } else if (editorInputs[1].value == '') {
+                fb_store.userInformation("saveName", client.uid, editorInputs[0].value, editorInputs[1].value)
+            } else {
+                fb_store.userInformation(client.uid, editorInputs[0].value, editorInputs[1].value)
+            }
             //  then update locally for the remainder of the session
-        client.name = editorInputs[0].value;
-        client.email = editorInputs[1].value;
-        alert.success("Saved new user data!")
-        html_game.update();
-        // hide modal and reset information
-        for (let i = 0; i < editorInputs.length; i++) {
-            editorInputs[i].style.display = "none";
+            client.name = editorInputs[0].value;
+            client.email = editorInputs[1].value;
+            // clear input fields 
+            editorInputs[0].value = ''
+            editorInputs[1].value = ''
+            alert.success("Saved new user data!")
+            html_game.update();
+            // hide modal and reset information
+            for (let i = 0; i < editorInputs.length; i++) {
+                editorInputs[i].style.display = "none";
+            }
+            $("#pp").modal("hide");
         }
-        $("#pp").modal("hide");
+
     },
 };
