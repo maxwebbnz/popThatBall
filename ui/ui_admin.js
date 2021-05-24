@@ -85,12 +85,20 @@ let adminUI = {
                     'High Score'
                 ]).then((result) => {
                     if (result.value) {
-                        // console.log(result.value)
-                        admin.actionHandler(selectedUserId, "updateUserInfo", result.value)
-                        Swal.fire({
-                            title: 'Users Information Saved!',
-                            confirmButtonText: 'Lovely!'
-                        })
+                        if (validate.nameSpecfic(result.value[0]) && validate.num(result.value[1]) && validate.num(result.value[1])) {
+                            admin.actionHandler(selectedUserId, "updateUserInfo", result.value)
+                            Swal.fire({
+                                title: 'Users Information Saved!',
+                                confirmButtonText: 'Lovely!'
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Error!',
+                                text: "Information was incorrectly entered",
+
+                            })
+                        }
                     }
                 })
             }

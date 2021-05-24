@@ -8,7 +8,6 @@
 
 let fb_gameData = {
     fetch: function(_uid) {
-        console.log()
         if (game == popThatBall) {
             let scorePath = firebase.database().ref("scores/" + _uid + '/popThatBall')
                 // fetch hits
@@ -50,14 +49,13 @@ let fb_gameData = {
         }
     },
     init: function(_uid) {
-        console.log(_uid)
         if (game == popThatBall) {
-            console.log(_uid)
             let scorePath = firebase.database().ref("scores/" + _uid + '/popThatBall/')
             scorePath.update({
                 hits: 0,
                 misses: 0,
                 score: 0,
+                highScore: 0
             }, (error) => {
                 if (error) {
                     debug.handler("fb_gameData (init) | Error: " + error, 'warn')
