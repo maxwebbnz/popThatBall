@@ -3,153 +3,200 @@
  * All rights reserved.
  */
 /**========================================================================
- **                            Admin Firebase Module
+ *                           Admin Module
  *========================================================================**/
-let users = [];
+let rowId = 0
+let adminUserTableElement = document.getElementById('admin')
+let adminOpen = false;
+let selectedUserId
 
-let admin = {
+let adminUI = {
     /**========================================================================
-     **                           User Groups Handler
-     *?  Handles retreiving user information from the database and performing on desired action
+     **                           Handler
+     *?  Handles all the admin UI components inside this module
      *@param name type  
      *@param _action string  
-     *@param _uid unique identifer  
-     *@return n/a
-     *========================================================================**/
-    userGroupsHandler: function(_action, _uid) {
-        debug.handler("admin.userGroupsHandler | Performed " + _action, "info");
-    },
-    /**========================================================================
-     **                           Read User Table
-     *? Reads the /users path and returns all the users, it then performs a HTML append
-     *@param name type  
-     *@param name type  
      *@return type
      *========================================================================**/
-    readUserTable: function() {
-        $("#admin_userlist-table tbody").children().remove()
-        let userPath = firebase.database().ref("users")
-        userPath.once('value').then(
-            (_snapshot) => {
-                _snapshot.forEach(function(childSnapshot) {
-                    let retrievedUser = {
-                        "name": childSnapshot.child("name").val(),
-                        "gameName": childSnapshot.child("gameName").val(),
-                        "avatar": childSnapshot.child("profileURL").val(),
-                        "email": childSnapshot.child('email').val(),
-                        "score": childSnapshot.child('score').val(),
-                        "highScore": childSnapshot.child('highScore').val(),
-                        "phoneNum": childSnapshot.child('phoneNum').val(),
-                        "uid": childSnapshot.key
-                    }
-                    let scorePath = firebase.database().ref("scores/" + childSnapshot.key + '/popThatBall')
+    handler: function(_action) {
+        if (_action == "show") {
+            if (client.admin) {
+                debug.handler("adminUI.handler | Opening admin center for " + client.name, 'info')
+                $('#admin').fadeIn();
+                admin.readUserTable()
+                adminOpen = true
 
-                    scorePath.get().then(function(snapshot) {
-                        retrievedUser.score = snapshot.child('score').val()
-                        retrievedUser.highScore = snapshot.child('highScore').val()
-                    })
-
-                    users.push(retrievedUser);
-                    console.log(retrievedUser)
-                })
-                debug.handler("admin.readUserTable | Successfully read through user table, appending user table", "info")
-                for (i = users.length; i--;) {
-                    adminUI.appendUserTable(
-                        users[i].name,
-                        users[i].gameName,
-                        users[i].avatar,
-                        users[i].email,
-                        users[i].score,
-                        users[i].highScore,
-                        users[i].phoneNum,
-                        users[i].uid
-                    )
-                }
-            }, (error) => {
-                if (error) {
-                    debug.handler("fb_admin.readUserTable  | Error: " + error, "error")
-                    alert.error("We couldn't show you data for admins! " + error)
-                }
-            });
-    },
-    /**========================================================================
-     **                           User Roles
-     *?  Handles user roles when a user authenicates into the game.
-     *@param _action action the function needs to perform.
-     *@param _userToken user's unique identifer
-     *@return n/a
-     *========================================================================**/
-    userRoles: function(_userToken) {
-        debug.handler("admin.userRoles | Checking for user role", "info")
-        let userRolesDB = firebase.database().ref("userRoles").child(_userToken)
-        userRolesDB.get().then(function(snapshot) {
-            if (snapshot.child('rank').val() == "admin") {
-                debug.handler("admin.userRoles | User is admin, displaying button", "info")
-                $('#admincenter-button').fadeIn();
-                client.admin = true;
             } else {
-                debug.handler("admin.userRoles | User is not admin", "warn")
+                alert.error("You do not have vaild permisson to open the admin center!!")
+                debug.handler("adminUI.handler | Not allowing admin center for client", 'warn')
+
             }
-        }).catch(function(error) {
-            debug.handler("admin.userRoles | Error checking for permissons", "error");
-        });
+
+        }
+        if (_action == "hide") {
+            $('#admin').fadeOut();
+            $("#admin_userlist-table tbody").children().remove()
+            adminOpen = false
+        }
     },
 
     /**========================================================================
-     **                           User Card 
-     *?  Collects selected users information and funnels to the UI Component handler
-     *@param _uid unique token  
-     *@return type
-     *========================================================================**/
-    userCard: function(_uid) {
-
-        debug.handler("admin.userCard | Generating uer information for " + _uid, "info");
-        let selectedUserInfo = {};
-        let userPath = firebase.database().ref("users/" + _uid)
-        userPath.get().then(function(snapshot) {
-            selectedUserInfo = {
-                name: snapshot.child('name').val(),
-                email: snapshot.child('email').val(),
-                avatar: snapshot.child('profileURL').val(),
-                score: snapshot.child('score').val(),
-            }
-            adminUI.userCardUI(selectedUserInfo)
-        }).catch(function(error) {
-            debug.handler("admin.userCard | Error generating user card", "error");
-        });
-    },
-    /**========================================================================
-     **                           Action Handler
-     *?  Handles actions made towards the selected user in the admin module
+     **                           Actions
+     *? For handling all actions throughout the admin page
      *@param name type  
-     *@param _userId unique identifer  
-     *@param _action string 
-     *@param _newInfo array 
+     *@param _action string  
+     *@param _pageNum integer 
      *@return n/a
      *========================================================================**/
-    actionHandler: function(_userId, _action, _newInfo) {
-        debug.handler("admin.actionHandler | Performing action of: " + _action, "info")
-        if (_action == "delete") {
-            // we dont want the user to be able to delete themselves
-            firebase.database().ref("users/" + _userId).remove()
-            debug.handler("admin.actionHandler | Successfully deleted user: " + _userId, "info");
-            // update user table with new Information
-            this.readUserTable()
-        }
-        if (_action == "updateUserInfo") {
-            let newName = _newInfo[0]
-            let score = parseInt(_newInfo[1])
-            let highScore = parseInt(_newInfo[2])
-            firebase.database().ref("users/" + _userId).update({
-                name: newName,
-                score: score,
-                highScore: highScore
-            }).catch(function(error) {
-                alert.error("We couldn't update the users information", error)
-            })
-            debug.handler("admin.actionHandler | Successfully updated information for user: " + _userId, "info");
-            // update user table with new Information
-            this.readUserTable()
+    action: function(_action, _pageNum) {
+        if (_pageNum == 0) {
+            if (_action == "deleteUser") {
+                Swal.fire({
+                    title: 'Are you sure you want to delete the user?',
+                    showCancelButton: true,
+                    confirmButtonText: `Remove`,
+                    denyButtonText: `Don't remove`,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        if (selectedUserId == client.uid) {
+                            alert.error("You cannot delete yourself!", 002)
+
+                        } else {
+                            admin.actionHandler(selectedUserId, "delete");
+                            Swal.fire('Removed User!', '', 'success')
+                        }
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+            }
+            if (_action == "editUserInfo") {
+                Swal.mixin({
+                    input: 'text',
+                    confirmButtonText: 'Next &rarr;',
+                    showCancelButton: true,
+                    progressSteps: ['1', '2', '3']
+                }).queue([{
+                        title: 'Display Name',
+                        text: 'Please enter correct information'
+                    },
+                    'Score',
+                    'High Score'
+                ]).then((result) => {
+                    if (result.value) {
+                        if (validate.nameSpecfic(result.value[0]) && validate.num(result.value[1]) && validate.num(result.value[1])) {
+                            admin.actionHandler(selectedUserId, "updateUserInfo", result.value)
+                            Swal.fire({
+                                title: 'Users Information Saved!',
+                                confirmButtonText: 'Lovely!'
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Error!',
+                                text: "Information was incorrectly entered",
+
+                            })
+                        }
+                    }
+                })
+            }
         }
     },
+    /**========================================================================
+     **                           Append User List Table
+     *?  This function collects data from the user data retrieved from the db and writes the table
+     *@param _usersName type  
+     *@param _usersGameName type  
+     *@param _usersAvatar type  
+     *@param _usersEmail type  
+     *@param _usersScore type  
+     *@param _usersHighScore type  
+     *@param _usersphoneNum type  
+     *@param _usersUid type  
+     *@return type
+     *========================================================================**/
+    appendUserTable: function(_usersName, _usersGameName, _usersAvatar, _usersEmail, _usersScore, _usersHighScore, _usersPhoneNum, _usersUid) {
+        var content = '';
+        let usesrId = toString(_usersUid);
+        content += '<tr data-userId="' + _usersUid + '">';
+        content += '<td><img src="' + _usersAvatar + '" class="rounded-circle" width="20" height="20"></td>';
+        content += '<td>' + _usersName + '</td>';
+        content += '<td>' + _usersEmail + '</td>';
+        content += '<td>' + _usersScore + '</td>';
+        content += '<td>' + _usersHighScore + '</td>';
+        content += '</tr>';
+        $('#admin_userlist-table').append(content);
+    },
+    /**========================================================================
+     **                           User Card UI
+     *?  Funnels from admin.userCard method, generates actions and values inside the selected user card
+     *@param name type  
+     *@param _selectedUser table of values  
+     *@return n/a
+     *========================================================================**/
+    userCardUI: function(_selectedUser) {
+        debug.handler("adminUI.userCardUI | Funneled " + _selectedUser.name + "'s information!", 'info');
+        let avatarHTML = document.getElementById('admin_selectedUserCard-avatar')
+        let userNameHTML = document.getElementById('admin_selectedUserCard-username')
+        let emailHTML = document.getElementById('admin_selectedUserCard-email')
+        let scoreHTML = document.getElementById('admin_selectedUserCard-score')
+        let deleteUserButtonHTML = document.getElementById('admin_selectedUserCard-deleteuser')
+        let editUserButtonHTML = document.getElementById('admin_selectedUserCard-edituserinfo')
+
+        avatarHTML.src = _selectedUser.avatar
+        userNameHTML.innerHTML = _selectedUser.name
+        emailHTML.innerHTML = _selectedUser.email
+        scoreHTML.innerHTML = _selectedUser.score
+    },
+    /**========================================================================
+     **                           Select User
+     *?  Handles the selection of any user from the user list.
+     *@param name type  
+     *@param name type  
+     *@return type
+     *========================================================================**/
+    tableRowClickListener: function() {
+        $('tr').click(function() {
+            let selectedData = $(this).attr("data-userId")
+            selectedUserId = $(this).attr("data-userId")
+            admin.userCard(selectedData);
+        });
+    },
+}
+name: newName
+}).catch(function(error) {
+    alert.error("We couldn't update the users information", error)
+})
+firebase.database().ref("scores/" + _userId + '/popThatBall').update({
+    score: score,
+    highScore: highScore
+}).catch(function(error) {
+    alert.error("We couldn't update the users information", error)
+})
+debug.handler("admin.actionHandler | Successfully updated information for user: " + _userId, "info");
+// update user table with new Information
+this.readUserTable()
+this.userCard(_userId)
+}
+if (_action == "setToAdmin") {
+    let newName = _newInfo[0]
+    firebase.database().ref("users/" + _userId).update({
+        name: newName
+    }).catch(function(error) {
+        alert.error("We couldn't update the users information", error)
+    })
+    firebase.database().ref("scores/" + _userId + '/popThatBall').update({
+        score: score,
+        highScore: highScore
+    }).catch(function(error) {
+        alert.error("We couldn't update the users information", error)
+    })
+    debug.handler("admin.actionHandler | Successfully updated information for user: " + _userId, "info");
+    // update user table with new Information
+    this.readUserTable()
+    this.userCard(_userId)
+}
+},
 }
